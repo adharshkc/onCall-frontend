@@ -1,26 +1,48 @@
-@import "tailwindcss";
+/* Import Tailwind Custom CSS with all styles */
+@import '../styles/tailwind-custom.css';
 
+/* Font variables for compatibility */
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-lora: 'Lora', serif;
+  --font-plus-jakarta: 'Plus Jakarta Sans', sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Import Font Awesome */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Import Swiper */
+@import url('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
 
+/* Import additional styles for compatibility */
+@import '../styles/animate.css';
+@import '../styles/navbar-custom.css';
+@import '../styles/pages.css';
+
+/* Additional base styles for compatibility */
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  max-width: 100vw;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar utilities */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Animation classes for compatibility */
+.wow {
+  visibility: hidden;
+}
+
+.wow.animated {
+  visibility: visible;
 }

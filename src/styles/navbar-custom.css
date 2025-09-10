@@ -1,0 +1,251 @@
+/* Custom Navbar Toggle Styles for React Component */
+
+/* Fallback layout in case Bootstrap isn't loaded early */
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navbar-nav {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+  display: flex;
+}
+
+.main-menu .nav-menu-wrapper > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.main-menu ul li {
+  list-style: none;
+}
+
+/* Custom navbar toggle for our React component */
+.navbar-toggler {
+  background: var(--accent-color);
+  padding: 0;
+  display: none;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-toggler .navbar-toggler-icon {
+  background-image: none;
+  height: 3px;
+  width: 22px;
+  background-color: var(--white-color);
+  border-radius: 6px;
+  display: block;
+  margin: 4px auto;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+
+
+/* Hover effect for navbar toggle */
+.navbar-toggler:hover {
+  background-color: var(--primary-color);
+}
+
+.navbar-toggler.active .navbar-toggler-icon:nth-of-type(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.navbar-toggler.active .navbar-toggler-icon:nth-of-type(2) {
+  opacity: 0;
+}
+
+.navbar-toggler.active .navbar-toggler-icon:nth-of-type(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* Mobile menu active states */
+.main-menu.show {
+  display: block !important;
+}
+
+/* Mega menu mobile responsive styles */
+.main-menu ul li.mega-menu.show .mega-menu-content {
+  position: static !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: none !important;
+  width: 100% !important;
+  background: var(--primary-color) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 15px 20px !important;
+  margin-top: 10px !important;
+}
+
+.main-menu ul li.mega-menu.show .mega-menu-content .mega-menu-columns {
+  grid-template-columns: 1fr !important;
+  gap: 20px !important;
+}
+
+.main-menu ul li.mega-menu.show .mega-menu-content .mega-menu-title {
+  color: var(--white-color) !important;
+  border-bottom-color: var(--accent-color) !important;
+  font-size: 14px !important;
+  margin-bottom: 10px !important;
+}
+
+.main-menu ul li.mega-menu.show .mega-menu-content .mega-menu-column ul li a {
+  color: var(--white-color) !important;
+  padding: 5px 0 !important;
+  font-size: 13px !important;
+  padding-left: 20px !important;
+}
+
+.main-menu ul li.mega-menu.show .mega-menu-content .mega-menu-column ul li a:hover {
+  color: var(--accent-color) !important;
+  padding-left: 25px !important;
+}
+
+.main-menu ul li.mega-menu.show .mega-menu-content .mega-menu-column ul li.explore-all-link a {
+  color: var(--accent-color) !important;
+  font-weight: 600 !important;
+}
+
+.main-menu ul li.mega-menu.show .mega-menu-content .mega-menu-column ul li.explore-all-link a:hover {
+  color: var(--white-color) !important;
+}
+
+/* Dropdown indicator for mobile */
+.main-menu ul li.mega-menu .nav-link::after {
+  /* Disabled because we use an inline SVG chevron for better control */
+  content: none;
+}
+
+
+/* Dropdown inline chevron */
+.main-menu ul li.mega-menu .nav-link .dropdown-icon {
+  display: inline-flex;
+  margin-left: 6px;
+  transition: transform 0.25s ease;
+  vertical-align: middle;
+}
+
+.main-menu ul li.mega-menu.show .nav-link .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+/* Active link styles */
+.main-menu ul li .nav-link.active {
+  color: var(--accent-color);
+}
+
+/* Sticky header active state */
+header.main-header.header-sticky {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-color);
+  border-bottom: 1px solid var(--divider-color);
+  z-index: 1000;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Mobile responsive styles */
+@media (max-width: 991.98px) {
+  .navbar-toggler {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  
+  .main-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--primary-color);
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    display: none;
+  }
+  
+  .main-menu .nav-menu-wrapper {
+    margin: 0;
+    text-align: left;
+  }
+  
+  .main-menu .nav-menu-wrapper > ul {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 15px 0;
+  }
+  
+  .main-menu ul li {
+    margin: 0;
+    border-bottom: 1px solid #FFFFFF1A;
+  }
+  
+  .main-menu ul li:last-child {
+    border-bottom: none;
+  }
+  
+  .main-menu ul li a {
+    color: var(--white-color) !important;
+    padding: 12px 20px !important;
+    display: block;
+    border-bottom: none;
+  }
+  
+  .main-menu ul li a:hover {
+    color: var(--accent-color) !important;
+    background-color: transparent;
+    padding-left: 25px !important;
+  }
+  
+  .main-menu ul li.highlighted-menu a {
+    background-color: var(--accent-color);
+    color: var(--primary-color) !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 10px 20px;
+    border-radius: 6px;
+    text-align: center;
+  }
+  
+  .main-menu ul li.highlighted-menu a:hover {
+    background-color: var(--white-color);
+    color: var(--primary-color) !important;
+    padding-left: 20px !important;
+  }
+  
+  .header-btn {
+    display: none;
+  }
+}
