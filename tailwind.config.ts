@@ -8,6 +8,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
+        
       colors: {
         primary: {
           DEFAULT: '#273A29',
@@ -61,11 +62,11 @@ const config: Config = {
         background: '#FFFFFF',
         white: '#FFFFFF',
       },
-      fontFamily: {
-        sans: ['Plus Jakarta Sans', 'sans-serif'],
-        serif: ['Lora', 'serif'],
-        default: ['Plus Jakarta Sans', 'sans-serif'],
-        accent: ['Lora', 'serif'],
+       fontFamily: {
+        sans: ["Plus Jakarta Sans", "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ["Lora", "serif"],
+        default: ["Plus Jakarta Sans", "sans-serif"],
+        accent: ["Lora", "serif"],
       },
       fontSize: {
         'xs': '0.75rem',     // 12px
