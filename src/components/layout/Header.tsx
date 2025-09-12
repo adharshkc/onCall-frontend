@@ -88,7 +88,7 @@ const Header = () => {
           <div className="container-fluid">
             {/* Logo Start */}
             <Link className={`navbar-brand ${isMenuOpen ? 'd-none d-lg-block' : ''}`} href="/">
-              <Image src="" alt="On Call" width={150} height={50} priority />
+              <Image src="/public/images/logo.png" alt="On Call" width={150} height={50} priority />
             </Link>
             {/* Logo End */}
 
@@ -98,7 +98,7 @@ const Header = () => {
                 {/* Mobile Menu Header (Close button) */}
                 <div className="d-lg-none d-flex justify-content-between align-items-center px-3 py-2">
                   <Link className="navbar-brand m-0" href="/" onClick={() => { setIsMenuOpen(false); setIsMegaMenuOpen(false); }}>
-                    <Image src="" alt="On Call" width={120} height={40} />
+                    <Image src="/public/images/logo.png" alt="On Call" width={120} height={40} />
                   </Link>
                   <button
                     type="button"

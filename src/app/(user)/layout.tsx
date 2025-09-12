@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Lora, Plus_Jakarta_Sans } from "next/font/google";
-import "./globals.css";
-import "../styles/bootstrap.min.css";
-import "../styles/custom.css";
-import "../styles/animate.css";
-import "../styles/mega-menu.css";
+import "./global.css";
+import "../../styles/bootstrap.min.css";
+import "../../styles/custom.css";
+import "../../styles/animate.css";
+import "../../styles/mega-menu.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Preloader from "@/components/layout/Preloader";
