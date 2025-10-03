@@ -1,0 +1,214 @@
+/* Custom CSS for Header Component - Replicating Tailwind Styles */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  display: flex;
+  width: 100%;
+  background-color: white;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.06));
+}
+
+.header.dark {
+  background-color: #24303f;
+  filter: none;
+}
+
+.header-container {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Medium screens and larger */
+@media (min-width: 768px) {
+  .header-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+/* 2XL screens and larger */
+@media (min-width: 1536px) {
+  .header-container {
+    padding-left: 44px;
+    padding-right: 44px;
+  }
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Small screens and larger */
+@media (min-width: 640px) {
+  .header-left {
+    gap: 16px;
+  }
+}
+
+.hamburger-button {
+  z-index: 99999;
+  display: block;
+  border-radius: 2px;
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  padding: 6px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.hamburger-button.dark {
+  border-color: #3c4d5f;
+  background-color: #24303f;
+}
+
+.hamburger-icon {
+  position: relative;
+  display: block;
+  height: 22px;
+  width: 22px;
+  cursor: pointer;
+}
+
+.hamburger-lines-container {
+  display: block;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.hamburger-line {
+  position: relative;
+  top: 0;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  display: block;
+  height: 2px;
+  width: 100%;
+  border-radius: 2px;
+  background-color: black;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+}
+
+.hamburger-line.dark {
+  background-color: white;
+}
+
+.hamburger-line.hidden {
+  opacity: 0;
+}
+
+.cross-container {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  transform: rotate(45deg);
+}
+
+.cross-vertical {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  display: block;
+  height: 100%;
+  width: 2px;
+  border-radius: 2px;
+  background-color: black;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+}
+
+.cross-vertical.dark {
+  background-color: white;
+}
+
+.cross-horizontal {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  display: block;
+  height: 2px;
+  width: 100%;
+  border-radius: 2px;
+  background-color: black;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+}
+
+.cross-horizontal.dark {
+  background-color: white;
+}
+
+.cross-hidden {
+  opacity: 0;
+  transition-delay: 200ms;
+}
+
+.logo-link {
+  display: block;
+  flex-shrink: 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 2XS screens and larger */
+@media (min-width: 475px) {
+  .header-right {
+    gap: 28px;
+  }
+}
+
+.header-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 2XS screens and larger */
+@media (min-width: 475px) {
+  .header-menu {
+    gap: 16px;
+  }
+}
+
+/* Utility classes for z-index values */
+.z-999 {
+  z-index: 999;
+}
+
+.z-99999 {
+  z-index: 99999;
+}
+
+/* Utility class for drop shadow */
+.drop-shadow-1 {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.06));
+}
+
+.drop-shadow-none {
+  filter: none;
+}
+
+/* Shadow utility */
+.shadow-2 {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode color variables */
+:root {
+  --boxdark: #24303f;
+  --strokedark: #3c4d5f;
+}

@@ -5,6 +5,7 @@ import "../../styles/bootstrap.min.css";
 import "../../styles/custom.css";
 import "../../styles/animate.css";
 import "../../styles/mega-menu.css";
+import "../../styles/nav-alignment-fix.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Preloader from "@/components/layout/Preloader";

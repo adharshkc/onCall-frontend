@@ -1,0 +1,17 @@
+/* Navigation Alignment Fix */
+.navbar-nav .nav-item {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav .nav-item .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  line-height: 1.5;
+}
+
+/* Ensure consistent spacing between all nav items */
+.navbar-nav .nav-item + .nav-item {
+  margin-left: 5px;
+}

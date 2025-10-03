@@ -4,10 +4,24 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import axios from '@/lib/api';
+import { Service } from '@/types/service';
 
+/**
+ * Header Component
+ * 
+ * Features:
+ * - Dynamic service fetching from backend API (/all-services endpoint)
+ * - Categorized mega menu for "Types of Care" (home-care vs specialist-care)
+ * - Fallback services if API is unavailable
+ * - Responsive design with mobile menu support
+ * - Proper loading states and error handling
+ */
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
+  const [services, setServices] = useState<Service[]>([]);
+  const [servicesLoading, setServicesLoading] = useState(true);
   const pathname = usePathname();
   const navRef = useRef<HTMLDivElement | null>(null);
 
@@ -48,6 +62,55 @@ const Header = () => {
     document.addEventListener('mousedown', onDocClick);
     return () => document.removeEventListener('mousedown', onDocClick);
   }, []);
+  
+  // Add scrollable class to mega menu content when content exceeds container height
+  useEffect(() => {
+    if (!isMegaMenuOpen) return;
+    
+    const checkScrollable = () => {
+      const megaMenuContent = document.querySelector('.mega-menu-content');
+      if (!megaMenuContent) return;
+      
+      const isScrollable = megaMenuContent.scrollHeight > megaMenuContent.clientHeight;
+      if (isScrollable) {
+        megaMenuContent.classList.add('scrollable');
+      } else {
+        megaMenuContent.classList.remove('scrollable');
+      }
+    };
+    
+    // Check initially and on window resize
+    checkScrollable();
+    window.addEventListener('resize', checkScrollable);
+    
+    return () => window.removeEventListener('resize', checkScrollable);
+  }, [isMegaMenuOpen]);
+
+  // Fetch services from backend
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        setServicesLoading(true);
+        const response = await axios.get('/all-services');
+        const servicesData = response.data.data || response.data || [];
+        
+        // Ensure we have valid service objects
+        const validServices = servicesData.filter((service: Partial<Service>) => 
+          service && service.id && service.name && service.slug
+        );
+        
+        setServices(validServices);
+      } catch (error) {
+        console.error('Error fetching services:', error);
+        // Use fallback services if API fails
+        setServices([]);
+      } finally {
+        setServicesLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
 
   const toggleMobileMenu = () => {
     // Toggle mobile menu and always collapse mega menu when opening
@@ -79,6 +142,80 @@ const Header = () => {
 
   const isActiveLink = (href: string) => {
     return pathname === href || (href !== '/' && pathname.startsWith(href));
+  };
+
+  // Helper functions to categorize services
+  const getHomeCareServices = () => {
+    return services.filter(service => 
+      service.active && (service.category === 'home-care' || !service.category)
+    );
+  };
+
+  const getSpecialistCareServices = () => {
+    return services.filter(service => 
+      service.active && service.category === 'specialist-care'
+    );
+  };
+
+  // Fallback services in case API is not available
+  const fallbackHomeCareServices = [
+    { id: 'fallback-1', name: 'Domiciliary Care', slug: 'domiciliary-care', category: 'home-care' as const, active: true, createdAt: '', updatedAt: '' },
+    { id: 'fallback-2', name: 'Night Care', slug: 'night-care', category: 'home-care' as const, active: true, createdAt: '', updatedAt: '' },
+    { id: 'fallback-3', name: 'Respite Care', slug: 'respite-care', category: 'home-care' as const, active: true, createdAt: '', updatedAt: '' },
+    { id: 'fallback-4', name: 'Home Help and Housekeeping', slug: 'home-help-housekeeping', category: 'home-care' as const, active: true, createdAt: '', updatedAt: '' },
+    { id: 'fallback-5', name: 'Companionship Care', slug: 'companionship-care', category: 'home-care' as const, active: true, createdAt: '', updatedAt: '' },
+    { id: 'fallback-6', name: 'Daytime Care', slug: 'daytime-care', category: 'home-care' as const, active: true, createdAt: '', updatedAt: '' },
+    { id: 'fallback-7', name: 'Live in Care', slug: 'live-in-care', category: 'home-care' as const, active: true, createdAt: '', updatedAt: '' },
+    // { id: 'fallback-8', name: 'Health and Wellbeing Check', slug: 'health-wellbeing', category: 'home-care' as const, active: true, createdAt: '', updatedAt: '' }
+  ];
+
+  const fallbackSpecialistServices = [
+    { id: 'fallback-s1', name: 'Dementia Care', slug: 'dementia-care', category: 'specialist-care' as const, active: true, createdAt: '', updatedAt: '' },
+    { id: 'fallback-s2', name: 'Alzheimer\'s Care', slug: 'alzheimers-care', category: 'specialist-care' as const, active: true, createdAt: '', updatedAt: '' },
+    { id: 'fallback-s3', name: 'Cancer Care', slug: 'cancer-care', category: 'specialist-care' as const, active: true, createdAt: '', updatedAt: '' },
+    { id: 'fallback-s4', name: 'Parkinson\'s Care', slug: 'parkinsons-care', category: 'specialist-care' as const, active: true, createdAt: '', updatedAt: '' },
+    { id: 'fallback-s5', name: 'Neurological Care', slug: 'neurological-care', category: 'specialist-care' as const, active: true, createdAt: '', updatedAt: '' },
+    { id: 'fallback-s6', name: 'Palliative Care', slug: 'palliative-care', category: 'specialist-care' as const, active: true, createdAt: '', updatedAt: '' },
+    { id: 'fallback-s7', name: 'Arthritis & Mobility Care', slug: 'arthritis-mobility-care', category: 'specialist-care' as const, active: true, createdAt: '', updatedAt: '' },
+    { id: 'fallback-s8', name: 'Diabetes Care', slug: 'diabetes-care', category: 'specialist-care' as const, active: true, createdAt: '', updatedAt: '' }
+  ];
+
+  const displayHomeCareServices = services.length > 0 ? getHomeCareServices() : fallbackHomeCareServices;
+  const displaySpecialistServices = services.length > 0 ? getSpecialistCareServices() : fallbackSpecialistServices;
+
+  // Map service names to FontAwesome icons
+  const getServiceIcon = (serviceName: string) => {
+    const iconMap: { [key: string]: string } = {
+      'domiciliary care': 'user-friends',
+      'night care': 'moon',
+      'respite care': 'clock',
+      'home help': 'broom',
+      'housekeeping': 'broom',
+      'companionship': 'handshake',
+      'companionship care': 'handshake',
+      'daytime care': 'sun',
+      'live in care': 'bed',
+      'live-in care': 'bed',
+      'health and wellbeing': 'heartbeat',
+      'health wellbeing': 'heartbeat',
+      'dementia care': 'head-side-virus',
+      'cancer care': 'ribbon',
+      'parkinsons care': 'hand-rock',
+      'parkinson\'s care': 'hand-rock',
+      'neurological care': 'brain',
+      'palliative care': 'dove',
+      'arthritis': 'bone',
+      'mobility care': 'bone',
+      'diabetes care': 'tint'
+    };
+    
+    const lowerName = serviceName.toLowerCase();
+    for (const [key, icon] of Object.entries(iconMap)) {
+      if (lowerName.includes(key)) {
+        return icon;
+      }
+    }
+    return 'heart'; // Default icon
   };
 
   return (
@@ -143,7 +280,6 @@ const Header = () => {
                     >
                       Home
                     </Link>
-                    
                   </li>
                   <li
                     className={`nav-item submenu mega-menu ${isMegaMenuOpen ? 'show' : ''}`}
@@ -153,6 +289,7 @@ const Header = () => {
                     onMouseLeave={() => {
                       if (isDesktop()) setIsMegaMenuOpen(false);
                     }}
+                    data-mobile-scrollable="true" /* Add attribute to identify this as a scrollable section */
                   >
                     <Link 
                       className={`nav-link ${isActiveLink('/services') ? 'active' : ''}`} 
@@ -173,175 +310,97 @@ const Header = () => {
                     <div
                       className="mega-menu-content"
                       hidden={!isMegaMenuOpen}
-                      style={{ display: isMegaMenuOpen ? 'block' : 'none' }}
+                      style={{ 
+                        display: isMegaMenuOpen ? 'block' : 'none',
+                        WebkitOverflowScrolling: 'touch' // Enable smooth scrolling on iOS
+                      }}
                     >
                       <div className="mega-menu-columns">
                         <div className="mega-menu-column">
                           <h4 className="mega-menu-title">
                             <i className="fas fa-home"></i> Home Care
                           </h4>
-                          <ul>
-                            <li className="nav-item">
-                              <Link 
-                                className="nav-link" 
-                                href="/services/domiciliary-care"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <i className="fas fa-user-friends"></i> Domiciliary Care
-                              </Link>
-                            </li>
-                            <li className="nav-item">
-                              <Link 
-                                className="nav-link" 
-                                href="/services/night-care"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <i className="fas fa-moon"></i> Night Care
-                              </Link>
-                            </li>
-                            <li className="nav-item">
-                              <Link 
-                                className="nav-link" 
-                                href="/services/respite-care"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <i className="fas fa-clock"></i> Respite Care
-                              </Link>
-                            </li>
-                            <li className="nav-item">
-                              <Link 
-                                className="nav-link" 
-                                href="/services/home-help"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <i className="fas fa-broom"></i> Home help and housekeeping
-                              </Link>
-                            </li>
-                            <li className="nav-item">
-                              <Link 
-                                className="nav-link" 
-                                href="/services/companionship"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <i className="fas fa-handshake"></i> Companionship Care
-                              </Link>
-                            </li>
-                            <li className="nav-item">
-                              <Link 
-                                className="nav-link" 
-                                href="/services/daytime-care"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <i className="fas fa-sun"></i> Daytime Care
-                              </Link>
-                            </li>
-                            <li className="nav-item">
-                              <Link 
-                                className="nav-link" 
-                                href="/services/live-in-care"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <i className="fas fa-bed"></i> Live in Care
-                              </Link>
-                            </li>
-                            <li className="nav-item">
-                              <Link 
-                                className="nav-link" 
-                                href="/services/health-wellbeing"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <i className="fas fa-heartbeat"></i> Health and wellbeing check
-                              </Link>
-                            </li>
-                            <li className="nav-item explore-all-link">
-                              <Link 
-                                className="nav-link" 
-                                href="/services"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                Explore all home care →
-                              </Link>
-                            </li>
-                          </ul>
+                          {servicesLoading ? (
+                            <ul>
+                              <li className="nav-item">
+                                <span className="nav-link">
+                                  <i className="fas fa-spinner fa-spin"></i> Loading services...
+                                </span>
+                              </li>
+                            </ul>
+                          ) : displayHomeCareServices.length === 0 ? (
+                            <ul>
+                              <li className="nav-item">
+                                <span className="nav-link">No services available</span>
+                              </li>
+                            </ul>
+                          ) : (
+                            <ul>
+                              {displayHomeCareServices.slice(0, 8).map((service) => (
+                                <li key={service.id} className="nav-item">
+                                  <Link 
+                                    className="nav-link" 
+                                    href={`/services/${service.slug}`}
+                                    onClick={() => setIsMenuOpen(false)}
+                                  >
+                                    <i className={`fas fa-${getServiceIcon(service.name)}`}></i> {service.name}
+                                  </Link>
+                                </li>
+                              ))}
+                              <li className="nav-item explore-all-link">
+                                <Link 
+                                  className="nav-link" 
+                                  href="/services"
+                                  onClick={() => setIsMenuOpen(false)}
+                                >
+                                  Explore all home care →
+                                </Link>
+                              </li>
+                            </ul>
+                          )}
                         </div>
                         <div className="mega-menu-column">
                           <h4 className="mega-menu-title">
                             <i className="fas fa-brain"></i> Specialist Care
                           </h4>
-                          <ul>
-                            <li className="nav-item">
-                              <Link 
-                                className="nav-link" 
-                                href="/services/dementia-care"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <i className="fas fa-head-side-virus"></i> Dementia Care
-                              </Link>
-                            </li>
-                            <li className="nav-item">
-                              <Link 
-                                className="nav-link" 
-                                href="/services/cancer-care"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <i className="fas fa-ribbon"></i> Cancer Care
-                              </Link>
-                            </li>
-                            <li className="nav-item">
-                              <Link 
-                                className="nav-link" 
-                                href="/services/parkinsons-care"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <i className="fas fa-hand-rock"></i> Parkinson&apos;s Care
-                              </Link>
-                            </li>
-                            <li className="nav-item">
-                              <Link 
-                                className="nav-link" 
-                                href="/services/neurological-care"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <i className="fas fa-brain"></i> Neurological Care
-                              </Link>
-                            </li>
-                            <li className="nav-item">
-                              <Link 
-                                className="nav-link" 
-                                href="/services/palliative-care"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <i className="fas fa-dove"></i> Palliative Care
-                              </Link>
-                            </li>
-                            <li className="nav-item">
-                              <Link 
-                                className="nav-link" 
-                                href="/services/arthritis-mobility"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <i className="fas fa-bone"></i> Arthritis and mobility Care
-                              </Link>
-                            </li>
-                            <li className="nav-item">
-                              <Link 
-                                className="nav-link" 
-                                href="/services/diabetes-care"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <i className="fas fa-tint"></i> Diabetes Care
-                              </Link>
-                            </li>
-                            <li className="nav-item explore-all-link">
-                              <Link 
-                                className="nav-link" 
-                                href="/services"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                Explore all specialized care →
-                              </Link>
-                            </li>
-                          </ul>
+                          {servicesLoading ? (
+                            <ul>
+                              <li className="nav-item">
+                                <span className="nav-link">
+                                  <i className="fas fa-spinner fa-spin"></i> Loading services...
+                                </span>
+                              </li>
+                            </ul>
+                          ) : displaySpecialistServices.length === 0 ? (
+                            <ul>
+                              <li className="nav-item">
+                                <span className="nav-link">No services available</span>
+                              </li>
+                            </ul>
+                          ) : (
+                            <ul>
+                              {displaySpecialistServices.slice(0, 7).map((service) => (
+                                <li key={service.id} className="nav-item">
+                                  <Link 
+                                    className="nav-link" 
+                                    href={`/services/${service.slug}`}
+                                    onClick={() => setIsMenuOpen(false)}
+                                  >
+                                    <i className={`fas fa-${getServiceIcon(service.name)}`}></i> {service.name}
+                                  </Link>
+                                </li>
+                              ))}
+                              <li className="nav-item explore-all-link">
+                                <Link 
+                                  className="nav-link" 
+                                  href="/services"
+                                  onClick={() => setIsMenuOpen(false)}
+                                >
+                                  Explore all specialized care →
+                                </Link>
+                              </li>
+                            </ul>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -364,7 +423,7 @@ const Header = () => {
                       About Us
                     </Link>
                   </li>
-                  {/* <li className="nav-item">
+                  <li className="nav-item">
                     <Link 
                       className={`nav-link ${isActiveLink('/careers') ? 'active' : ''}`} 
                       href="/careers"
@@ -372,23 +431,14 @@ const Header = () => {
                     >
                       Careers
                     </Link>
-                  </li> */}
-                  <li className="nav-item">
-                    <Link 
-                      className={`nav-link ${isActiveLink('/contact') ? 'active' : ''}`} 
-                      href="/contact"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Contact Us
-                    </Link>
                   </li>
                   <li className="nav-item highlighted-menu">
                     <Link 
                       className="nav-link" 
-                      href="/book-appointment"
+                      href="/contact"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      Book Appointment
+                      Contact Us 
                     </Link>
                   </li>
                 </ul>
@@ -396,8 +446,8 @@ const Header = () => {
 
               {/* Header Btn Start */}
               <div className="header-btn">
-                <Link href="/book-appointment" className="btn-default">
-                  Book Appointment
+                <Link href="/contact" className="btn-default">
+                  Contact Us 
                 </Link>
               </div>
               {/* Header Btn End */}

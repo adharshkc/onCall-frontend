@@ -250,7 +250,7 @@ export default function ServiceDetailPage() {
                           <Image src="/images/service-support-image-2.jpg" alt="Care video" width={900} height={700} />
                         </figure>
                         <div className="video-play-button">
-                          <a href="https://www.youtube.com/watch?v=Y-x0efG1seA" className="popup-video" data-cursor-text="Play">
+                          <a href="#" className="popup-video" data-cursor-text="Play">
                             <i className="fa-solid fa-play" />
                           </a>
                         </div>

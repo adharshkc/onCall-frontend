@@ -10,30 +10,30 @@ type Job = {
 };
 
 const jobs: Job[] = [
-  {
-    title: 'Registered Nurse (RN)',
-    type: 'Full-time',
-    blurb: 'We are seeking a compassionate and skilled Registered Nurse to join our care team.',
-    requirements: ['Current RN license', '2+ years experience in senior care', 'Strong communication skills', 'Compassionate and patient-focused approach'],
-  },
-  {
-    title: 'Certified Nursing Assistant (CNA)',
-    type: 'Full-time / Part-time',
-    blurb: 'Provide direct care to residents in a supportive, team-first environment.',
-    requirements: ['Current CNA certification', 'Experience in senior care preferred', 'Excellent interpersonal skills', 'Ability to work flexible schedules'],
-  },
-  {
-    title: 'Activities Coordinator',
-    type: 'Full-time',
-    blurb: 'Plan and coordinate engaging activities to enhance residents’ quality of life.',
-    requirements: ["Bachelor's degree preferred", 'Experience in recreation or activities', 'Creative and energetic', 'Strong organizational skills'],
-  },
-  {
-    title: 'Social Worker',
-    type: 'Part-time',
-    blurb: 'Provide social services and support to residents and their families.',
-    requirements: ['MSW or BSW degree', 'State licensure preferred', 'Experience with elderly population', 'Strong advocacy skills'],
-  },
+  // {
+  //   title: 'Registered Nurse (RN)',
+  //   type: 'Full-time',
+  //   blurb: 'We are seeking a compassionate and skilled Registered Nurse to join our care team.',
+  //   requirements: ['Current RN license', '2+ years experience in senior care', 'Strong communication skills', 'Compassionate and patient-focused approach'],
+  // },
+  // {
+  //   title: 'Certified Nursing Assistant (CNA)',
+  //   type: 'Full-time / Part-time',
+  //   blurb: 'Provide direct care to residents in a supportive, team-first environment.',
+  //   requirements: ['Current CNA certification', 'Experience in senior care preferred', 'Excellent interpersonal skills', 'Ability to work flexible schedules'],
+  // },
+  // {
+  //   title: 'Activities Coordinator',
+  //   type: 'Full-time',
+  //   blurb: 'Plan and coordinate engaging activities to enhance residents’ quality of life.',
+  //   requirements: ["Bachelor's degree preferred", 'Experience in recreation or activities', 'Creative and energetic', 'Strong organizational skills'],
+  // },
+  // {
+  //   title: 'Social Worker',
+  //   type: 'Part-time',
+  //   blurb: 'Provide social services and support to residents and their families.',
+  //   requirements: ['MSW or BSW degree', 'State licensure preferred', 'Experience with elderly population', 'Strong advocacy skills'],
+  // },
 ];
 
 export default function CareersPage() {

@@ -1,7 +1,50 @@
-import Link from 'next/link';
+'use client';
+
 import Image from 'next/image';
+import { useState } from 'react';
+import axios from '@/lib/api';
+import { API_URL } from '@/config/api';
 
 export default function Contact() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | ''>('');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitMessage('');
+    setSubmitStatus('');
+
+    const formData = new FormData(e.currentTarget);
+    const firstName = formData.get('fname') as string;
+    const lastName = formData.get('lname') as string;
+    
+    const contactData = {
+      name: `${firstName} ${lastName}`.trim(),
+      phone: formData.get('phone') as string,
+      email: formData.get('email') as string,
+      message: formData.get('message') as string,
+      serviceType: 'General Inquiry', // Default service type, can be customized
+    };
+
+    try {
+      const response = await axios.post(`${API_URL}/contact`, contactData);
+      
+      if (response.status === 201 || response.status === 200) {
+        setSubmitStatus('success');
+        setSubmitMessage('Thank you for your message! We will get back to you soon.');
+        // Reset form
+        (e.target as HTMLFormElement).reset();
+      }
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      setSubmitStatus('error');
+      setSubmitMessage('Sorry, there was an error sending your message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <>
       {/* Page Header Start */}
@@ -74,33 +117,79 @@ export default function Contact() {
             <div className="col-lg-7">
               {/* Book Contact Form Start */}
               <div className="contact-form wow fadeInUp" data-wow-delay="0.2s">
-                <form id="contactForm" action="#" method="POST" data-toggle="validator">
+                <form id="contactForm" onSubmit={handleSubmit} method="POST">
                   <div className="row">
                     <div className="form-group col-md-6 mb-4">
-                      <input type="text" name="fname" className="form-control" id="fname" placeholder="First Name" required />
+                      <input 
+                        type="text" 
+                        name="fname" 
+                        className="form-control" 
+                        id="fname" 
+                        placeholder="First Name" 
+                        required 
+                        disabled={isSubmitting}
+                      />
                       <div className="help-block with-errors"></div>
                     </div>
                     <div className="form-group col-md-6 mb-4">
-                      <input type="text" name="lname" className="form-control" id="lname" placeholder="Last Name" required />
+                      <input 
+                        type="text" 
+                        name="lname" 
+                        className="form-control" 
+                        id="lname" 
+                        placeholder="Last Name" 
+                        required 
+                        disabled={isSubmitting}
+                      />
                       <div className="help-block with-errors"></div>
                     </div>
                     <div className="form-group col-md-6 mb-4">
-                      <input type="text" name="phone" className="form-control" id="phone" placeholder="Phone No." required />
+                      <input 
+                        type="text" 
+                        name="phone" 
+                        className="form-control" 
+                        id="phone" 
+                        placeholder="Phone No." 
+                        required 
+                        disabled={isSubmitting}
+                      />
                       <div className="help-block with-errors"></div>
                     </div>
                     <div className="form-group col-md-6 mb-4">
-                      <input type="email" name="email" className="form-control" id="email" placeholder="E-mail" required />
+                      <input 
+                        type="email" 
+                        name="email" 
+                        className="form-control" 
+                        id="email" 
+                        placeholder="E-mail" 
+                        required 
+                        disabled={isSubmitting}
+                      />
                       <div className="help-block with-errors"></div>
                     </div>
                     <div className="form-group col-md-12 mb-5">
-                      <textarea name="message" className="form-control" id="message" rows={4} placeholder="Write Message..."></textarea>
+                      <textarea 
+                        name="message" 
+                        className="form-control" 
+                        id="message" 
+                        rows={4} 
+                        placeholder="Write Message..." 
+                        disabled={isSubmitting}
+                      ></textarea>
                       <div className="help-block with-errors"></div>
                     </div>
                     <div className="col-md-12">
-                      <button type="submit" className="btn-default">
-                        <span>Submit Message</span>
+                      <button type="submit" className="btn-default" disabled={isSubmitting}>
+                        <span>{isSubmitting ? 'Sending...' : 'Submit Message'}</span>
                       </button>
-                      <div id="msgSubmit" className="h3 hidden"></div>
+                      {submitMessage && (
+                        <div 
+                          id="msgSubmit" 
+                          className={`h5 mt-3 ${submitStatus === 'success' ? 'text-success' : 'text-danger'}`}
+                        >
+                          {submitMessage}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </form>

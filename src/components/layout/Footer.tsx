@@ -23,30 +23,7 @@ const Footer = () => {
               {/* About Footer Content End */}
 
               {/* Footer Social Link Start */}
-              <div className="footer-social-links">
-                <ul>
-                  <li>
-                    <a href="#" target="_blank" rel="noopener noreferrer">
-                      <i className="fa-brands fa-instagram"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" target="_blank" rel="noopener noreferrer">
-                      <i className="fa-brands fa-facebook-f"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" target="_blank" rel="noopener noreferrer">
-                      <i className="fa-brands fa-linkedin-in"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" target="_blank" rel="noopener noreferrer">
-                      <i className="fa-brands fa-dribbble"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              
               {/* Footer Social Link End */}
             </div>
             {/* About Footer End */}
@@ -66,7 +43,7 @@ const Footer = () => {
               <div className="footer-contact-item">
                 <h3>Email Address</h3>
                 <p>
-                  <a href="mailto:info@domainname.com">info@domainname.com</a>
+                  <a href="homecare@oncallcareservice.co.uk">homecare@oncallcareservice.co.uk</a>
                 </p>
               </div>
               {/* Footer Contact Item End */}
@@ -91,27 +68,31 @@ const Footer = () => {
           <div className="col-lg-3">
             {/* Footer Newsletter Box Start */}
             <div className="footer-newsletter-box footer-links">
-              <h3>Newsletter Subscription</h3>
-              <p>Stay Updated With Health Tips & Services</p>
-              {/* Footer Newsletter Form Start */}
-              <div className="footer-newsletter-form">
-                <form id="newslettersForm" action="#" method="POST">
-                  <div className="form-group">
-                    <input
-                      type="email"
-                      name="mail"
-                      className="form-control"
-                      id="mail"
-                      placeholder="Enter your email"
-                      required
-                    />
-                    <button type="submit" className="newsletter-btn">
-                      <i className="fa-regular fa-paper-plane"></i>
-                    </button>
-                  </div>
-                </form>
+               <h3>Social Links</h3>
+              <div className="footer-social-links">
+                <ul>
+                  <li>
+                    <a href="#" target="_blank" rel="noopener noreferrer">
+                      <i className="fa-brands fa-instagram"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" target="_blank" rel="noopener noreferrer">
+                      <i className="fa-brands fa-facebook-f"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" target="_blank" rel="noopener noreferrer">
+                      <i className="fa-brands fa-linkedin-in"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" target="_blank" rel="noopener noreferrer">
+                      <i className="fa-brands fa-dribbble"></i>
+                    </a>
+                  </li>
+                </ul>
               </div>
-              {/* Footer Newsletter Box End */}
             </div>
             {/* Footer Links End */}
           </div>

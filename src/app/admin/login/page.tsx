@@ -1,183 +1,197 @@
-"use client";
-import React, { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
 
-export default function AdminLoginPage() {
-  const [email, setEmail] = useState('');
+
+'use client'; // Make it a client component for useState and useRouter
+
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { isAxiosError } from "axios";
+import { useAuth } from "@/context/AuthContext";
+import '@/styles/admin-login.css';
+
+const SignIn: React.FC = () => {
+  const router = useRouter();
+  const [email, setEmail] = useState(''); // Use email state for email input
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState('');
+  const { login, isAuthenticated, loadingAuthCheck } = useAuth();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (!loadingAuthCheck && isAuthenticated) {
+      router.push('/admin/dashboard');
+    }
+  }, [isAuthenticated, loadingAuthCheck, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
-    setLoading(true);
+    setError(''); // Clear previous errors
+
     try {
-      const res = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_BASE + '/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim(), password }),
-      });
-      if (!res.ok) throw new Error('Invalid credentials');
-      const data = await res.json();
-      if (data.token) {
-        document.cookie = `admin_token=${data.token}; path=/; max-age=${60 * 60 * 6}`; // 6h
-        localStorage.setItem('admin_token', data.token);
-        window.location.href = '/admin/dashboard';
-      } else throw new Error('Malformed response');
-    } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Login failed');
-    } finally {
-      setLoading(false);
+      await login(email, password);
+  } catch (err: unknown) {
+      console.error('Login error:', err);
+      if (isAxiosError(err)) {
+        // You can access more specific error information from AxiosError
+        console.error('Axios error details:', err.response?.data || err.message);
+        setError(err.response?.data?.message || 'Login failed. Please check your credentials.'); // Display server error message if available
+      } else {
+        setError('An error occurred during login.');
+      }
     }
   };
 
+  // Show loading spinner while checking authentication
+  if (loadingAuthCheck) {
+    return (
+      <div className="admin-login-container">
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render login form if already authenticated (will redirect)
+  if (isAuthenticated) {
+    return null;
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-40" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-      }}></div>
-      
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-20 w-32 h-32 bg-primary-500/20 rounded-full blur-xl animate-pulse"></div>
-      <div className="absolute bottom-20 right-20 w-40 h-40 bg-accent-500/20 rounded-full blur-xl animate-pulse delay-1000"></div>
-      <div className="absolute top-1/2 left-10 w-24 h-24 bg-purple-500/20 rounded-full blur-xl animate-pulse delay-500"></div>
+    <div className="admin-login-container">
+      <div className="admin-login-card">
+        {/* Left panel with illustration */}
+        <div className="admin-login-illustration">
+          <div className="content-wrapper">
+            <Link className="admin-login-logo" href="/admin/login">
+              <Image
+                className="hidden dark:block"
+                src={"/assets/images/resources/logo.png"}
+                alt="Logo"
+                width={176}
+                height={32} />
+              <Image
+                className="dark:hidden"
+                src={"/assets/images/resources/logo.png"}
+                alt="Logo"
+                width={176}
+                height={32} />
+            </Link>
 
-      {/* Login Card */}
-      <div className="relative w-full max-w-md">
-        {/* Glow Effect */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-primary-600 via-purple-600 to-accent-600 rounded-2xl blur-sm opacity-25 animate-pulse"></div>
-        
-        {/* Main Card */}
-        <div className="relative bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-white/20">
-          {/* Logo Section */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-accent-500 rounded-2xl mb-4 shadow-lg">
-              <Image src="/footer-logo.svg" width={32} height={32} alt="Logo" className="filter brightness-0 invert" />
-            </div>
-            <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
-            <p className="text-white/70 text-sm">Sign in to your admin account</p>
-          </div>
+            <p className="admin-login-welcome-text">
+              Welcome to the Admin Panel. Please sign in to continue.
+            </p>
 
-          {/* Error Message */}
-          {error && (
-            <div className="mb-6 p-4 bg-red-500/20 border border-red-500/30 rounded-lg text-red-200 text-sm flex items-center gap-2">
-              <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.5a.75.75 0 00-1.5 0v4a.75.75 0 001.5 0v-4zM10 13a1 1 0 100 2 1 1 0 000-2z" clipRule="evenodd" />
+            <div className="admin-login-svg">
+              {/* SVG Image - Keep as is */}
+              <svg
+                width="350"
+                height="350"
+                viewBox="0 0 350 350"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M33.5825 294.844L30.5069 282.723C25.0538 280.414 19.4747 278.414 13.7961 276.732L13.4079 282.365L11.8335 276.159C4.79107 274.148 0 273.263 0 273.263C0 273.263 6.46998 297.853 20.0448 316.653L35.8606 319.429L23.5737 321.2C25.2813 323.253 27.1164 325.196 29.0681 327.019C48.8132 345.333 70.8061 353.736 78.1898 345.787C85.5736 337.838 75.5526 316.547 55.8074 298.235C49.6862 292.557 41.9968 288.001 34.2994 284.415L33.5825 294.844Z"
+                  fill="#F2F2F2" />
+                {/* Rest of your SVG paths... */}
               </svg>
-              {error}
-            </div>
-          )}
-
-          {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email Field */}
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium text-white/90 block">
-                Email Address
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg className="w-5 h-5 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                  </svg>
-                </div>
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
-                  placeholder="admin@carely.com"
-                  required
-                />
-              </div>
-            </div>
-
-            {/* Password Field */}
-            <div className="space-y-2">
-              <label htmlFor="password" className="text-sm font-medium text-white/90 block">
-                Password
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg className="w-5 h-5 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
-                </div>
-                <input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-12 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
-                  placeholder="Enter your password"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-white/50 hover:text-white/80 transition-colors"
-                >
-                  {showPassword ? (
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L8.464 8.464M9.878 9.878a3 3 0 00-.007 4.243m5.878-5.878L14.536 7.05M14.536 7.05a9.97 9.97 0 00-4.536-.761c-1.268 0-2.47.236-3.593.674L7.05 8.464m7.486-1.414L21 21" />
-                    </svg>
-                  ) : (
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                    </svg>
-                  )}
-                </button>
-              </div>
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full relative py-3 px-4 bg-gradient-to-r from-primary-600 to-accent-600 text-white font-semibold rounded-lg shadow-lg hover:from-primary-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-transparent disabled:opacity-50 disabled:cursor-not-allowed transform transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
-            >
-              {loading ? (
-                <div className="flex items-center justify-center gap-2">
-                  <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Signing In...
-                </div>
-              ) : (
-                'Sign In'
-              )}
-            </button>
-          </form>
-
-          {/* Footer */}
-          <div className="mt-8 text-center">
-            <div className="flex items-center justify-between text-xs text-white/60">
-              <Link href="/" className="hover:text-white/80 transition-colors flex items-center gap-1">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Back to Website
-              </Link>
-              <div className="flex items-center gap-1">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span>Secure Login</span>
-              </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Text */}
-        <p className="text-center text-white/50 text-xs mt-6">
-          © {new Date().getFullYear()} Carely Admin. All rights reserved.
-        </p>
+        {/* Right panel with form */}
+        <div className="admin-login-form-panel">
+          <div className="admin-login-header">
+            <span className="admin-login-badge">Admin Access</span>
+            <h2 className="admin-login-title">
+              Sign in to Admin Panel
+            </h2>
+          </div>
+
+          {error && <div className="admin-login-error">{error}</div>}
+
+          <form onSubmit={handleSubmit} className="admin-login-form"> {/* Form with onSubmit handler */}
+            <div className="admin-form-group">
+              <label className="admin-form-label" htmlFor="email">
+                Email
+              </label>
+              <div className="admin-input-wrapper">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="admin-form-input"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)} // Updated to setEmail and email state
+                  required />
+                <span className="admin-input-icon">
+                  <svg
+                    className="fill-current"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g opacity="0.5">
+                      <path
+                        d="M19.2516 3.30005H2.75156C1.58281 3.30005 0.585938 4.26255 0.585938 5.46567V16.6032C0.585938 17.7719 1.54844 18.7688 2.75156 18.7688H19.2516C20.4203 18.7688 21.4172 17.8063 21.4172 16.6032V5.4313C21.4172 4.26255 20.4203 3.30005 19.2516 3.30005ZM19.2516 4.84692C19.2859 4.84692 19.3203 4.84692 19.3547 4.84692L11.0016 10.2094L2.64844 4.84692C2.68281 4.84692 2.71719 4.84692 2.75156 4.84692H19.2516ZM19.2516 17.1532H2.75156C2.40781 17.1532 2.13281 16.8782 2.13281 16.5344V6.35942L10.1766 11.5157C10.4172 11.6875 10.6922 11.7563 10.9672 11.7563C11.2422 11.7563 11.5172 11.6875 11.7578 11.5157L19.8016 6.35942V16.5688C19.8703 16.9125 19.5953 17.1532 19.2516 17.1532Z"
+                        fill="" />
+                    </g>
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            <div className="admin-form-group">
+              <label className="admin-form-label" htmlFor="password">
+                Password
+              </label>
+              <div className="admin-input-wrapper">
+                <input
+                  type="password"
+                  placeholder="Enter your password"
+                  className="admin-form-input"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required />
+                <span className="admin-input-icon">
+                  <svg
+                    className="fill-current"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g opacity="0.5">
+                      <path
+                        d="M16.1547 6.80626V5.91251C16.1547 3.16251 14.0922 0.825009 11.4797 0.618759C10.0359 0.481259 8.59219 0.996884 7.52656 1.95938C6.46094 2.92188 5.84219 4.29688 5.84219 5.70626V6.80626C3.84844 7.18438 2.33594 8.93751 2.33594 11.0688V17.2906C2.33594 19.5594 4.19219 21.3813 6.42656 21.3813H15.5016C17.7703 21.3813 19.6266 19.525 19.6266 17.2563V11C19.6609 8.93751 18.1484 7.21876 16.1547 6.80626ZM8.55781 3.09376C9.31406 2.40626 10.3109 2.06251 11.3422 2.16563C13.1641 2.33751 14.6078 3.98751 14.6078 5.91251V6.70313H7.38906V5.67188C7.38906 4.70938 7.80156 3.78126 8.55781 3.09376ZM18.1141 17.2906C18.1141 18.7 16.9453 19.8688 15.5359 19.8688H6.46094C5.05156 19.8688 3.91719 18.7344 3.91719 17.325V11.0688C3.91719 9.52189 5.15469 8.28438 6.70156 8.28438H15.2953C16.8422 8.28438 18.1141 9.52188 18.1141 11V17.2906Z"
+                        fill="" />
+                      <path
+                        d="M10.9977 11.8594C10.5852 11.8594 10.207 12.2031 10.207 12.65V16.2594C10.207 16.6719 10.5508 17.05 10.9977 17.05C11.4102 17.05 11.7883 16.7063 11.7883 16.2594V12.6156C11.7883 12.2031 11.4102 11.8594 10.9977 11.8594Z"
+                        fill="" />
+                    </g>
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="admin-submit-btn"
+            >
+              Sign In
+            </button>
+
+          </form>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default SignIn;

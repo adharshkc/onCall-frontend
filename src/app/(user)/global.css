@@ -1,5 +1,5 @@
 /* Import Tailwind Custom CSS with all styles */
-@import '../styles/tailwind-custom.css';
+@import '../../styles/tailwind-custom.css';
 
 /* Font variables for compatibility */
 :root {
@@ -16,9 +16,9 @@
 @import url('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
 
 /* Import additional styles for compatibility */
-@import '../styles/animate.css';
-@import '../styles/navbar-custom.css';
-@import '../styles/pages.css';
+@import '../../styles/animate.css';
+@import '../../styles/navbar-custom.css';
+@import '../../styles/pages.css';
 
 /* Additional base styles for compatibility */
 html,

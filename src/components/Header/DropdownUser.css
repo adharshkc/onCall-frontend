@@ -1,0 +1,320 @@
+/* Custom CSS for DropdownUser Component - Replicating Tailwind Styles */
+
+/* Container and layout */
+.dropdown-user-container {
+  position: relative;
+}
+
+/* User info link */
+.dropdown-user-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* User name span container */
+.dropdown-user-name-container {
+  display: none;
+  text-align: right;
+}
+
+/* Large screens and up */
+@media (min-width: 1024px) {
+  .dropdown-user-name-container {
+    display: block;
+  }
+}
+
+/* User name text */
+.dropdown-user-name {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: black;
+}
+
+/* Dark mode for user name */
+.dark .dropdown-user-name {
+  color: white;
+}
+
+/* Dropdown arrow icon */
+.dropdown-arrow-icon {
+  display: none;
+  fill: currentColor;
+}
+
+/* Small screens and up */
+@media (min-width: 640px) {
+  .dropdown-arrow-icon {
+    display: block;
+  }
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  margin-top: 16px;
+  display: flex;
+  width: 250px; /* w-62.5 = 250px (62.5 * 4px) */
+  flex-direction: column;
+  border-radius: 2px;
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Dark mode for dropdown menu */
+.dark .dropdown-menu {
+  border-color: #3c4d5f; /* strokedark */
+  background-color: #24303f; /* boxdark */
+}
+
+/* Menu list */
+.dropdown-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 30px 24px; /* py-7.5 px-6 */
+}
+
+/* Dark mode for menu list */
+.dark .dropdown-menu-list {
+  border-color: #3c4d5f; /* strokedark */
+}
+
+/* Menu list item */
+.dropdown-menu-item {
+  list-style: none;
+}
+
+/* Menu item link */
+.dropdown-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 14px; /* gap-3.5 */
+  font-size: 14px;
+  font-weight: 500;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+  text-decoration: none;
+  color: inherit;
+}
+
+.dropdown-menu-link:hover {
+  color: #3b82f6; /* primary color - adjust as needed */
+}
+
+/* Large screens font size adjustment */
+@media (min-width: 1024px) {
+  .dropdown-menu-link {
+    font-size: 16px;
+  }
+}
+
+/* Menu item icon */
+.dropdown-menu-icon {
+  fill: currentColor;
+}
+
+/* Logout button */
+.dropdown-logout-button {
+  display: flex;
+  align-items: center;
+  gap: 14px; /* gap-3.5 */
+  padding: 16px 24px; /* py-4 px-6 */
+  font-size: 14px;
+  font-weight: 500;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown-logout-button:hover {
+  color: #3b82f6; /* primary color - adjust as needed */
+}
+
+/* Large screens font size adjustment for logout button */
+@media (min-width: 1024px) {
+  .dropdown-logout-button {
+    font-size: 16px;
+  }
+}
+
+/* Logout button icon */
+.dropdown-logout-icon {
+  fill: currentColor;
+}
+
+/* Utility classes for common patterns */
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-3-5 {
+  gap: 14px;
+}
+
+.gap-4 {
+  gap: 16px;
+}
+
+.gap-5 {
+  gap: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-sm {
+  font-size: 14px;
+}
+
+.text-base {
+  font-size: 16px;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.text-black {
+  color: black;
+}
+
+.text-white {
+  color: white;
+}
+
+.fill-current {
+  fill: currentColor;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.mt-4 {
+  margin-top: 16px;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.rounded-sm {
+  border-radius: 2px;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-stroke {
+  border-color: #e2e8f0;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.shadow-default {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.border-b {
+  border-bottom-width: 1px;
+}
+
+.px-6 {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.py-7-5 {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.py-4 {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.ease-in-out {
+  transition-timing-function: ease-in-out;
+}
+
+.hover-text-primary:hover {
+  color: #3b82f6; /* Adjust primary color as needed */
+}
+
+.w-62-5 {
+  width: 250px;
+}
+
+/* Responsive classes */
+@media (min-width: 640px) {
+  .sm-block {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg-block {
+    display: block;
+  }
+  
+  .lg-text-base {
+    font-size: 16px;
+  }
+}
+
+/* Dark mode variables and colors */
+:root {
+  --primary: #3b82f6;
+  --boxdark: #24303f;
+  --strokedark: #3c4d5f;
+  --stroke: #e2e8f0;
+}
+
+/* Dark mode styles */
+.dark .border-strokedark {
+  border-color: var(--strokedark);
+}
+
+.dark .bg-boxdark {
+  background-color: var(--boxdark);
+}

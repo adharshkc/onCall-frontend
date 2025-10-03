@@ -72,6 +72,8 @@
     box-shadow: none;
     margin-left: 185px;
     padding: 0;
+    max-height: 70vh; /* Limit height to enable scrolling */
+    overflow-y: auto; /* Add vertical scrollbar when content overflows */
   }
 
   .mega-menu-columns {
@@ -82,5 +84,52 @@
 
   .mega-menu-column {
     padding: 0;
+  }
+  
+  /* Mobile touch interaction improvements */
+  .mega-menu[data-mobile-scrollable="true"] .mega-menu-content {
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    touch-action: pan-y; /* Enable vertical touch scrolling */
+    scroll-behavior: smooth; /* Smooth scrolling animation */
+  }
+  
+  /* Custom scrollbar styling */
+  .mega-menu .mega-menu-content::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  .mega-menu .mega-menu-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  .mega-menu .mega-menu-content::-webkit-scrollbar-thumb {
+    background: var(--primary-color, #666);
+    border-radius: 10px;
+  }
+  
+  .mega-menu .mega-menu-content::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color-dark, #555);
+  }
+  
+  /* Scroll indicator for mobile */
+  .mega-menu .mega-menu-content::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 15px;
+    background: linear-gradient(to top, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    pointer-events: none;
+    opacity: 0.8;
+    display: none;
+  }
+  
+  /* Only show scroll indicator when content is scrollable */
+  @media (max-width: 991px) {
+    .mega-menu .mega-menu-content.scrollable::after {
+      display: block;
+    }
   }
 }

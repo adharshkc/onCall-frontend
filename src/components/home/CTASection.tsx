@@ -21,8 +21,8 @@ const CTASection = () => {
 
               {/* CTA Box Button Start */}
               <div className="cta-box-btn wow fadeInUp" data-wow-delay="0.2s">
-                <Link href="/book-appointment" className="btn-default">
-                  Book appointment
+                <Link href="/contact" className="btn-default">
+                  Contact Us
                 </Link>
               </div>
               {/* CTA Box Button End */}
