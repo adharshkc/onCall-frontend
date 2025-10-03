@@ -1,0 +1,435 @@
+/* ----------------------------------------------------------------------------------------
+* CardDataStats Component Module CSS
+* Replaces Tailwind classes with custom CSS for better maintainability
+* ---------------------------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------------------------
+* INDEX
+* 01. CSS Variables and Color System
+* 02. Card Container Styles
+* 03. Icon Container Styles
+* 04. Content Area Styles
+* 05. Rate/Indicator Styles
+* 06. SVG Icon Styles
+* 07. Responsive Styles
+* 08. Dark Mode Support
+* 09. Animation & Interactions
+--------------------------------------------------------------------------------------- */
+
+/************************************/
+/*** 01. CSS Variables and Colors ***/
+/************************************/
+
+.card-data-stats {
+  /* Light mode colors */
+  --stroke: #e5e7eb;
+  --shadow-default: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --bg-white: #ffffff;
+  --text-black: #000000;
+  --text-sm: #6b7280;
+  --meta-2: #f3f4f6;
+  --meta-3: #10b981; /* Success/Up color - emerald-500 */
+  --meta-5: #ef4444; /* Error/Down color - red-500 */
+  
+  /* Dark mode colors */
+  --strokedark: #3c4d5f;
+  --boxdark: #24303f;
+  --meta-4: #1f2937;
+  --text-white: #ffffff;
+  --text-bodydark: #d1d5db;
+  
+  /* Spacing values */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-7-5: 1.875rem; /* px-7.5 */
+  --spacing-11-5: 2.875rem; /* h-11.5, w-11.5 */
+  
+  /* Font sizes */
+  --text-sm-size: 0.875rem;
+  --text-title-md-size: 1.5rem;
+  
+  /* Border radius */
+  --rounded-sm: 0.125rem;
+  --rounded-full: 9999px;
+}
+
+/************************************/
+/*** 02. Card Container Styles     ***/
+/************************************/
+
+.card-data-stats {
+  /* Main card container */
+  border-radius: var(--rounded-sm);
+  border: 1px solid var(--stroke);
+  background-color: var(--bg-white);
+  padding-left: var(--spacing-7-5);
+  padding-right: var(--spacing-7-5);
+  padding-top: var(--spacing-6);
+  padding-bottom: var(--spacing-6);
+  box-shadow: var(--shadow-default);
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  height: auto;
+}
+
+.card-data-stats:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+/************************************/
+/*** 03. Icon Container Styles     ***/
+/************************************/
+
+.icon-container {
+  display: flex;
+  height: var(--spacing-11-5);
+  width: var(--spacing-11-5);
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--rounded-full);
+  background-color: var(--meta-2);
+  margin-bottom: var(--spacing-4);
+  transition: all 0.3s ease-in-out;
+  flex-shrink: 0;
+}
+
+.icon-container:hover {
+  transform: scale(1.05);
+}
+
+/* Icon SVG styling */
+.icon-container svg {
+  width: 1.375rem;
+  height: 1.375rem;
+  fill: currentColor;
+}
+
+/************************************/
+/*** 04. Content Area Styles       ***/
+/************************************/
+
+.content-wrapper {
+  margin-top: var(--spacing-4);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0; /* Allows text truncation if needed */
+}
+
+.total-value {
+  font-size: var(--text-title-md-size);
+  font-weight: 700;
+  color: var(--text-black);
+  margin: 0 0 var(--spacing-2) 0;
+  line-height: 1.2;
+}
+
+.title-text {
+  font-size: var(--text-sm-size);
+  font-weight: 500;
+  color: var(--text-sm);
+  margin: 0;
+  line-height: 1.25;
+}
+
+/************************************/
+/*** 05. Rate/Indicator Styles     ***/
+/************************************/
+
+.rate-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  font-size: var(--text-sm-size);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.rate-up {
+  color: var(--meta-3);
+}
+
+.rate-down {
+  color: var(--meta-5);
+}
+
+.rate-neutral {
+  color: var(--text-sm);
+}
+
+/************************************/
+/*** 06. SVG Icon Styles           ***/
+/************************************/
+
+.arrow-icon {
+  width: 0.625rem; /* 10px */
+  height: 0.6875rem; /* 11px */
+  flex-shrink: 0;
+}
+
+.arrow-up {
+  fill: var(--meta-3);
+}
+
+.arrow-down {
+  fill: var(--meta-5);
+}
+
+/************************************/
+/*** 07. Responsive Styles         ***/
+/************************************/
+
+/* Mobile optimizations (≤640px) */
+@media (max-width: 640px) {
+  .card-data-stats {
+    padding-left: var(--spacing-4);
+    padding-right: var(--spacing-4);
+    padding-top: var(--spacing-4);
+    padding-bottom: var(--spacing-4);
+  }
+  
+  .icon-container {
+    height: 2.25rem; /* Smaller icon container on mobile */
+    width: 2.25rem;
+  }
+  
+  .icon-container svg {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+  
+  .total-value {
+    font-size: 1.25rem;
+  }
+  
+  .title-text {
+    font-size: 0.75rem;
+  }
+  
+  .rate-container {
+    font-size: 0.75rem;
+  }
+  
+  .content-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-2);
+  }
+}
+
+/* Tablet adjustments (641px - 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .card-data-stats {
+    padding-left: var(--spacing-5);
+    padding-right: var(--spacing-5);
+    padding-top: var(--spacing-5);
+    padding-bottom: var(--spacing-5);
+  }
+  
+  .icon-container {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+  
+  .total-value {
+    font-size: 1.375rem;
+  }
+}
+
+/* Large screens (≥1280px) */
+@media (min-width: 1280px) {
+  .card-data-stats {
+    padding-left: var(--spacing-7-5);
+    padding-right: var(--spacing-7-5);
+  }
+  
+  .total-value {
+    font-size: var(--text-title-md-size);
+  }
+}
+
+/************************************/
+/*** 08. Dark Mode Support         ***/
+/************************************/
+
+.dark .card-data-stats {
+  border-color: var(--strokedark);
+  background-color: var(--boxdark);
+}
+
+.dark .icon-container {
+  background-color: var(--meta-4);
+}
+
+.dark .total-value {
+  color: var(--text-white);
+}
+
+.dark .title-text {
+  color: var(--text-bodydark);
+}
+
+.dark .rate-neutral {
+  color: var(--text-bodydark);
+}
+
+/* Dark mode icon fills remain the same for meta-3 and meta-5 as they're accent colors */
+.dark .arrow-up {
+  fill: var(--meta-3);
+}
+
+.dark .arrow-down {
+  fill: var(--meta-5);
+}
+
+/************************************/
+/*** 09. Animation & Interactions  ***/
+/************************************/
+
+/* Fade in animation */
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-data-stats {
+  animation: cardFadeIn 0.5s ease-out;
+}
+
+/* Pulse animation for icons */
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.icon-container:hover {
+  animation: iconPulse 0.6s ease-in-out;
+}
+
+/* Rate change animation */
+.rate-container {
+  transition: all 0.3s ease-in-out;
+}
+
+.rate-up:hover,
+.rate-down:hover {
+  transform: scale(1.1);
+}
+
+/* Focus styles for accessibility */
+.card-data-stats:focus-within {
+  outline: 2px solid var(--meta-3);
+  outline-offset: 2px;
+}
+
+/* Loading state */
+.card-data-stats.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.card-data-stats.loading .total-value::after {
+  content: '';
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--stroke);
+  border-radius: 50%;
+  border-top-color: var(--meta-3);
+  animation: spin 1s ease-in-out infinite;
+  margin-left: var(--spacing-2);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/************************************/
+/*** 10. Print Styles              ***/
+/************************************/
+
+@media print {
+  .card-data-stats {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #000;
+    background-color: white !important;
+  }
+  
+  .dark .card-data-stats {
+    border-color: #000;
+    background-color: white !important;
+  }
+  
+  .dark .total-value,
+  .dark .title-text {
+    color: #000 !important;
+  }
+}
+
+/************************************/
+/*** 11. Utility Classes           ***/
+/************************************/
+
+/* Size variants */
+.card-data-stats.compact {
+  padding: var(--spacing-4);
+}
+
+.card-data-stats.compact .icon-container {
+  height: 2rem;
+  width: 2rem;
+}
+
+.card-data-stats.compact .total-value {
+  font-size: 1.25rem;
+}
+
+.card-data-stats.expanded {
+  padding: var(--spacing-7-5) var(--spacing-7-5) var(--spacing-7-5) var(--spacing-7-5);
+}
+
+/* Status variants */
+.card-data-stats.success {
+  border-left: 4px solid var(--meta-3);
+}
+
+.card-data-stats.warning {
+  border-left: 4px solid #f59e0b;
+}
+
+.card-data-stats.error {
+  border-left: 4px solid var(--meta-5);
+}
+
+/* Interactive states */
+.card-data-stats.clickable {
+  cursor: pointer;
+}
+
+.card-data-stats.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}

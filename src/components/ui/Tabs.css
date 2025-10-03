@@ -1,0 +1,44 @@
+/* Custom Tab Styles - Light Mode Only */
+.tab-container {
+  background: #ffffff;
+  border-radius: 8px 8px 0 0;
+}
+
+.tab-button {
+  position: relative;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+.tab-button.active {
+  color: #7c3aed; /* Purple color similar to the image */
+  border-bottom-color: #7c3aed;
+  background-color: rgba(124, 58, 237, 0.05);
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #7c3aed 0%, #a855f7 100%);
+  border-radius: 1px;
+}
+
+.tab-button:not(.active) {
+  color: #6b7280;
+}
+
+.tab-button:not(.active):hover {
+  color: #374151;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.tab-content {
+  background: #ffffff;
+  border-radius: 0 0 8px 8px;
+  border: 1px solid #e5e7eb;
+  border-top: none;
+}

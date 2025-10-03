@@ -1,0 +1,48 @@
+/* DefaultLayout.module.css */
+
+/* Page Wrapper */
+.pageWrapper {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Content Area */
+.contentArea {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Content Area - Sidebar Open */
+.contentAreaSidebarOpen {
+  margin-left: 18rem; /* Adjust this value based on your sidebar width */
+}
+
+/* Content Area - Sidebar Closed */
+.contentAreaSidebarClosed {
+  margin-left: 0;
+}
+
+/* Main Content */
+.mainContent {
+  flex: 1;
+  margin: 0 auto;
+  max-width: 1536px; /* max-w-screen-2xl */
+  padding: 1rem; /* p-4 */
+}
+
+@media (min-width: 768px) {
+  .mainContent {
+    padding: 1.5rem; /* md:p-6 */
+  }
+}
+
+@media (min-width: 1536px) {
+  .mainContent {
+    padding: 2.5rem; /* 2xl:p-10 */
+  }
+}

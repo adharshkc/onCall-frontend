@@ -1,0 +1,139 @@
+/* Modal Component Custom CSS */
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: none;
+}
+
+.modal-overlay:focus {
+  outline: none;
+}
+
+/* Modal Backdrop */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+/* Modal Container */
+.modal-container {
+  position: relative;
+  width: 100%;
+  max-width: 32rem; /* max-w-lg equivalent */
+  margin-left: 1rem;
+  margin-right: 1rem;
+  transform: translateY(0);
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  background-color: white;
+  max-height: calc(100vh - 2rem);
+}
+
+/* Dark mode styles */
+.dark .modal-container {
+  background-color: #24303f; /* bg-boxdark equivalent */
+}
+
+/* Responsive styles */
+@media (min-width: 768px) {
+  .modal-container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Modal Header */
+.modal-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #e2e8f0; /* border-stroke equivalent */
+  background-color: white;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.dark .modal-header {
+  border-bottom-color: #3c4142; /* border-strokedark equivalent */
+  background-color: #24303f; /* bg-boxdark equivalent */
+}
+
+/* Modal Title */
+.modal-title {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 500; /* font-medium */
+  color: black;
+}
+
+.dark .modal-title {
+  color: white;
+}
+
+/* Close Button */
+.modal-close-button {
+  padding: 0.25rem;
+  margin-left: auto;
+  border-radius: 9999px;
+  transition-property: blue;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.modal-close-button:hover {
+  background-color: #f7fafc;
+}
+
+.dark .modal-close-button:hover {
+  background-color: #374151;
+}
+
+/* Close Icon */
+.modal-close-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #6b7280;
+}
+
+.dark .modal-close-icon {
+  color: #9ca3af;
+}
+
+/* Modal Body */
+.modal-body {
+  position: relative;
+  padding: 1rem;
+  overflow-y: auto;
+  max-height: 80vh; /* max-h-[80vh] equivalent */
+}
+
+/* Default width class */
+.modal-width-default {
+  max-width: 32rem; /* max-w-lg */
+}
+
+/* Default height class */
+.modal-height-default {
+  max-height: 80vh; /* max-h-[80vh] */
+}
