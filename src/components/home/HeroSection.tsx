@@ -100,7 +100,6 @@ const HeroSection = () => {
       setIsSearching(false);
     }
   };
-      console.log(searchResults?.data[0].name)
 
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
