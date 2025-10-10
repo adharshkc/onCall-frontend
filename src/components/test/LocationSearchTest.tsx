@@ -61,7 +61,7 @@ const LocationSearchTest: React.FC = () => {
       {/* API Status */}
       <div className="mb-4 p-3 bg-blue-50 rounded-lg">
         <p className="text-sm text-blue-800">
-          <strong>API Endpoint:</strong> {process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3333/api'}/locations/search
+          <strong>API Endpoint:</strong> {process.env.NEXT_PUBLIC_API_BASE_URL || 'https://oncall.qubyt.codes/api'}/locations/search
         </p>
         <p className="text-xs text-blue-600 mt-1">
           Make sure your AdonisJS backend is running and the endpoint is available
