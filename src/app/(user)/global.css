@@ -28,6 +28,26 @@ body {
   scroll-behavior: smooth;
 }
 
+/* Prevent horizontal scroll on all elements */
+* {
+  max-width: 100%;
+}
+
+img, 
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Header and navigation overflow fix */
+header,
+nav,
+.main-menu,
+.nav-menu-wrapper {
+  overflow-x: hidden;
+}
+
 /* Hide scrollbar utilities */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -45,4 +65,14 @@ body {
 
 .wow.animated {
   visibility: visible;
+}
+
+/* Spin animation for loading indicators */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

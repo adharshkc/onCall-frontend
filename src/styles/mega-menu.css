@@ -9,6 +9,8 @@
   border-radius: 8px;
   padding: 20px;
   z-index: 1000;
+  top: 100%;
+  margin-top: 10px;
 }
 
 .mega-menu-columns {
@@ -19,6 +21,7 @@
 
 .mega-menu-column {
   flex: 1;
+  min-width: 0; /* Allow flex items to shrink */
 }
 
 .mega-menu-title {
@@ -69,21 +72,26 @@
     position: static;
     transform: none;
     min-width: auto;
+    width: 100%;
     box-shadow: none;
-    margin-left: 185px;
-    padding: 0;
-    max-height: 70vh; /* Limit height to enable scrolling */
+    margin-left: 0;
+    margin-top: 10px;
+    padding: 15px;
+    max-height: 60vh; /* Limit height to enable scrolling */
     overflow-y: auto; /* Add vertical scrollbar when content overflows */
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 10px;
   }
 
   .mega-menu-columns {
     flex-direction: column;
     gap: 20px;
-    padding: 10px;
+    padding: 0;
   }
 
   .mega-menu-column {
     padding: 0;
+    width: 100%;
   }
   
   /* Mobile touch interaction improvements */
@@ -127,9 +135,24 @@
   }
   
   /* Only show scroll indicator when content is scrollable */
-  @media (max-width: 991px) {
-    .mega-menu .mega-menu-content.scrollable::after {
-      display: block;
-    }
+  .mega-menu .mega-menu-content.scrollable::after {
+    display: block;
+  }
+}
+
+/* Desktop hover behavior */
+@media (min-width: 992px) {
+  .mega-menu .mega-menu-content {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .mega-menu:hover .mega-menu-content,
+  .mega-menu.show .mega-menu-content {
+    display: block;
+    visibility: visible;
+    opacity: 1;
   }
 }

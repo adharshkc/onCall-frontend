@@ -4,7 +4,6 @@ import React from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import ServiceManagementSection from "@/components/service/ServiceManagementSection";
-import CustomerServiceSearch from "@/components/service/CustomerServiceSearch";
 
 const ServicePage = () => {
   return (
@@ -15,7 +14,7 @@ const ServicePage = () => {
           <ServiceManagementSection />
           
           {/* Customer Search Demo Section */}
-          <div>
+          {/* <div>
             <div className="mb-4">
               <h4 className="text-xl font-semibold text-black">
                 Customer Search Demo
@@ -25,7 +24,7 @@ const ServicePage = () => {
               </p>
             </div>
             <CustomerServiceSearch />
-          </div>
+          </div> */}
         </div>
       </div>
     </DefaultLayout>

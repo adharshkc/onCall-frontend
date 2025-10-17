@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import TableThree, { Column } from "@/components/Tables/TableThree";
 import Modal from "@/components/FormElements/Modal";
 import { FormField } from "@/components/FormElements/ReusableForm";
@@ -165,7 +166,7 @@ const serviceColumns: Column[] = [
             </span> */}
             {row.zipcodes && (
               <div className="mt-1 text-gray-600">
-                {row.zipcodes} postcode{row.zipcodes.length !== 1 ? 's' : ''}
+                {Array.isArray(row.zipcodes) ? row.zipcodes.join(', ') : (row.zipcodes ?? '')}
               </div>
             )}
           </div>
@@ -177,15 +178,15 @@ const serviceColumns: Column[] = [
       </div>
     ),
   },
-  {
-    header: "Active",
-    accessorKey: "active",
-    cell: ({ row }) => (
-      <span className={`px-2 py-1 rounded text-xs ${row.active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-        {row.active ? 'Active' : 'Inactive'}
-      </span>
-    ),
-  },
+  // {
+  //   header: "Active",
+  //   accessorKey: "active",
+  //   cell: ({ row }) => (
+  //     <span className={`px-2 py-1 rounded text-xs ${row.active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+  //       {row.active ? 'Active' : 'Inactive'}
+  //     </span>
+  //   ),
+  // },
 ];
 
 const serviceFormFields: FormField[] = [
@@ -461,6 +462,7 @@ const ServiceFormWithLocation: React.FC<ServiceFormWithLocationProps> = ({
 };
 
 const ServiceManagementSection: React.FC<ServiceManagementSectionProps> = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -759,8 +761,8 @@ const ServiceManagementSection: React.FC<ServiceManagementSectionProps> = () => 
   };
 
   const handleViewService = (service: Service) => {
-    setSelectedService(service);
-    setIsViewModalOpen(true);
+    // Navigate to the service details page
+    router.push(`/admin/service/${service.id}`);
   };
 
   const handleEditService = (service: Service) => {
@@ -777,22 +779,6 @@ const ServiceManagementSection: React.FC<ServiceManagementSectionProps> = () => 
         <p className="px-3 text-sm text-gray-600 mt-1">
           Manage your services and add location availability. When creating or editing services, you can optionally add location data and zipcodes where the service is available. This helps customers find your services by postcode.
         </p>
-        <div className="px-3 mt-2">
-          <div className="bg-blue-50 border-l-4 border-blue-400 p-3 rounded">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <svg className="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <div className="ml-3">
-                <p className="text-sm text-blue-700">
-                  <strong>Location Search:</strong> When adding/editing services, use the location search to specify where your service is available. This will automatically fetch zipcodes for that area and allow customers to search by their postcode.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <div className="rounded-sm border border-stroke bg-white shadow-default">
@@ -876,14 +862,7 @@ const ServiceManagementSection: React.FC<ServiceManagementSectionProps> = () => 
                     <span className="font-medium text-black block mb-1">Category:</span>
                     <span className="text-gray-600 ">{selectedService.category}</span>
                   </div>
-                  {/* <div>
-                    <span className="font-medium text-black block mb-1">Image:</span>
-                    <span className="text-gray-600 ">{selectedService.image}</span>
-                  </div>
-                  <div>
-                    <span className="font-medium text-black block mb-1">Icon:</span>
-                    <span className="text-gray-600 ">{selectedService.icon}</span>
-                  </div> */}
+                  
                   <div>
                     <span className="font-medium text-black block mb-1">Active:</span>
                     <span className={`px-2 py-1 rounded text-xs ${selectedService.active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>

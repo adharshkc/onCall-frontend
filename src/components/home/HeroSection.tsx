@@ -65,42 +65,41 @@ const HeroSection = () => {
     } catch (err) {
       console.error('Search failed:', err);
       // Fallback to mock data if API is not available
-      const mockResults: SearchResults = {
-        postcode: zipcode.trim().toUpperCase(),
-        services: [
-          {
-            service: {
-              id: 'mock1',
-              name: 'Domiciliary Care',
-              description: 'Professional care services in your home',
-              slug: 'domiciliary-care',
-              category: 'home-care',
-              icon: '/images/icon-care-1.svg'
-            },
-            location: { name: 'Care Center', county: 'Local Area' },
-            postcode: zipcode.trim().toUpperCase()
-          },
-          {
-            service: {
-              id: 'mock2',
-              name: 'Memory & Dementia Care',
-              description: 'Specialized dementia and memory care services',
-              slug: 'dementia-care',
-              category: 'specialist-care',
-              icon: '/images/icon-care-2.svg'
-            },
-            location: { name: 'Specialist Care Unit', county: 'Local Area' },
-            postcode: zipcode.trim().toUpperCase()
-          }
-        ]
-      };
-      setSearchResults(mockResults);
-      setShowResults(true);
+      // const mockResults: SearchResults = {
+      //   postcode: zipcode.trim().toUpperCase(),
+      //   services: [
+      //     {
+      //       service: {
+      //         id: 'mock1',
+      //         name: 'Domiciliary Care',
+      //         description: 'Professional care services in your home',
+      //         slug: 'domiciliary-care',
+      //         category: 'home-care',
+      //         icon: '/images/icon-care-1.svg'
+      //       },
+      //       location: { name: 'Care Center', county: 'Local Area' },
+      //       postcode: zipcode.trim().toUpperCase()
+      //     },
+      //     {
+      //       service: {
+      //         id: 'mock2',
+      //         name: 'Memory & Dementia Care',
+      //         description: 'Specialized dementia and memory care services',
+      //         slug: 'dementia-care',
+      //         category: 'specialist-care',
+      //         icon: '/images/icon-care-2.svg'
+      //       },
+      //       location: { name: 'Specialist Care Unit', county: 'Local Area' },
+      //       postcode: zipcode.trim().toUpperCase()
+      //     }
+      //   ]
+      // };
+      // setSearchResults(mockResults);
+      // setShowResults(true);
     } finally {
       setIsSearching(false);
     }
   };
-      console.log(searchResults?.data[0].name)
 
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -317,7 +316,7 @@ const HeroSection = () => {
                       <h3 style={{ fontSize: '22px', fontWeight: '600', color: '#333', marginBottom: '20px' }}>
                         Direct Services in Your Area
                       </h3>
-                      <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+                      <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px' }}>
                         {searchResults?.data?.map((result, index) => (
                           <div
                             key={index}
@@ -377,7 +376,7 @@ const HeroSection = () => {
                       <h3 style={{ fontSize: '22px', fontWeight: '600', color: '#333', marginBottom: '20px' }}>
                         Nearby Services
                       </h3>
-                      <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+                      <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px' }}>
                         {searchResults.nearby.map((result, index) => (
                           <div
                             key={index}

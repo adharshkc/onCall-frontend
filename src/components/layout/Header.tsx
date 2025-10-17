@@ -6,6 +6,36 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import axios from '@/lib/api';
 import { Service } from '@/types/service';
+import { API_URL } from '@/config/api';
+
+interface SearchResults {
+  postcode?: string;
+  zipcode?: string;
+  data?: Array<{
+    id: string;
+    name: string;
+    description?: string;
+    slug: string;
+    image?: string;
+  }>;
+  services?: Array<{
+    service: Service;
+    location: {
+      name: string;
+      county?: string;
+    };
+    postcode: string;
+  }>;
+  nearby?: Array<{
+    service: Service;
+    location: {
+      name: string;
+      county?: string;
+    };
+    postcode: string;
+  }>;
+  length?: number;
+}
 
 /**
  * Header Component
@@ -20,10 +50,18 @@ import { Service } from '@/types/service';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
+  const [isWhyUsDropdownOpen, setIsWhyUsDropdownOpen] = useState(false);
   const [services, setServices] = useState<Service[]>([]);
   const [servicesLoading, setServicesLoading] = useState(true);
   const pathname = usePathname();
   const navRef = useRef<HTMLDivElement | null>(null);
+  
+  // Search functionality states
+  const [zipcode, setZipcode] = useState('');
+  const [searchResults, setSearchResults] = useState<SearchResults | null>(null);
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
+  const [showResults, setShowResults] = useState(false);
 
   // Helpers
   const isDesktop = () => {
@@ -35,6 +73,7 @@ const Header = () => {
   useEffect(() => {
     setIsMenuOpen(false);
     setIsMegaMenuOpen(false);
+    setIsWhyUsDropdownOpen(false);
   }, [pathname]);
 
   // Sticky on scroll to match template header behavior
@@ -57,6 +96,7 @@ const Header = () => {
       if (!navRef.current.contains(e.target as Node)) {
         setIsMenuOpen(false);
         setIsMegaMenuOpen(false);
+        setIsWhyUsDropdownOpen(false);
       }
     };
     document.addEventListener('mousedown', onDocClick);
@@ -116,7 +156,10 @@ const Header = () => {
     // Toggle mobile menu and always collapse mega menu when opening
     setIsMenuOpen((open) => {
       const next = !open;
-      if (next) setIsMegaMenuOpen(false);
+      if (next) {
+        setIsMegaMenuOpen(false);
+        setIsWhyUsDropdownOpen(false);
+      }
       return next;
     });
   };
@@ -140,8 +183,68 @@ const Header = () => {
     }
   };
 
+  const handleWhyUsDropdownClick = (e: React.MouseEvent) => {
+    // On mobile, prevent navigation to allow expanding the dropdown
+    if (!isDesktop()) {
+      e.preventDefault();
+      setIsWhyUsDropdownOpen((v) => !v);
+    } else {
+      // On desktop, follow the link; ensure hover state closes
+      setIsWhyUsDropdownOpen(false);
+    }
+  };
+
+  const handleWhyUsDropdownKeyDown = (e: React.KeyboardEvent) => {
+    if (!isDesktop() && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      setIsWhyUsDropdownOpen((v) => !v);
+    }
+  };
+
   const isActiveLink = (href: string) => {
     return pathname === href || (href !== '/' && pathname.startsWith(href));
+  };
+
+  // Search handler
+  const handleSearch = async () => {
+    if (!zipcode.trim()) {
+      setSearchError('Please enter a postcode');
+      return;
+    }
+
+    setIsSearching(true);
+    setSearchError(null);
+    setSearchResults(null);
+    
+    // Close mobile menu if open
+    setIsMenuOpen(false);
+
+    try {
+      const response = await axios.post(`${API_URL}/check-availability`, {
+        postcode: zipcode.trim().toUpperCase(),
+        includeNearby: true
+      });
+
+      setSearchResults(response.data);
+      setShowResults(true);
+    } catch (err) {
+      console.error('Search failed:', err);
+      setSearchError('Unable to search services at this time. Please try again later.');
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
+  const closeResults = () => {
+    setShowResults(false);
+    setSearchResults(null);
+    setSearchError(null);
   };
 
   // Helper functions to categorize services
@@ -234,14 +337,14 @@ const Header = () => {
               <div className="nav-menu-wrapper">
                 {/* Mobile Menu Header (Close button) */}
                 <div className="d-lg-none d-flex justify-content-between align-items-center px-3 py-2">
-                  <Link className="navbar-brand m-0" href="/" onClick={() => { setIsMenuOpen(false); setIsMegaMenuOpen(false); }}>
+                  <Link className="navbar-brand m-0" href="/" onClick={() => { setIsMenuOpen(false); setIsMegaMenuOpen(false); setIsWhyUsDropdownOpen(false); }}>
                     <Image src="/public/images/logo.png" alt="On Call" width={120} height={40} />
                   </Link>
                   <button
                     type="button"
                     className="btn btn-link text-dark p-0 mobile-close-btn"
                     aria-label="Close menu"
-                    onClick={() => { setIsMenuOpen(false); setIsMegaMenuOpen(false); }}
+                    onClick={() => { setIsMenuOpen(false); setIsMegaMenuOpen(false); setIsWhyUsDropdownOpen(false); }}
                     style={{
                       fontSize: '2rem',
                       lineHeight: 1,
@@ -271,6 +374,112 @@ const Header = () => {
                     </svg>
                   </button>
                 </div>
+
+                {/* Mobile Search Box */}
+                <div className="mobile-search-box d-lg-none px-3 py-3" style={{ borderBottom: '1px solid rgba(0,0,0,0.1)' }}>
+                  <div className="search-input-wrapper" style={{ 
+                    display: 'flex', 
+                    gap: '8px', 
+                    width: '100%',
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    borderRadius: '25px',
+                    padding: '6px 12px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                    border: '1px solid rgba(0,0,0,0.1)'
+                  }}>
+                    <input
+                      type="text"
+                      value={zipcode}
+                      onChange={(e) => setZipcode(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      placeholder="Enter postcode..."
+                      style={{
+                        flex: 1,
+                        padding: '10px 14px',
+                        border: 'none',
+                        borderRadius: '20px',
+                        fontSize: '14px',
+                        backgroundColor: 'transparent',
+                        color: '#333',
+                        outline: 'none'
+                      }}
+                    />
+                    <button
+                      onClick={handleSearch}
+                      disabled={isSearching}
+                      style={{
+                        padding: '10px 18px',
+                        backgroundColor: '#FF6B35',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '20px',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        cursor: isSearching ? 'not-allowed' : 'pointer',
+                        opacity: isSearching ? 0.7 : 1,
+                        transition: 'all 0.3s ease',
+                        whiteSpace: 'nowrap',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        minWidth: '48px'
+                      }}
+                      aria-label="Search"
+                    >
+                      {isSearching ? (
+                        <svg 
+                          width="18" 
+                          height="18" 
+                          viewBox="0 0 24 24" 
+                          fill="none" 
+                          xmlns="http://www.w3.org/2000/svg"
+                          style={{ animation: 'spin 1s linear infinite' }}
+                        >
+                          <circle 
+                            cx="12" 
+                            cy="12" 
+                            r="10" 
+                            stroke="currentColor" 
+                            strokeWidth="3" 
+                            strokeLinecap="round"
+                            strokeDasharray="32"
+                            strokeDashoffset="8"
+                            opacity="0.25"
+                          />
+                          <path 
+                            d="M12 2a10 10 0 0 1 10 10" 
+                            stroke="currentColor" 
+                            strokeWidth="3" 
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      ) : (
+                        <svg 
+                          width="18" 
+                          height="18" 
+                          viewBox="0 0 24 24" 
+                          fill="none" 
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle 
+                            cx="11" 
+                            cy="11" 
+                            r="8" 
+                            stroke="currentColor" 
+                            strokeWidth="2"
+                          />
+                          <path 
+                            d="M21 21l-4.35-4.35" 
+                            stroke="currentColor" 
+                            strokeWidth="2" 
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
                 <ul className="navbar-nav mr-auto" id="menu">
                   <li className="nav-item">
                     <Link 
@@ -405,14 +614,69 @@ const Header = () => {
                       </div>
                     </div>
                   </li>
-                  <li className="nav-item">
+                  <li
+                    className={`nav-item submenu ${isWhyUsDropdownOpen ? 'show' : ''}`}
+                    onMouseEnter={() => {
+                      if (isDesktop()) setIsWhyUsDropdownOpen(true);
+                    }}
+                    onMouseLeave={() => {
+                      if (isDesktop()) setIsWhyUsDropdownOpen(false);
+                    }}
+                  >
                     <Link 
                       className={`nav-link ${isActiveLink('/why-us') ? 'active' : ''}`} 
                       href="/why-us"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={handleWhyUsDropdownClick}
+                      onKeyDown={handleWhyUsDropdownKeyDown}
+                      aria-haspopup="true"
+                      aria-expanded={isWhyUsDropdownOpen}
+                      role="button"
                     >
                       Why Us?
+                      <span className="dropdown-icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <polyline points="6 9 12 15 18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
                     </Link>
+                    <ul style={{ display: isWhyUsDropdownOpen ? 'block' : 'none' }}>
+                      <li className="nav-item">
+                        <Link 
+                          className="nav-link" 
+                          href="/why-us#our-values"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <i className="fas fa-heart"></i> Our Values
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link 
+                          className="nav-link" 
+                          href="/why-us#quality-care"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <i className="fas fa-certificate"></i> Quality Care
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link 
+                          className="nav-link" 
+                          href="/why-us#experienced-team"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <i className="fas fa-users"></i> Experienced Team
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link 
+                          className="nav-link" 
+                          href="/why-us#testimonials"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <i className="fas fa-comment-dots"></i> Testimonials
+                        </Link>
+                      </li>
+                    </ul>
                   </li>
                   <li className="nav-item">
                     <Link 
@@ -444,6 +708,111 @@ const Header = () => {
                 </ul>
               </div>
 
+              {/* Header Search Box Start - Desktop Only */}
+              <div className="header-search-box d-none d-lg-flex align-items-center me-3" style={{ flex: '0 0 auto', maxWidth: '320px' }}>
+                <div className="search-input-wrapper" style={{ 
+                  display: 'flex', 
+                  gap: '8px', 
+                  width: '100%',
+                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                  borderRadius: '25px',
+                  padding: '6px 12px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                }}>
+                  <input
+                    type="text"
+                    value={zipcode}
+                    onChange={(e) => setZipcode(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Enter postcode..."
+                    style={{
+                      flex: 1,
+                      padding: '8px 12px',
+                      border: 'none',
+                      borderRadius: '20px',
+                      fontSize: '14px',
+                      backgroundColor: 'transparent',
+                      color: '#333',
+                      outline: 'none'
+                    }}
+                  />
+                  <button
+                    onClick={handleSearch}
+                    disabled={isSearching}
+                    style={{
+                      padding: '8px 16px',
+                      backgroundColor: '#FF6B35',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '20px',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      cursor: isSearching ? 'not-allowed' : 'pointer',
+                      opacity: isSearching ? 0.7 : 1,
+                      transition: 'all 0.3s ease',
+                      whiteSpace: 'nowrap',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minWidth: '42px'
+                    }}
+                    aria-label="Search"
+                  >
+                    {isSearching ? (
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        xmlns="http://www.w3.org/2000/svg"
+                        style={{ animation: 'spin 1s linear infinite' }}
+                      >
+                        <circle 
+                          cx="12" 
+                          cy="12" 
+                          r="10" 
+                          stroke="currentColor" 
+                          strokeWidth="3" 
+                          strokeLinecap="round"
+                          strokeDasharray="32"
+                          strokeDashoffset="8"
+                          opacity="0.25"
+                        />
+                        <path 
+                          d="M12 2a10 10 0 0 1 10 10" 
+                          stroke="currentColor" 
+                          strokeWidth="3" 
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    ) : (
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle 
+                          cx="11" 
+                          cy="11" 
+                          r="8" 
+                          stroke="currentColor" 
+                          strokeWidth="2"
+                        />
+                        <path 
+                          d="M21 21l-4.35-4.35" 
+                          stroke="currentColor" 
+                          strokeWidth="2" 
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              </div>
+              {/* Header Search Box End */}
+
               {/* Header Btn Start */}
               <div className="header-btn">
                 <Link href="/contact" className="btn-default">
@@ -470,6 +839,389 @@ const Header = () => {
         </nav>
         <div className="responsive-menu"></div>
       </div>
+
+      {/* Search Results Modal/Overlay Start */}
+      {showResults && searchResults && (
+        <div 
+          className="search-results-overlay"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            zIndex: 99999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '15px',
+            overflowY: 'auto'
+          }}
+          onClick={closeResults}
+        >
+          <div 
+            className="search-results-modal"
+            style={{
+              backgroundColor: 'white',
+              borderRadius: '20px',
+              padding: '20px',
+              maxWidth: '800px',
+              width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              position: 'relative',
+              margin: 'auto'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={closeResults}
+              style={{
+                position: 'absolute',
+                top: '10px',
+                right: '15px',
+                background: 'none',
+                border: 'none',
+                fontSize: '28px',
+                cursor: 'pointer',
+                color: '#666',
+                zIndex: 1,
+                width: '40px',
+                height: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '50%',
+                transition: 'background-color 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.05)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+            >
+              ×
+            </button>
+
+            {/* Results Header */}
+            <div style={{ marginBottom: '20px', paddingRight: '40px' }}>
+              <h2 style={{ 
+                fontSize: 'clamp(20px, 5vw, 28px)', 
+                fontWeight: 'bold', 
+                color: '#333', 
+                marginBottom: '10px',
+                wordBreak: 'break-word'
+              }}>
+                Available Services for {searchResults?.zipcode || searchResults?.postcode}
+              </h2>
+              <p style={{ color: '#666', fontSize: 'clamp(14px, 3vw, 16px)' }}>
+                {(searchResults?.data?.length || 0) + (searchResults?.services?.length || 0) + (searchResults?.nearby?.length || 0)} services found in your area
+              </p>
+            </div>
+
+            {/* Direct Services */}
+            {searchResults?.data && searchResults.data.length > 0 && (
+              <div style={{ marginBottom: '25px' }}>
+                <h3 style={{ 
+                  fontSize: 'clamp(18px, 4vw, 22px)', 
+                  fontWeight: '600', 
+                  color: '#333', 
+                  marginBottom: '15px' 
+                }}>
+                  Direct Services in Your Area
+                </h3>
+                <div className="services-grid" style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: '1fr', 
+                  gap: '15px' 
+                }}>
+                  {searchResults.data.map((result, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        border: '2px solid #FF6B35',
+                        borderRadius: '15px',
+                        padding: '15px',
+                        backgroundColor: '#fff'
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', flexWrap: 'wrap' }}>
+                        {result?.image && (
+                          <Image
+                            src={result.image}
+                            alt=""
+                            width={50}
+                            height={70}
+                            style={{ borderRadius: '8px', flexShrink: 0 }}
+                          />
+                        )}
+                        <div style={{ flex: 1, minWidth: '150px' }}>
+                          <h4 style={{ 
+                            fontSize: 'clamp(16px, 3vw, 18px)', 
+                            fontWeight: '600', 
+                            color: '#333', 
+                            marginBottom: '8px',
+                            wordBreak: 'break-word'
+                          }}>
+                            {result.name}
+                          </h4>
+                          {result?.description && (
+                            <p style={{ 
+                              color: '#666', 
+                              fontSize: 'clamp(13px, 2.5vw, 14px)', 
+                              marginBottom: '12px', 
+                              lineHeight: '1.4' 
+                            }}>
+                              {result.description}
+                            </p>
+                          )}
+                          <Link
+                            href={`/services/${result.slug}`}
+                            onClick={closeResults}
+                            style={{
+                              display: 'inline-block',
+                              marginTop: '12px',
+                              padding: '8px 16px',
+                              backgroundColor: '#FF6B35',
+                              color: 'white',
+                              textDecoration: 'none',
+                              borderRadius: '8px',
+                              fontSize: 'clamp(13px, 2.5vw, 14px)',
+                              fontWeight: '500'
+                            }}
+                          >
+                            Learn More
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Services from main API format */}
+            {searchResults?.services && searchResults.services.length > 0 && (
+              <div style={{ marginBottom: '25px' }}>
+                <h3 style={{ 
+                  fontSize: 'clamp(18px, 4vw, 22px)', 
+                  fontWeight: '600', 
+                  color: '#333', 
+                  marginBottom: '15px' 
+                }}>
+                  Services in Your Area
+                </h3>
+                <div className="services-grid" style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: '1fr', 
+                  gap: '15px' 
+                }}>
+                  {searchResults.services.map((result, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        border: '2px solid #FF6B35',
+                        borderRadius: '15px',
+                        padding: '20px',
+                        backgroundColor: '#fff'
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '15px' }}>
+                        {result.service.icon && (
+                          <Image
+                            src={result.service.icon}
+                            alt=""
+                            width={50}
+                            height={50}
+                            style={{ borderRadius: '8px' }}
+                          />
+                        )}
+                        <div style={{ flex: 1 }}>
+                          <h4 style={{ fontSize: '18px', fontWeight: '600', color: '#333', marginBottom: '8px' }}>
+                            {result.service.name}
+                          </h4>
+                          {result.service.description && (
+                            <p style={{ color: '#666', fontSize: '14px', marginBottom: '12px', lineHeight: '1.4' }}>
+                              {result.service.description}
+                            </p>
+                          )}
+                          <div style={{ fontSize: '13px', color: '#888', marginBottom: '10px' }}>
+                            <div><strong>Location:</strong> {result.location.name}</div>
+                            {result.location.county && (
+                              <div><strong>County:</strong> {result.location.county}</div>
+                            )}
+                          </div>
+                          <Link
+                            href={`/services/${result.service.slug}`}
+                            onClick={closeResults}
+                            style={{
+                              display: 'inline-block',
+                              marginTop: '12px',
+                              padding: '8px 16px',
+                              backgroundColor: '#FF6B35',
+                              color: 'white',
+                              textDecoration: 'none',
+                              borderRadius: '8px',
+                              fontSize: '14px',
+                              fontWeight: '500'
+                            }}
+                          >
+                            Learn More
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Nearby Services */}
+            {searchResults.nearby && searchResults.nearby.length > 0 && (
+              <div>
+                <h3 style={{ 
+                  fontSize: 'clamp(18px, 4vw, 22px)', 
+                  fontWeight: '600', 
+                  color: '#333', 
+                  marginBottom: '15px' 
+                }}>
+                  Nearby Services
+                </h3>
+                <div className="services-grid" style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: '1fr', 
+                  gap: '15px' 
+                }}>
+                  {searchResults.nearby.map((result, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        border: '1px solid #ddd',
+                        borderRadius: '15px',
+                        padding: '20px',
+                        backgroundColor: '#f8f9fa'
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '15px' }}>
+                        {result.service.icon && (
+                          <Image 
+                            src={result.service.icon} 
+                            alt="" 
+                            width={50} 
+                            height={50}
+                            style={{ borderRadius: '8px' }}
+                          />
+                        )}
+                        <div style={{ flex: 1 }}>
+                          <h4 style={{ fontSize: '18px', fontWeight: '600', color: '#333', marginBottom: '8px' }}>
+                            {result.service.name}
+                          </h4>
+                          {result.service.description && (
+                            <p style={{ color: '#666', fontSize: '14px', marginBottom: '12px', lineHeight: '1.4' }}>
+                              {result.service.description}
+                            </p>
+                          )}
+                          <div style={{ fontSize: '13px', color: '#888' }}>
+                            <div><strong>Area:</strong> {result.location.name}</div>
+                            {result.location.county && (
+                              <div><strong>County:</strong> {result.location.county}</div>
+                            )}
+                            <div><strong>Postcode:</strong> {result.postcode}</div>
+                          </div>
+                          <Link 
+                            href={`/services/${result.service.slug}`}
+                            onClick={closeResults}
+                            style={{
+                              display: 'inline-block',
+                              marginTop: '12px',
+                              padding: '8px 16px',
+                              backgroundColor: '#6c757d',
+                              color: 'white',
+                              textDecoration: 'none',
+                              borderRadius: '8px',
+                              fontSize: '14px',
+                              fontWeight: '500'
+                            }}
+                          >
+                            Learn More
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* No Services Found */}
+            {(!searchResults?.data || searchResults.data.length === 0) && 
+             (!searchResults?.services || searchResults.services.length === 0) && 
+             (!searchResults?.nearby || searchResults.nearby.length === 0) && (
+              <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+                <div style={{ fontSize: '48px', marginBottom: '20px' }}>🔍</div>
+                <h3 style={{ fontSize: '20px', fontWeight: '600', color: '#333', marginBottom: '10px' }}>
+                  No services available
+                </h3>
+                <p style={{ color: '#666', fontSize: '16px', marginBottom: '20px' }}>
+                  No services are currently available for postcode {searchResults?.zipcode || searchResults?.postcode}.
+                </p>
+                <Link 
+                  href="/contact"
+                  onClick={closeResults}
+                  style={{
+                    display: 'inline-block',
+                    padding: '12px 24px',
+                    backgroundColor: '#FF6B35',
+                    color: 'white',
+                    textDecoration: 'none',
+                    borderRadius: '10px',
+                    fontSize: '16px',
+                    fontWeight: '600'
+                  }}
+                >
+                  Contact Us
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+      {/* Search Results Modal/Overlay End */}
+
+      {/* Search Error Toast */}
+      {searchError && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: '100px',
+            right: '20px',
+            zIndex: 100000,
+            backgroundColor: '#fff',
+            border: '2px solid #dc3545',
+            borderRadius: '10px',
+            padding: '15px 20px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+            maxWidth: '400px',
+            animation: 'slideIn 0.3s ease-out'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
+            <span style={{ color: '#dc3545', fontWeight: '500' }}>{searchError}</span>
+            <button
+              onClick={() => setSearchError(null)}
+              style={{
+                background: 'none',
+                border: 'none',
+                fontSize: '20px',
+                cursor: 'pointer',
+                color: '#666',
+                padding: '0 5px'
+              }}
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
