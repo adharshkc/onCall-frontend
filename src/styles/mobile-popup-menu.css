@@ -1,0 +1,334 @@
+/*/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+} Styles */
+
+/* Overlay when mobile menu is open */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1050;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile popup container */
+.mobile-popup-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-color: white;
+  width: 85%;
+  max-width: 350px;
+  height: 100vh;
+  box-shadow: 5px 0 25px -5px rgba(0, 0, 0, 0.2);
+  z-index: 1051;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.mobile-popup-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+/* Popup header with logo and close button */
+.mobile-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  /* background-color: var(--primary-color, #1F2B6C); */
+}
+
+.mobile-popup-header .navbar-brand {
+  margin: 0;
+}
+
+.mobile-close-btn {
+  background: transparent;
+  border: none;
+  color: black;
+  font-size: 24px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  position: relative;
+  right: -10px;
+}
+
+.mobile-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Search box in popup */
+.mobile-search-wrapper {
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
+}
+
+/* Navigation menu in popup - full width */
+.mobile-popup-menu .nav-menu-wrapper {
+  padding: 0;
+  width: 100%;
+}
+
+.mobile-popup-menu .navbar-nav {
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-popup-menu .nav-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.mobile-popup-menu .nav-item:last-child {
+  border-bottom: none;
+}
+
+.mobile-popup-menu .nav-link {
+  color: #333 !important;
+  padding: 15px 20px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s;
+  font-weight: 500;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mobile-popup-menu .nav-link:hover,
+.mobile-popup-menu .nav-link:focus {
+  background-color: rgba(0, 0, 0, 0.03);
+  color: var(--primary-color, #1F2B6C) !important;
+}
+
+.mobile-popup-menu .nav-link.active {
+  color: var(--accent-color, #FF6B35) !important;
+  font-weight: 600;
+}
+
+/* Dropdown icon animation */
+.mobile-popup-menu .dropdown-icon {
+  transition: transform 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  color: #666;
+}
+
+.mobile-popup-menu .nav-link:hover .dropdown-icon {
+  color: var(--primary-color, #1F2B6C);
+}
+
+.mobile-popup-menu .submenu.show .dropdown-icon,
+.mobile-popup-menu .mega-menu.show .dropdown-icon {
+  transform: rotate(180deg);
+  color: var(--primary-color, #1F2B6C);
+}
+
+/* Submenu dropdowns inside popup - Full width accordion style */
+.mobile-popup-menu .submenu ul,
+.mobile-popup-menu .mega-menu-content {
+  background-color: #fff !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: none; /* Hide by default */
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out;
+  width: 100%;
+}
+
+.mobile-popup-menu .submenu.show ul,
+.mobile-popup-menu .mega-menu.show .mega-menu-content {
+  display: flex !important;
+  flex-direction: column !important;
+  max-height: 2000px; /* Large enough to fit content */
+}
+
+.mobile-popup-menu .submenu ul li a {
+  padding: 12px 20px 12px 40px !important;
+  font-size: 14px !important;
+  color: #444 !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Full width accordion style for mega menu */
+.mobile-popup-menu .mega-menu-columns {
+  display: block !important;
+  padding: 0 !important;
+  width: 100% !important;
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+
+.mobile-popup-menu .mega-menu-column {
+  margin-bottom: 0 !important;
+  width: 100% !important;
+  border-bottom: none !important;
+  display: block !important;
+}
+
+.mobile-popup-menu .mega-menu-title {
+  color: #333 !important;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  font-size: 15px;
+  padding: 14px 20px;
+  margin: 0;
+  font-weight: 600;
+  width: 100%;
+  display: block;
+  text-align: left;
+}
+
+.mobile-popup-menu .mega-menu-column .nav-link {
+  padding: 12px 20px 12px 40px !important;
+  font-size: 14px !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  color: #444 !important;
+  font-weight: 400;
+  width: 100%;
+  box-sizing: border-box;
+  display: block !important;
+}
+
+.mobile-popup-menu .mega-menu-column .nav-link:hover,
+.mobile-popup-menu .mega-menu-column .nav-link:focus {
+  background-color: rgba(0, 0, 0, 0.02);
+  color: var(--accent-color, #FF6B35) !important;
+}
+
+.mobile-popup-menu .mega-menu-column ul {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.mobile-popup-menu .mega-menu-column ul li {
+  width: 100%;
+}
+
+.mobile-popup-menu .mega-menu-column ul li:last-child .nav-link {
+  border-bottom: none;
+}
+
+.mobile-popup-menu .explore-all-link .nav-link {
+  color: var(--accent-color, #FF6B35) !important;
+  font-weight: 500;
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  background-color: rgba(255, 107, 53, 0.05);
+  text-align: center;
+  justify-content: center;
+}
+
+/* Highlighted menu item styling */
+.mobile-popup-menu .highlighted-menu .nav-link {
+  background-color: var(--accent-color, #FF6B35);
+  color: white !important;
+  font-weight: 600;
+  margin: 15px 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(255, 107, 53, 0.2);
+}
+
+.mobile-popup-menu .highlighted-menu .nav-link:hover {
+  background-color: var(--primary-color, #1F2B6C);
+  color: white !important;
+}
+
+/* Scrollbar styling for popup menu */
+.mobile-popup-menu::-webkit-scrollbar {
+  width: 5px;
+}
+
+.mobile-popup-menu::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.mobile-popup-menu::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+}
+
+.mobile-popup-menu::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+/* Animation keyframes for drawer entry */
+@keyframes drawerSlideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Accessibility improvements */
+.mobile-close-btn:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+/* Prevent body scroll when popup is active */
+body.mobile-menu-open {
+  overflow: hidden;
+  touch-action: none;
+}

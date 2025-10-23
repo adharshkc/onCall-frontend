@@ -164,13 +164,11 @@ const ServiceDetailsPage = () => {
     setSelectedLocationForModal(location);
 
     try {
-      const response = await axios.get(`${API_URL}/locations/postcodes`, {
+      const response = await axios.get(`${API_URL}/locations/postcodes/geonames`, {
         params: {
-          lat: location.lat,
-          lng: location.lng,
-          radius: 5000,
-          countryCode: 'gb',
-          limit: 50
+          placeName: location.name,
+          countryCode: 'GB',
+          maxRows: 50
         }
       });
 
@@ -208,12 +206,14 @@ const ServiceDetailsPage = () => {
         zipcodes: zipcodes
       });
 
-      if (response.data.success) {
+      if (response.status==200) {
         toast.success('Location zipcodes saved successfully!');
         // Update local service state
         setService({ ...service, zipcodes: zipcodes });
+        // Close the modal and reset state
         setIsLocationModalOpen(false);
         setSelectedLocationForModal(null);
+        setAvailablePostcodes([]);
         setSearchQuery("");
       }
     } catch (error) {

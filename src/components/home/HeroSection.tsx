@@ -126,18 +126,20 @@ const HeroSection = () => {
                 <div className="hero-content-box">
                   {/* Section Title Start */}
                   <div className="section-title">
-                    <h3 className="wow fadeInUp">Discover the power of premium</h3>
+                    {/* <h3 className="wow fadeInUp">Discover the power of premium</h3> */}
                     <h1 className="text-anime-style-2" data-cursor="-opaque">
-                      Delivering compassionate, memorable care in the comfort of your own home — because your home is your life.
+                      Oncall
+                      <br />
+                      We care for you
                     </h1>
+                    <h5 className="text-anime-style-2 none">Home care and housing support service</h5>
                   </div>
                   {/* Section Title End */}
 
                   {/* Hero Content Circle Start */}
                   <div className="hero-content-circle">
                     <p className="wow fadeInUp" data-wow-delay="0.2s">
-                      At our senior care community, we understand that aging is a deeply personal journey. 
-                      That&apos;s why we focus on a holistic, resident-centered care that nurtures the mind, body, and spirit.
+                      Delivering compassionate, memorable care in the comfort of your own home — because your home is your life.
                     </p>
                     
                     {/* Search Box Start */}

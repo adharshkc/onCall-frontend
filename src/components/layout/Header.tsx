@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import axios from '@/lib/api';
 import { Service } from '@/types/service';
 import { API_URL } from '@/config/api';
+import '@/styles/mobile-popup-menu.css';
 
 interface SearchResults {
   postcode?: string;
@@ -83,6 +84,19 @@ const Header = () => {
     const onScroll = () => {
       const shouldStick = window.scrollY > 10;
       stickyEl.classList.toggle('active', shouldStick);
+      
+      // Add additional styling for sticky header
+      if (shouldStick) {
+        stickyEl.style.position = 'fixed';
+        stickyEl.style.width = '100%';
+        stickyEl.style.zIndex = '1000';
+        stickyEl.style.top = '0';
+        stickyEl.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
+        stickyEl.style.backgroundColor = '#fff';
+      } else {
+        stickyEl.style.position = '';
+        stickyEl.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+      }
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -164,22 +178,56 @@ const Header = () => {
     });
   };
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add('mobile-menu-open');
+    } else {
+      document.body.classList.remove('mobile-menu-open');
+    }
+    
+    return () => {
+      document.body.classList.remove('mobile-menu-open');
+    };
+  }, [isMenuOpen]);
+
   const handleMegaMenuClick = (e: React.MouseEvent) => {
-    // On mobile, prevent navigation to allow expanding the mega menu
-    if (!isDesktop()) {
+    // Only prevent navigation when specifically clicking the dropdown icon
+    // or when on mobile and interacting with the menu toggle
+    if ((e.target as HTMLElement).closest('.dropdown-icon') || !isDesktop()) {
       e.preventDefault();
+      
+      // Close any other open dropdown
+      if (!isMegaMenuOpen) {
+        setIsWhyUsDropdownOpen(false);
+      }
+      
       setIsMegaMenuOpen((v) => !v);
     } else {
-      // On desktop, follow the link; ensure hover state closes
+      // Follow the link; ensure hover state closes
       setIsMegaMenuOpen(false);
     }
   };
 
   // Keyboard support for toggle on mobile
   const handleMegaMenuKeyDown = (e: React.KeyboardEvent) => {
-    if (!isDesktop() && (e.key === 'Enter' || e.key === ' ')) {
-      e.preventDefault();
-      setIsMegaMenuOpen((v) => !v);
+    // When pressing Enter or Space on the dropdown icon, toggle the menu
+    if (e.key === 'Enter' || e.key === ' ') {
+      // Check if the user is interacting with the dropdown icon
+      if ((e.target as HTMLElement).closest('.dropdown-icon')) {
+        e.preventDefault();
+        
+        // Close any other open dropdown
+        if (!isMegaMenuOpen) {
+          setIsWhyUsDropdownOpen(false);
+        }
+        
+        setIsMegaMenuOpen((v) => !v);
+      } else if (!isDesktop()) {
+        // On mobile, if pressing Enter/Space on the link itself (not the dropdown icon)
+        // Close the menu and allow navigation
+        setIsMenuOpen(false);
+      }
     }
   };
 
@@ -187,6 +235,12 @@ const Header = () => {
     // On mobile, prevent navigation to allow expanding the dropdown
     if (!isDesktop()) {
       e.preventDefault();
+      
+      // Close any other open dropdown
+      if (!isWhyUsDropdownOpen) {
+        setIsMegaMenuOpen(false);
+      }
+      
       setIsWhyUsDropdownOpen((v) => !v);
     } else {
       // On desktop, follow the link; ensure hover state closes
@@ -197,6 +251,12 @@ const Header = () => {
   const handleWhyUsDropdownKeyDown = (e: React.KeyboardEvent) => {
     if (!isDesktop() && (e.key === 'Enter' || e.key === ' ')) {
       e.preventDefault();
+      
+      // Close any other open dropdown
+      if (!isWhyUsDropdownOpen) {
+        setIsMegaMenuOpen(false);
+      }
+      
       setIsWhyUsDropdownOpen((v) => !v);
     }
   };
@@ -325,58 +385,198 @@ const Header = () => {
     <header className="main-header bg-section">
       <div className="header-sticky" ref={navRef}>
         <nav className="navbar navbar-expand-lg">
-          <div className="container-fluid">
-            {/* Logo Start */}
+          <div className="container-fluid d-flex justify-content-between align-items-center">
+            {/* Logo Start - Left Side */}
             <Link className={`navbar-brand ${isMenuOpen ? 'd-none d-lg-block' : ''}`} href="/">
-              <Image src="/public/images/logo.png" alt="On Call" width={150} height={50} priority />
+              <Image src="/images/logo.png" alt="On Call" width={150} height={50} priority />
             </Link>
             {/* Logo End */}
 
-            {/* Main Menu Start */}
-            <div className={`collapse navbar-collapse main-menu ${isMenuOpen ? 'show' : ''}`}>
-              <div className="nav-menu-wrapper">
-                {/* Mobile Menu Header (Close button) */}
-                <div className="d-lg-none d-flex justify-content-between align-items-center px-3 py-2">
-                  <Link className="navbar-brand m-0" href="/" onClick={() => { setIsMenuOpen(false); setIsMegaMenuOpen(false); setIsWhyUsDropdownOpen(false); }}>
-                    <Image src="/public/images/logo.png" alt="On Call" width={120} height={40} />
-                  </Link>
-                  <button
-                    type="button"
-                    className="btn btn-link text-dark p-0 mobile-close-btn"
-                    aria-label="Close menu"
-                    onClick={() => { setIsMenuOpen(false); setIsMegaMenuOpen(false); setIsWhyUsDropdownOpen(false); }}
-                    style={{
-                      fontSize: '2rem',
-                      lineHeight: 1,
-                      width: 48,
-                      height: 48,
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      borderRadius: '50%'
-                    }}
-                  >
-                    <svg 
-                      width="24" 
-                      height="24" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
+            {/* Main Menu Start - Desktop Only */}
+            <div className="collapse navbar-collapse main-menu d-none d-lg-flex align-items-center justify-content-between">
+              {/* Navigation links in the middle */}
+              <div className="mx-auto" style={{ display: 'flex', justifyContent: 'center' }}>
+                <ul className="navbar-nav d-flex" id="menu" style={{ flexDirection: 'row' }}>
+                  <li className="nav-item">
+                    <Link 
+                      className={`nav-link ${isActiveLink('/') ? 'active' : ''}`} 
+                      href="/"
                     >
-                      <path 
-                        d="M18 6L6 18M6 6L18 18" 
-                        stroke="currentColor" 
-                        strokeWidth="2" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                </div>
+                      Home
+                    </Link>
+                  </li>
+                  <li
+                    className={`nav-item submenu mega-menu ${isMegaMenuOpen ? 'show' : ''}`}
+                    onMouseEnter={() => setIsMegaMenuOpen(true)}
+                    onMouseLeave={() => setIsMegaMenuOpen(false)}
+                  >
+                    <Link 
+                      className={`nav-link ${isActiveLink('/services') ? 'active' : ''}`} 
+                      href="/services"
+                      onClick={(e) => {
+                        // Only prevent default if the user is trying to open the mega menu
+                        // Allow navigation when clicking the main part of the link
+                        if (isDesktop() && (e.target as HTMLElement).closest('.dropdown-icon')) {
+                          e.preventDefault();
+                        }
+                      }}
+                      aria-haspopup="true"
+                      aria-expanded={isMegaMenuOpen}
+                      role="button"
+                    >
+                      Types Of Care
+                      <span className="dropdown-icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <polyline points="6 9 12 15 18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                    </Link>
+                    <div
+                      className="mega-menu-content"
+                      style={{ display: isMegaMenuOpen ? 'block' : 'none' }}
+                    >
+                      <div className="mega-menu-columns">
+                        <div className="mega-menu-column">
+                          <h4 className="mega-menu-title">
+                            <i className="fas fa-home"></i> Home Care
+                          </h4>
+                          {servicesLoading ? (
+                            <ul>
+                              <li className="nav-item">
+                                <span className="nav-link">
+                                  <i className="fas fa-spinner fa-spin"></i> Loading services...
+                                </span>
+                              </li>
+                            </ul>
+                          ) : displayHomeCareServices.length === 0 ? (
+                            <ul>
+                              <li className="nav-item">
+                                <span className="nav-link">No services available</span>
+                              </li>
+                            </ul>
+                          ) : (
+                            <ul>
+                              {displayHomeCareServices.slice(0, 8).map((service) => (
+                                <li key={service.id} className="nav-item">
+                                  <Link 
+                                    className="nav-link" 
+                                    href={`/services/${service.slug}`}
+                                  >
+                                    <i className={`fas fa-${getServiceIcon(service.name)}`}></i> {service.name}
+                                  </Link>
+                                </li>
+                              ))}
+                              <li className="nav-item explore-all-link">
+                                <Link className="nav-link" href="/services">
+                                  Explore all home care →
+                                </Link>
+                              </li>
+                            </ul>
+                          )}
+                        </div>
+                        <div className="mega-menu-column">
+                          <h4 className="mega-menu-title">
+                            <i className="fas fa-brain"></i> Specialist Care
+                          </h4>
+                          {servicesLoading ? (
+                            <ul>
+                              <li className="nav-item">
+                                <span className="nav-link">
+                                  <i className="fas fa-spinner fa-spin"></i> Loading services...
+                                </span>
+                              </li>
+                            </ul>
+                          ) : displaySpecialistServices.length === 0 ? (
+                            <ul>
+                              <li className="nav-item">
+                                <span className="nav-link">No services available</span>
+                              </li>
+                            </ul>
+                          ) : (
+                            <ul>
+                              {displaySpecialistServices.slice(0, 7).map((service) => (
+                                <li key={service.id} className="nav-item">
+                                  <Link className="nav-link" href={`/services/${service.slug}`}>
+                                    <i className={`fas fa-${getServiceIcon(service.name)}`}></i> {service.name}
+                                  </Link>
+                                </li>
+                              ))}
+                              <li className="nav-item explore-all-link">
+                                <Link className="nav-link" href="/services">
+                                  Explore all specialized care →
+                                </Link>
+                              </li>
+                            </ul>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li
+                    className={`nav-item submenu ${isWhyUsDropdownOpen ? 'show' : ''}`}
+                    onMouseEnter={() => setIsWhyUsDropdownOpen(true)}
+                    onMouseLeave={() => setIsWhyUsDropdownOpen(false)}
+                  >
+                    <Link 
+                      className={`nav-link ${isActiveLink('/why-us') ? 'active' : ''}`} 
+                      href="/why-us"
+                      aria-haspopup="true"
+                      aria-expanded={isWhyUsDropdownOpen}
+                      role="button"
+                    >
+                      Why Us?
+                      <span className="dropdown-icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <polyline points="6 9 12 15 18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                    </Link>
+                    <ul style={{ display: isWhyUsDropdownOpen ? 'block' : 'none' }}>
+                      <li className="nav-item">
+                        <Link className="nav-link" href="/why-us#our-values">
+                          <i className="fas fa-heart"></i> Our Values
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" href="/why-us#quality-care">
+                          <i className="fas fa-certificate"></i> Quality Care
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" href="/why-us#experienced-team">
+                          <i className="fas fa-users"></i> Experienced Team
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" href="/why-us#testimonials">
+                          <i className="fas fa-comment-dots"></i> Testimonials
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
+                  <li className="nav-item">
+                    <Link 
+                      className={`nav-link ${isActiveLink('/about') ? 'active' : ''}`} 
+                      href="/about"
+                    >
+                      About Us
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link 
+                      className={`nav-link ${isActiveLink('/careers') ? 'active' : ''}`} 
+                      href="/careers"
+                    >
+                      Careers
+                    </Link>
+                  </li>
+                </ul>
+              </div>
 
-                {/* Mobile Search Box */}
-                <div className="mobile-search-box d-lg-none px-3 py-3" style={{ borderBottom: '1px solid rgba(0,0,0,0.1)' }}>
+              {/* Search and Contact Us on the right */}
+              <div className="d-flex align-items-center">
+                {/* Header Search Box - Desktop Only */}
+                <div className="header-search-box d-flex align-items-center me-3" style={{ flex: '0 0 auto', maxWidth: '320px' }}>
                   <div className="search-input-wrapper" style={{ 
                     display: 'flex', 
                     gap: '8px', 
@@ -384,8 +584,7 @@ const Header = () => {
                     backgroundColor: 'rgba(255, 255, 255, 0.95)',
                     borderRadius: '25px',
                     padding: '6px 12px',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                    border: '1px solid rgba(0,0,0,0.1)'
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
                   }}>
                     <input
                       type="text"
@@ -395,7 +594,7 @@ const Header = () => {
                       placeholder="Enter postcode..."
                       style={{
                         flex: 1,
-                        padding: '10px 14px',
+                        padding: '8px 12px',
                         border: 'none',
                         borderRadius: '20px',
                         fontSize: '14px',
@@ -408,7 +607,7 @@ const Header = () => {
                       onClick={handleSearch}
                       disabled={isSearching}
                       style={{
-                        padding: '10px 18px',
+                        padding: '8px 16px',
                         backgroundColor: '#FF6B35',
                         color: 'white',
                         border: 'none',
@@ -422,7 +621,7 @@ const Header = () => {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        minWidth: '48px'
+                        minWidth: '42px'
                       }}
                       aria-label="Search"
                     >
@@ -479,8 +678,168 @@ const Header = () => {
                     </button>
                   </div>
                 </div>
+                {/* Header Search Box End */}
 
-                <ul className="navbar-nav mr-auto" id="menu">
+                {/* Header Btn Start */}
+                <div className="header-btn">
+                  <Link href="/contact" className="btn-default">
+                    Contact Us 
+                  </Link>
+                </div>
+                {/* Header Btn End */}
+              </div>
+            </div>
+            {/* Main Menu End - Desktop */}
+            
+            {/* Mobile Menu Popup Overlay */}
+            <div 
+              className={`mobile-menu-overlay ${isMenuOpen ? 'active' : ''}`}
+              onClick={() => {
+                setIsMenuOpen(false);
+                setIsMegaMenuOpen(false);
+                setIsWhyUsDropdownOpen(false);
+              }}
+            ></div>
+            
+            {/* Mobile Menu Popup Container */}
+            <div className={`mobile-popup-menu ${isMenuOpen ? 'active' : ''}`}>
+              {/* Mobile Popup Header */}
+              <div className="mobile-popup-header">
+                <Link className="navbar-brand m-0" href="/" onClick={() => { setIsMenuOpen(false); }}>
+                  <Image src="/images/logo.png" alt="On Call" width={120} height={40} />
+                </Link>
+                <button
+                  type="button"
+                  className="mobile-close-btn"
+                  aria-label="Close menu"
+                  onClick={() => { setIsMenuOpen(false); }}
+                >
+                  <svg 
+                    width="24" 
+                    height="24" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path 
+                      d="M18 6L6 18M6 6L18 18" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Mobile Search Box */}
+              <div className="mobile-search-wrapper">
+                <div className="search-input-wrapper" style={{ 
+                  display: 'flex', 
+                  gap: '8px', 
+                  width: '100%',
+                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                  borderRadius: '25px',
+                  padding: '6px 12px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  border: '1px solid rgba(0,0,0,0.1)'
+                }}>
+                  <input
+                    type="text"
+                    value={zipcode}
+                    onChange={(e) => setZipcode(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Enter postcode..."
+                    style={{
+                      flex: 1,
+                      padding: '10px 14px',
+                      border: 'none',
+                      borderRadius: '20px',
+                      fontSize: '14px',
+                      backgroundColor: 'transparent',
+                      color: '#333',
+                      outline: 'none'
+                    }}
+                  />
+                  <button
+                    onClick={handleSearch}
+                    disabled={isSearching}
+                    style={{
+                      padding: '10px 18px',
+                      backgroundColor: '#FF6B35',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '20px',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      cursor: isSearching ? 'not-allowed' : 'pointer',
+                      opacity: isSearching ? 0.7 : 1,
+                      transition: 'all 0.3s ease',
+                      whiteSpace: 'nowrap',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minWidth: '48px'
+                    }}
+                    aria-label="Search"
+                  >
+                    {isSearching ? (
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        xmlns="http://www.w3.org/2000/svg"
+                        style={{ animation: 'spin 1s linear infinite' }}
+                      >
+                        <circle 
+                          cx="12" 
+                          cy="12" 
+                          r="10" 
+                          stroke="currentColor" 
+                          strokeWidth="3" 
+                          strokeLinecap="round"
+                          strokeDasharray="32"
+                          strokeDashoffset="8"
+                          opacity="0.25"
+                        />
+                        <path 
+                          d="M12 2a10 10 0 0 1 10 10" 
+                          stroke="currentColor" 
+                          strokeWidth="3" 
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    ) : (
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle 
+                          cx="11" 
+                          cy="11" 
+                          r="8" 
+                          stroke="currentColor" 
+                          strokeWidth="2"
+                        />
+                        <path 
+                          d="M21 21l-4.35-4.35" 
+                          stroke="currentColor" 
+                          strokeWidth="2" 
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Mobile Nav Menu */}
+              <div className="nav-menu-wrapper">
+                <ul className="navbar-nav mr-auto" id="mobile-menu">
                   <li className="nav-item">
                     <Link 
                       className={`nav-link ${isActiveLink('/') ? 'active' : ''}`} 
@@ -492,18 +851,21 @@ const Header = () => {
                   </li>
                   <li
                     className={`nav-item submenu mega-menu ${isMegaMenuOpen ? 'show' : ''}`}
-                    onMouseEnter={() => {
-                      if (isDesktop()) setIsMegaMenuOpen(true);
-                    }}
-                    onMouseLeave={() => {
-                      if (isDesktop()) setIsMegaMenuOpen(false);
-                    }}
-                    data-mobile-scrollable="true" /* Add attribute to identify this as a scrollable section */
+                    data-mobile-scrollable="true"
                   >
                     <Link 
                       className={`nav-link ${isActiveLink('/services') ? 'active' : ''}`} 
                       href="/services"
-                      onClick={handleMegaMenuClick}
+                      onClick={(e) => {
+                        // If clicking on the dropdown icon, toggle the menu
+                        // Otherwise allow navigation to services page
+                        if ((e.target as HTMLElement).closest('.dropdown-icon')) {
+                          handleMegaMenuClick(e);
+                        } else if (!isDesktop()) {
+                          // Close the menu and allow navigation
+                          setIsMenuOpen(false);
+                        }
+                      }}
                       onKeyDown={handleMegaMenuKeyDown}
                       aria-haspopup="true"
                       aria-expanded={isMegaMenuOpen}
@@ -525,6 +887,7 @@ const Header = () => {
                       }}
                     >
                       <div className="mega-menu-columns">
+                        {/* Home Care Section - Full Width */}
                         <div className="mega-menu-column">
                           <h4 className="mega-menu-title">
                             <i className="fas fa-home"></i> Home Care
@@ -568,6 +931,10 @@ const Header = () => {
                             </ul>
                           )}
                         </div>
+                      </div>
+
+                      {/* Specialist Care Section - Full Width */}
+                      <div className="mega-menu-columns">
                         <div className="mega-menu-column">
                           <h4 className="mega-menu-title">
                             <i className="fas fa-brain"></i> Specialist Care
@@ -616,12 +983,6 @@ const Header = () => {
                   </li>
                   <li
                     className={`nav-item submenu ${isWhyUsDropdownOpen ? 'show' : ''}`}
-                    onMouseEnter={() => {
-                      if (isDesktop()) setIsWhyUsDropdownOpen(true);
-                    }}
-                    onMouseLeave={() => {
-                      if (isDesktop()) setIsWhyUsDropdownOpen(false);
-                    }}
                   >
                     <Link 
                       className={`nav-link ${isActiveLink('/why-us') ? 'active' : ''}`} 
@@ -696,7 +1057,7 @@ const Header = () => {
                       Careers
                     </Link>
                   </li>
-                  <li className="nav-item highlighted-menu">
+                  <li className="nav-item">
                     <Link 
                       className="nav-link" 
                       href="/contact"
@@ -707,134 +1068,19 @@ const Header = () => {
                   </li>
                 </ul>
               </div>
-
-              {/* Header Search Box Start - Desktop Only */}
-              <div className="header-search-box d-none d-lg-flex align-items-center me-3" style={{ flex: '0 0 auto', maxWidth: '320px' }}>
-                <div className="search-input-wrapper" style={{ 
-                  display: 'flex', 
-                  gap: '8px', 
-                  width: '100%',
-                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                  borderRadius: '25px',
-                  padding: '6px 12px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-                }}>
-                  <input
-                    type="text"
-                    value={zipcode}
-                    onChange={(e) => setZipcode(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    placeholder="Enter postcode..."
-                    style={{
-                      flex: 1,
-                      padding: '8px 12px',
-                      border: 'none',
-                      borderRadius: '20px',
-                      fontSize: '14px',
-                      backgroundColor: 'transparent',
-                      color: '#333',
-                      outline: 'none'
-                    }}
-                  />
-                  <button
-                    onClick={handleSearch}
-                    disabled={isSearching}
-                    style={{
-                      padding: '8px 16px',
-                      backgroundColor: '#FF6B35',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '20px',
-                      fontSize: '16px',
-                      fontWeight: '600',
-                      cursor: isSearching ? 'not-allowed' : 'pointer',
-                      opacity: isSearching ? 0.7 : 1,
-                      transition: 'all 0.3s ease',
-                      whiteSpace: 'nowrap',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      minWidth: '42px'
-                    }}
-                    aria-label="Search"
-                  >
-                    {isSearching ? (
-                      <svg 
-                        width="18" 
-                        height="18" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        xmlns="http://www.w3.org/2000/svg"
-                        style={{ animation: 'spin 1s linear infinite' }}
-                      >
-                        <circle 
-                          cx="12" 
-                          cy="12" 
-                          r="10" 
-                          stroke="currentColor" 
-                          strokeWidth="3" 
-                          strokeLinecap="round"
-                          strokeDasharray="32"
-                          strokeDashoffset="8"
-                          opacity="0.25"
-                        />
-                        <path 
-                          d="M12 2a10 10 0 0 1 10 10" 
-                          stroke="currentColor" 
-                          strokeWidth="3" 
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                    ) : (
-                      <svg 
-                        width="18" 
-                        height="18" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle 
-                          cx="11" 
-                          cy="11" 
-                          r="8" 
-                          stroke="currentColor" 
-                          strokeWidth="2"
-                        />
-                        <path 
-                          d="M21 21l-4.35-4.35" 
-                          stroke="currentColor" 
-                          strokeWidth="2" 
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                    )}
-                  </button>
-                </div>
-              </div>
-              {/* Header Search Box End */}
-
-              {/* Header Btn Start */}
-              <div className="header-btn">
-                <Link href="/contact" className="btn-default">
-                  Contact Us 
-                </Link>
-              </div>
-              {/* Header Btn End */}
             </div>
-            {/* Main Menu End */}
+            {/* Mobile Popup Menu End */}
 
             {/* Mobile Menu Toggle */}
-            {!isMenuOpen && (
-              <button
-                className={`navbar-toggler ${isMenuOpen ? 'active' : ''}`}
-                type="button"
-                aria-label="Toggle navigation"
-                aria-expanded={isMenuOpen}
-                onClick={toggleMobileMenu}
-              >
-                <span className="navbar-toggler-icon"></span>
-              </button>
-            )}
+            <button
+              className={`navbar-toggler ${isMenuOpen ? 'active' : ''}`}
+              type="button"
+              aria-label="Toggle navigation"
+              aria-expanded={isMenuOpen}
+              onClick={toggleMobileMenu}
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
           </div>
         </nav>
         <div className="responsive-menu"></div>

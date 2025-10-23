@@ -1,6 +1,6 @@
 /* Navigation Alignment Fix */
 .navbar-nav .nav-item {
-  display: flex;
+  /* display: flex; */
   align-items: center;
 }
 

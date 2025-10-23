@@ -18,6 +18,9 @@
 /* Import additional styles for compatibility */
 @import '../../styles/animate.css';
 @import '../../styles/navbar-custom.css';
+@import '../../styles/mobile-popup-menu.css';
+@import '../../styles/dropdown-fixes.css';
+@import '../../styles/desktop-overrides.css';
 @import '../../styles/pages.css';
 
 /* Additional base styles for compatibility */

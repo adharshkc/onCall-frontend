@@ -1,0 +1,17 @@
+/* Desktop mega menu overrides */
+@media (min-width: 992px) {
+  /* Reset mobile styles for desktop */
+  .main-menu .mega-menu-content {
+    display: block !important;
+  }
+  
+  .main-menu .mega-menu-columns {
+    display: flex !important;
+    flex-direction: row !important;
+  }
+  
+  .main-menu .mega-menu-column {
+    width: auto !important;
+    flex: 1 !important;
+  }
+}

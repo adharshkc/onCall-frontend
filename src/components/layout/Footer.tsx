@@ -12,7 +12,7 @@ const Footer = () => {
             <div className="about-footer">
               {/* Footer Logo Start */}
               <div className="footer-logo">
-                <Image src="/images/footer-logo.svg" alt="On Call Footer Logo" width={150} height={50} />
+                <Image src="/images/logo.png" alt="On Call Footer Logo" width={150} height={50} />
               </div>
               {/* Footer Logo End */}
 
@@ -100,9 +100,10 @@ const Footer = () => {
           <div className="col-lg-12">
             {/* Footer Copyright Start */}
             <div className="footer-copyright">
+                <p style={{color:"#fff"}}>Developed by Qubyt Codes</p>
               {/* Footer Copyright Text Start */}
               <div className="footer-copyright-text">
-                <p>Copyright © 2025 All Rights Reserved.</p>
+                <p>Copyright © 2025 On Call Services All Rights Reserved.</p>
               </div>
               {/* Footer Copyright Text End */}
 
