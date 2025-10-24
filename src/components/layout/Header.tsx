@@ -562,14 +562,14 @@ const Header = () => {
                       About Us
                     </Link>
                   </li>
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <Link 
                       className={`nav-link ${isActiveLink('/careers') ? 'active' : ''}`} 
                       href="/careers"
                     >
                       Careers
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
 
@@ -1048,7 +1048,7 @@ const Header = () => {
                       About Us
                     </Link>
                   </li>
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <Link 
                       className={`nav-link ${isActiveLink('/careers') ? 'active' : ''}`} 
                       href="/careers"
@@ -1056,7 +1056,7 @@ const Header = () => {
                     >
                       Careers
                     </Link>
-                  </li>
+                  </li> */}
                   <li className="nav-item">
                     <Link 
                       className="nav-link" 

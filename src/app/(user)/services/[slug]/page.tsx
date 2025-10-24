@@ -44,9 +44,11 @@ export default function ServiceDetailPage({ params }: ServiceDetailPageProps) {
     // Load all services from JSON
     const services = servicesData.services as Service[];
     setAllServices(services);
+        console.log('Fetched services:', params.slug);
 
     // Find the specific service by slug
-    const foundService = services.find(s => s.slug === params.slug);
+    const foundService = services.find(s => s.slug == params.slug);
+        console.log('Fetched services:');
     setService(foundService || null);
     setLoading(false);
   }, [params.slug]);
