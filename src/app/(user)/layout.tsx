@@ -11,6 +11,7 @@ import Footer from "@/components/layout/Footer";
 import Preloader from "@/components/layout/Preloader";
 import ScrollAnimator from "@/components/utils/ScrollAnimator";
 
+
 const lora = Lora({
   variable: "--font-lora",
   subsets: ["latin"],
