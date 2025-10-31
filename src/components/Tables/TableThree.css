@@ -2,8 +2,8 @@
 
 /* Root CSS Variables for colors based on the theme */
 :root {
-  --primary: #273A29;
-  --primary-hover: #273A29e6; /* 90% opacity */
+  --primary: #2D326C;
+  --primary-hover: #2D326Ce6; /* 90% opacity */
   --white: #ffffff;
   --black: #000000;
   --gray-2: #f3f4f6;

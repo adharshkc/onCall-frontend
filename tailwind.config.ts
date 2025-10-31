@@ -11,13 +11,13 @@ const config: Config = {
         
       colors: {
         primary: {
-          DEFAULT: '#273A29',
+          DEFAULT: '#2D326C',
           50: '#f4f6f4',
           100: '#e8ede9',
           200: '#c6d4c8',
           300: '#a4bba7',
           400: '#608965',
-          500: '#273A29',
+          500: '#2D326C',
           600: '#233425',
           700: '#1d2b1e',
           800: '#172218',
@@ -55,7 +55,7 @@ const config: Config = {
           dark: '#424242',
         },
         divider: {
-          DEFAULT: '#273A291A',
+          DEFAULT: '#2D326C1A',
           dark: '#FFFFFF1A',
         },
         error: '#E65757',

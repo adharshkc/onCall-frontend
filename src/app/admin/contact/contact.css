@@ -15,8 +15,8 @@
   animation: spin 1s linear infinite; /* animate-spin */
   border-radius: 50%; /* rounded-full */
   border: 2px solid transparent;
-  border-top: 2px solid #273A29; /* border-t-2 border-primary */
-  border-bottom: 2px solid #273A29; /* border-b-2 border-primary */
+  border-top: 2px solid #2D326C; /* border-t-2 border-primary */
+  border-bottom: 2px solid #2D326C; /* border-b-2 border-primary */
 }
 
 @keyframes spin {
@@ -125,7 +125,7 @@
 
 .breadcrumb-item-current {
   font-weight: 500; /* font-medium */
-  color: #273A29; /* text-primary */
+  color: #2D326C; /* text-primary */
 }
 
 /* Table Container - These styles would typically be in TableThree.css but adding here for completeness */
@@ -161,7 +161,7 @@
 /* Focus states for accessibility */
 .loading-spinner:focus,
 .modal-field-row:focus-within {
-  outline: 2px solid #273A29;
+  outline: 2px solid #2D326C;
   outline-offset: 2px;
 }
 
@@ -185,7 +185,7 @@
 @media (prefers-reduced-motion: reduce) {
   .loading-spinner {
     animation: none;
-    border: 2px solid #273A29;
+    border: 2px solid #2D326C;
   }
 }
 

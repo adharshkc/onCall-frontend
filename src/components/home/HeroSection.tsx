@@ -131,8 +131,10 @@ const HeroSection = () => {
                       Oncall
                       <br />
                       We care for you
+                      <br />
+                      <span style={{}}>Home care and housing support service</span>
                     </h1>
-                    <h5 className="text-anime-style-2 none">Home care and housing support service</h5>
+                    <h5 className="text-anime-style-2"></h5>
                   </div>
                   {/* Section Title End */}
 
