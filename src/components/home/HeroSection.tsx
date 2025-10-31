@@ -177,7 +177,7 @@ const HeroSection = () => {
                           disabled={isSearching}
                           style={{
                             padding: '12px 24px',
-                            backgroundColor: '#FF6B35',
+                            backgroundColor: '#46bdec',
                             color: 'white',
                             border: 'none',
                             borderRadius: '10px',
@@ -325,7 +325,7 @@ const HeroSection = () => {
                           <div
                             key={index}
                             style={{
-                              border: '2px solid #FF6B35',
+                              border: '2px solid #46bdec',
                               borderRadius: '15px',
                               padding: '20px',
                               backgroundColor: '#fff'
@@ -356,7 +356,7 @@ const HeroSection = () => {
                                     display: 'inline-block',
                                     marginTop: '12px',
                                     padding: '8px 16px',
-                                    backgroundColor: '#FF6B35',
+                                    backgroundColor: '#46bdec',
                                     color: 'white',
                                     textDecoration: 'none',
                                     borderRadius: '8px',
@@ -456,7 +456,7 @@ const HeroSection = () => {
                         style={{
                           display: 'inline-block',
                           padding: '12px 24px',
-                          backgroundColor: '#FF6B35',
+                          backgroundColor: '#46bdec',
                           color: 'white',
                           textDecoration: 'none',
                           borderRadius: '10px',

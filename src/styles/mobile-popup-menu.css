@@ -126,7 +126,7 @@
 }
 
 .mobile-popup-menu .nav-link.active {
-  color: var(--accent-color, #FF6B35) !important;
+  color: var(--accent-color, #46bdec) !important;
   font-weight: 600;
 }
 
@@ -224,7 +224,7 @@
 .mobile-popup-menu .mega-menu-column .nav-link:hover,
 .mobile-popup-menu .mega-menu-column .nav-link:focus {
   background-color: rgba(0, 0, 0, 0.02);
-  color: var(--accent-color, #FF6B35) !important;
+  color: var(--accent-color, #46bdec) !important;
 }
 
 .mobile-popup-menu .mega-menu-column ul {
@@ -242,7 +242,7 @@
 }
 
 .mobile-popup-menu .explore-all-link .nav-link {
-  color: var(--accent-color, #FF6B35) !important;
+  color: var(--accent-color, #46bdec) !important;
   font-weight: 500;
   padding-top: 15px !important;
   padding-bottom: 15px !important;
@@ -253,7 +253,7 @@
 
 /* Highlighted menu item styling */
 .mobile-popup-menu .highlighted-menu .nav-link {
-  background-color: var(--accent-color, #FF6B35);
+  background-color: var(--accent-color, #46bdec);
   color: white !important;
   font-weight: 600;
   margin: 15px 20px;

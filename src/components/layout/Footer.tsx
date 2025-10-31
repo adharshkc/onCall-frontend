@@ -1,10 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { FaInstagram, FaFacebookF, FaLinkedinIn, FaDribbble } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="main-footer bg-section dark-section" style={{background:"#e2a76f"}}>
+    <footer className="main-footer bg-section dark-section" style={{ background: "#1a1a2e" }}>
       <div className="container">
         <div className="row">
           <div className="col-lg-4">
@@ -23,7 +24,7 @@ const Footer = () => {
               {/* About Footer Content End */}
 
               {/* Footer Social Link Start */}
-              
+
               {/* Footer Social Link End */}
             </div>
             {/* About Footer End */}
@@ -53,7 +54,7 @@ const Footer = () => {
 
           <div className="col-lg-2 col-md-6">
             {/* Footer Links Start */}
-            <div className="footer-links">
+            <div className="footer-links" style={{}}>
               <h3>Quick Links</h3>
               <ul>
                 <li><Link href="/">Home</Link></li>
@@ -68,27 +69,27 @@ const Footer = () => {
           <div className="col-lg-3">
             {/* Footer Newsletter Box Start */}
             <div className="footer-newsletter-box footer-links">
-               <h3>Social Links</h3>
+              <h3>Social Links</h3>
               <div className="footer-social-links">
                 <ul>
                   <li>
                     <a href="#" target="_blank" rel="noopener noreferrer">
-                      <i className="fa-brands fa-instagram"></i>
+                      <FaInstagram />
                     </a>
                   </li>
                   <li>
                     <a href="#" target="_blank" rel="noopener noreferrer">
-                      <i className="fa-brands fa-facebook-f"></i>
+                      <FaFacebookF />
                     </a>
                   </li>
                   <li>
                     <a href="#" target="_blank" rel="noopener noreferrer">
-                      <i className="fa-brands fa-linkedin-in"></i>
+                      <FaLinkedinIn />
                     </a>
                   </li>
                   <li>
                     <a href="#" target="_blank" rel="noopener noreferrer">
-                      <i className="fa-brands fa-dribbble"></i>
+                      <FaDribbble />
                     </a>
                   </li>
                 </ul>
@@ -100,7 +101,7 @@ const Footer = () => {
           <div className="col-lg-12">
             {/* Footer Copyright Start */}
             <div className="footer-copyright">
-                <p style={{color:"#fff"}}>Developed by Qubyt Codes</p>
+              <p style={{ color: "#fff" }}>Developed by Qubyt Codes</p>
               {/* Footer Copyright Text Start */}
               <div className="footer-copyright-text">
                 <p>Copyright © 2025 On Call Services All Rights Reserved.</p>

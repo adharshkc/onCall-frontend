@@ -26,13 +26,13 @@
 @layer base {
   /* Global CSS Variables */
   :root {
-    --primary-color: #2D326C;
+    --primary-color: #2c2c6c;
     --secondary-color: #F5F5F5;
     --bg-color: #FFFFFF;
     --text-color: #757575;
-    --accent-color: #E2A76F;
+    --accent-color: #46bdec;
     --white-color: #FFFFFF;
-    --divider-color: #2D326C1A;
+    --divider-color: #2c2c6c1A;
     --dark-divider-color: #FFFFFF1A;
     --error-color: rgb(230, 87, 87);
     --default-font: "Plus Jakarta Sans", sans-serif;

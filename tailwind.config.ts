@@ -11,13 +11,13 @@ const config: Config = {
         
       colors: {
         primary: {
-          DEFAULT: '#2D326C',
+          DEFAULT: '#2c2c6c',
           50: '#f4f6f4',
           100: '#e8ede9',
           200: '#c6d4c8',
           300: '#a4bba7',
           400: '#608965',
-          500: '#2D326C',
+          500: '#2c2c6c',
           600: '#233425',
           700: '#1d2b1e',
           800: '#172218',
@@ -37,13 +37,13 @@ const config: Config = {
           900: '#787878',
         },
         accent: {
-          DEFAULT: '#E2A76F',
+          DEFAULT: '#46bdec',
           50: '#fdf9f5',
           100: '#fbf3eb',
           200: '#f5dfcd',
           300: '#efcbaf',
           400: '#e5a373',
-          500: '#E2A76F',
+          500: '#46bdec',
           600: '#cb9663',
           700: '#aa7e52',
           800: '#886542',
@@ -55,7 +55,7 @@ const config: Config = {
           dark: '#424242',
         },
         divider: {
-          DEFAULT: '#2D326C1A',
+          DEFAULT: '#2c2c6c1A',
           dark: '#FFFFFF1A',
         },
         error: '#E65757',

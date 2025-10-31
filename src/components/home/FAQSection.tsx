@@ -4,6 +4,49 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 const FAQSection = () => {
+  // Add custom styles for the accordion
+  const accordionStyles = `
+    .faq-accordion .accordion-item .accordion-button.collapsed::after {
+      content: '+' !important;
+      font-family: Arial, sans-serif !important;
+      font-size: 18px !important;
+      font-weight: bold !important;
+      line-height: 1 !important;
+      width: 30px !important;
+      height: 30px !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      background: var(--accent-color) !important;
+      border-radius: 50% !important;
+      color: var(--white-color) !important;
+      position: absolute !important;
+      right: 0 !important;
+      top: 0 !important;
+      transition: all 0.3s ease-in-out !important;
+    }
+
+    .faq-accordion .accordion-item .accordion-button:not(.collapsed)::after {
+      content: '−' !important;
+      font-family: Arial, sans-serif !important;
+      font-size: 18px !important;
+      font-weight: bold !important;
+      line-height: 1 !important;
+      width: 30px !important;
+      height: 30px !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      background: var(--primary-color) !important;
+      border-radius: 50% !important;
+      color: var(--white-color) !important;
+      position: absolute !important;
+      right: 0 !important;
+      top: 0 !important;
+      transition: all 0.3s ease-in-out !important;
+    }
+  `;
+
   const [activeItem, setActiveItem] = useState(1); // Default to second item being open
 
   const faqItems = [
@@ -39,8 +82,10 @@ const FAQSection = () => {
   };
 
   return (
-    <div className="our-faqs">
-      <div className="container">
+    <>
+      <style>{accordionStyles}</style>
+      <div className="our-faqs">
+        <div className="container">
         <div className="row">
           <div className="col-lg-6">
             {/* FAQs Content Start */}
@@ -99,7 +144,8 @@ const FAQSection = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

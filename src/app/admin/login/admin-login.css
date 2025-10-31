@@ -7,13 +7,13 @@
 /* CSS Custom Properties from Tailwind Config */
 :root {
   --primary-50: #f4f6f4;
-  --primary-500: #2D326C;
+  --primary-500: #2c2c6c;
   --primary-600: #233425;
   --primary-700: #1d2b1e;
   --secondary-50: #fefefe;
   --accent-100: #fbf3eb;
   --accent-400: #e5a373;
-  --accent-500: #E2A76F;
+  --accent-500: #46bdec;
   --accent-600: #cb9663;
 }
 
@@ -170,7 +170,7 @@
   font-weight: 700;
   color: var(--primary-600);
   margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, #2D326C 0%, #1d2b1e 100%);
+  background: linear-gradient(135deg, #2c2c6c 0%, #1d2b1e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -291,7 +291,7 @@
 }
 
 .admin-submit-btn:hover {
-  background: linear-gradient(135deg, #1d2b1e 0%, #2D326C 50%, #233425 100%);
+  background: linear-gradient(135deg, #1d2b1e 0%, #2c2c6c 50%, #233425 100%);
   transform: translateY(-2px);
   box-shadow: 
     0 8px 25px rgba(39, 58, 41, 0.3),
@@ -432,12 +432,12 @@
 
 /* Focus management for accessibility */
 .admin-form-input:focus-visible {
-  outline: 2px solid #2D326C;
+  outline: 2px solid #2c2c6c;
   outline-offset: 2px;
 }
 
 .admin-submit-btn:focus-visible {
-  outline: 2px solid #E2A76F;
+  outline: 2px solid #46bdec;
   outline-offset: 2px;
 }
 

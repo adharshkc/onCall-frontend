@@ -2,8 +2,8 @@
 
 /* Root CSS Variables for colors and design tokens */
 :root {
-  --primary: #2D326C;
-  --primary-hover: #2D326Ccc; /* 80% opacity */
+  --primary: #2c2c6c;
+  --primary-hover: #2c2c6ccc; /* 80% opacity */
   --white: #ffffff;
   --black: #000000;
   --gray-100: #f3f4f6;
