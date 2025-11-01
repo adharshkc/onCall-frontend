@@ -59,7 +59,7 @@ const HeroSection = () => {
         includeNearby: true
       });
 
-     console.log(response.data) 
+      console.log(response.data)
       setSearchResults(response.data);
       setShowResults(true);
     } catch (err) {
@@ -130,9 +130,8 @@ const HeroSection = () => {
                     <h1 className="text-anime-style-2" data-cursor="-opaque">
                       Oncall
                       <br />
-                      We care for you
-                      <br />
-                      <span style={{}}>Home care and housing support service</span>
+                      <h2 style={{color:"white", fontSize:'28px', fontWeight: "500", marginTop:"6px"}}>We care for you</h2>
+                        <h5 style={{ color: "white", fontSize: "22px", fontWeight: "400" , marginTop:"10px"}}>Home care and housing support service</h5>
                     </h1>
                     <h5 className="text-anime-style-2"></h5>
                   </div>
@@ -143,12 +142,12 @@ const HeroSection = () => {
                     <p className="wow fadeInUp" data-wow-delay="0.2s">
                       Delivering compassionate, memorable care in the comfort of your own home — because your home is your life.
                     </p>
-                    
+
                     {/* Search Box Start */}
                     <div className="search-box-container wow fadeInUp" data-wow-delay="0.3s" style={{ marginBottom: '20px' }}>
-                      <div className="search-box" style={{ 
-                        display: 'flex', 
-                        gap: '10px', 
+                      <div className="search-box" style={{
+                        display: 'flex',
+                        gap: '10px',
                         padding: '20px',
                         backgroundColor: 'rgba(255, 255, 255, 0.1)',
                         borderRadius: '15px',
@@ -191,7 +190,7 @@ const HeroSection = () => {
                           {isSearching ? 'Searching...' : 'Search Services'}
                         </button>
                       </div>
-                      
+
                       {/* Search Error */}
                       {searchError && (
                         <div style={{
@@ -256,7 +255,7 @@ const HeroSection = () => {
 
             {/* Search Results Modal/Overlay Start */}
             {showResults && searchResults && (
-              <div 
+              <div
                 className="search-results-overlay"
                 style={{
                   position: 'fixed',
@@ -273,7 +272,7 @@ const HeroSection = () => {
                 }}
                 onClick={closeResults}
               >
-                <div 
+                <div
                   className="search-results-modal"
                   style={{
                     backgroundColor: 'white',
@@ -393,10 +392,10 @@ const HeroSection = () => {
                           >
                             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '15px' }}>
                               {result.service.icon && (
-                                <Image 
-                                  src={result.service.icon} 
-                                  alt="" 
-                                  width={50} 
+                                <Image
+                                  src={result.service.icon}
+                                  alt=""
+                                  width={50}
                                   height={50}
                                   style={{ borderRadius: '8px' }}
                                 />
@@ -417,7 +416,7 @@ const HeroSection = () => {
                                   )}
                                   <div><strong>Postcode:</strong> {result.postcode}</div>
                                 </div>
-                                <Link 
+                                <Link
                                   href={`/services/${result.service.slug}`}
                                   style={{
                                     display: 'inline-block',
@@ -451,7 +450,7 @@ const HeroSection = () => {
                       <p style={{ color: '#666', fontSize: '16px', marginBottom: '20px' }}>
                         No services are currently available for postcode {searchResults.postcode}.
                       </p>
-                      <Link 
+                      <Link
                         href="/contact"
                         style={{
                           display: 'inline-block',

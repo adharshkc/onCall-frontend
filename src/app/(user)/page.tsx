@@ -13,16 +13,25 @@ export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    // Show popup after a short delay when page loads
-    const timer = setTimeout(() => {
-      setShowPopup(true);
-    }, 1000); // 1 second delay
+    // Check if popup was shown today
+    const lastShown = localStorage.getItem('welcomePopupLastShown');
+    const today = new Date().toDateString();
 
-    return () => clearTimeout(timer);
+    if (lastShown !== today) {
+      // Show popup after a short delay when page loads
+      const timer = setTimeout(() => {
+        setShowPopup(true);
+      }, 1000); // 1 second delay
+
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   const handleClosePopup = () => {
     setShowPopup(false);
+    // Store today's date in localStorage
+    const today = new Date().toDateString();
+    localStorage.setItem('welcomePopupLastShown', today);
   };
 
   return (

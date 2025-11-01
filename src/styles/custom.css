@@ -2885,7 +2885,7 @@ header.main-header .header-sticky.active{
 
 .page-header{
 	position: relative;
-	background: var(--accent-color) url('/images/page-header-bg.png') no-repeat;
+	background: var(--primary-color) url('/images/page-header-bg.png') no-repeat;
 	background-position: top center;
 	background-size: 100% auto;
 	padding: 145px 0;

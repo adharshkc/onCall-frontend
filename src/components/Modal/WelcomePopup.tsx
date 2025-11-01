@@ -1,5 +1,6 @@
 "use client";
 import styles from './WelcomePopup.module.css';
+import Image from 'next/image';
 
 interface WelcomePopupProps {
   isOpen: boolean;
@@ -36,16 +37,41 @@ const WelcomePopup: React.FC<WelcomePopupProps> = ({ isOpen, onClose }) => {
 
           {/* Content */}
           <div className={styles.content}>
+            {/* Text Content */}
+            <div className={styles.textContent}>
+              {/* First line - lighter text */}
+              {/* <p className={styles.introText}>
+                You call us &ldquo;On Call&rdquo;
+              </p>
+              <p className={styles.introText}>
+                so we are moving to
+              </p> */}
 
-            {/* Brand Name */}
-            <h1 className={styles.brandName}>
-              On Call
-            </h1>
+              {/* Brand Name - bold and larger */}
+              <h1 className={styles.brandName} style= {{marginBottom: '0rem'}}>
+                ON CALL<sup className={styles.trademark}>®</sup>
+              </h1>
+              <p className={styles.introText}>
+                We care for you
+              </p>
 
-            {/* Title */}
-            <h2 className={styles.title}>
-              Temporary Recruitment Agency / Staffing Solutions
-            </h2>
+              {/* Title */}
+              <h2 className={styles.title}>
+                Temporary Recruitment Agency / Staffing Solutions
+              </h2>
+            </div>
+
+            {/* HR Illustration */}
+            <div className={styles.imageWrapper}>
+              <Image 
+                src="/images/hr.png" 
+                alt="HR Recruitment Illustration"
+                width={600}
+                height={300}
+                className={styles.hrImage}
+                priority
+              />
+            </div>
           </div>
         </div>
       </div>
