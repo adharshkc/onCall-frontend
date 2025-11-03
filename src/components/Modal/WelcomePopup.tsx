@@ -1,14 +1,55 @@
 "use client";
+import { useState, useEffect } from 'react';
 import styles from './WelcomePopup.module.css';
 import Image from 'next/image';
+import { API_URL } from '@/config/api';
 
 interface WelcomePopupProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+interface PopupConfig {
+  enabled: boolean;
+  title: string;
+  content: string;
+  buttonText: string;
+}
+
 const WelcomePopup: React.FC<WelcomePopupProps> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
+  const [popupConfig, setPopupConfig] = useState<PopupConfig | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPopupConfig = async () => {
+      try {
+        const response = await fetch(`${API_URL}/settings/popup_config/value`);
+        const { data } = await response.json();
+        
+        if (data && data.enabled) {
+          setPopupConfig(data);
+        }
+      } catch (error) {
+        console.error('Error fetching popup config:', error);
+        // Fallback to default config if API fails
+        setPopupConfig({
+          enabled: true,
+          title: 'ON CALL®',
+          content: 'Temporary Recruitment Agency / Staffing Solutions',
+          buttonText: 'Close'
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (isOpen) {
+      fetchPopupConfig();
+    }
+  }, [isOpen]);
+
+  if (!isOpen || loading) return null;
+  if (!popupConfig || !popupConfig.enabled) return null;
 
   return (
     <div className={styles.overlay}>
@@ -39,17 +80,9 @@ const WelcomePopup: React.FC<WelcomePopupProps> = ({ isOpen, onClose }) => {
           <div className={styles.content}>
             {/* Text Content */}
             <div className={styles.textContent}>
-              {/* First line - lighter text */}
-              {/* <p className={styles.introText}>
-                You call us &ldquo;On Call&rdquo;
-              </p>
-              <p className={styles.introText}>
-                so we are moving to
-              </p> */}
-
               {/* Brand Name - bold and larger */}
-              <h1 className={styles.brandName} style= {{marginBottom: '0rem'}}>
-                ON CALL<sup className={styles.trademark}>®</sup>
+              <h1 className={styles.brandName} style={{marginBottom: '0rem'}}>
+                {popupConfig.title}
               </h1>
               <p className={styles.introText}>
                 We care for you
@@ -57,7 +90,7 @@ const WelcomePopup: React.FC<WelcomePopupProps> = ({ isOpen, onClose }) => {
 
               {/* Title */}
               <h2 className={styles.title}>
-                Temporary Recruitment Agency / Staffing Solutions
+                {popupConfig.content}
               </h2>
             </div>
 
