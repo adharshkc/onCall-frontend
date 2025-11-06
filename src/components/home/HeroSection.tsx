@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import axios from '@/lib/api';
@@ -108,6 +108,89 @@ const HeroSection = () => {
     }
   };
 
+  // Detect small screens to switch to stacked (vertical) layout for the search box
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = () => window.matchMedia && window.matchMedia('(max-width: 640px)').matches;
+    const update = () => setIsMobile(mq());
+
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
+  // computed styles to switch layout on small screens
+  const searchBoxInnerStyle: React.CSSProperties = isMobile
+    ? {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+        padding: '16px',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        borderRadius: '12px',
+        backdropFilter: 'blur(8px)',
+        border: '1px solid rgba(255, 255, 255, 0.2)'
+      }
+    : {
+        display: 'flex',
+        gap: '10px',
+        padding: '20px',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        borderRadius: '15px',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(255, 255, 255, 0.2)'
+      };
+
+  const inputStyle: React.CSSProperties = isMobile
+    ? {
+        width: '100%',
+        padding: '12px 16px',
+        border: '2px solid rgba(255, 255, 255, 0.3)',
+        borderRadius: '10px',
+        fontSize: '16px',
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        color: '#333',
+        outline: 'none'
+      }
+    : {
+        flex: 1,
+        padding: '12px 16px',
+        border: '2px solid rgba(255, 255, 255, 0.3)',
+        borderRadius: '10px',
+        fontSize: '16px',
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        color: '#333',
+        outline: 'none'
+      };
+
+  const buttonStyle: React.CSSProperties = isMobile
+    ? {
+        width: '100%',
+        padding: '12px 16px',
+        backgroundColor: '#46bdec',
+        color: 'white',
+        border: 'none',
+        borderRadius: '10px',
+        fontSize: '16px',
+        fontWeight: '600',
+        cursor: isSearching ? 'not-allowed' : 'pointer',
+        opacity: isSearching ? 0.7 : 1,
+        transition: 'all 0.3s ease'
+      }
+    : {
+        padding: '12px 24px',
+        backgroundColor: '#46bdec',
+        color: 'white',
+        border: 'none',
+        borderRadius: '10px',
+        fontSize: '16px',
+        fontWeight: '600',
+        cursor: isSearching ? 'not-allowed' : 'pointer',
+        opacity: isSearching ? 0.7 : 1,
+        transition: 'all 0.3s ease'
+      };
+
   const closeResults = () => {
     setShowResults(false);
     setSearchResults(null);
@@ -145,48 +228,16 @@ const HeroSection = () => {
 
                     {/* Search Box Start */}
                     <div className="search-box-container wow fadeInUp" data-wow-delay="0.3s" style={{ marginBottom: '20px' }}>
-                      <div className="search-box" style={{
-                        display: 'flex',
-                        gap: '10px',
-                        padding: '20px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                        borderRadius: '15px',
-                        backdropFilter: 'blur(10px)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)'
-                      }}>
+                      <div className="search-box" style={searchBoxInnerStyle}>
                         <input
                           type="text"
                           value={zipcode}
                           onChange={(e) => setZipcode(e.target.value)}
                           onKeyPress={handleKeyPress}
                           placeholder="Enter your postcode (e.g., M1 1AA)"
-                          style={{
-                            flex: 1,
-                            padding: '12px 16px',
-                            border: '2px solid rgba(255, 255, 255, 0.3)',
-                            borderRadius: '10px',
-                            fontSize: '16px',
-                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                            color: '#333',
-                            outline: 'none'
-                          }}
+                          style={inputStyle}
                         />
-                        <button
-                          onClick={handleSearch}
-                          disabled={isSearching}
-                          style={{
-                            padding: '12px 24px',
-                            backgroundColor: '#46bdec',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '10px',
-                            fontSize: '16px',
-                            fontWeight: '600',
-                            cursor: isSearching ? 'not-allowed' : 'pointer',
-                            opacity: isSearching ? 0.7 : 1,
-                            transition: 'all 0.3s ease'
-                          }}
-                        >
+                        <button onClick={handleSearch} disabled={isSearching} style={buttonStyle}>
                           {isSearching ? 'Searching...' : 'Search Services'}
                         </button>
                       </div>
