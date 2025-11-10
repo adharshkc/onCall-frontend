@@ -686,6 +686,11 @@ const Header = () => {
                     Contact Us 
                   </Link>
                 </div>
+                <div className="header-btn" style={{marginLeft:"5px"}}>
+                  <Link href="/" className="btn-default">
+                    New Button
+                  </Link>
+                </div>
                 {/* Header Btn End */}
               </div>
             </div>
@@ -1064,6 +1069,15 @@ const Header = () => {
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Contact Us 
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link 
+                      className="nav-link" 
+                      href="/"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      new button
                     </Link>
                   </li>
                 </ul>

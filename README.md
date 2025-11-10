@@ -1,122 +1,95 @@
-# Carely - Senior Care Next.js Website
+# onCall — Senior Care Staffing & Recruitment
 
-This is a Next.js conversion of the Carely senior care HTML template. The website provides information about senior care services and allows users to book appointments.
+_We care for you_
 
-## Features
+onCall is a staffing and recruiting agency focused on matching qualified caregivers, nurses, and support staff with senior care providers and families. This repository contains the Next.js frontend for the onCall website — a responsive marketing site with pages for services, careers, contact, and client/staff requests.
 
-- 🚀 **Next.js 15** with App Router
-- 🎨 **Tailwind CSS** for styling
-- 💻 **TypeScript** for type safety
-- 📱 **Responsive Design**
-- 🎭 **Custom CSS animations** from the original template
-- 📝 **Contact and appointment booking forms**
-- 🖼️ **Optimized images** with Next.js Image component
+## Highlights
 
-## Pages
+- 🚀 Built with Next.js 15 (App Router)
+- 🎨 Tailwind CSS for utility-first styling
+- 💻 TypeScript for type safety
+- 📱 Responsive, accessible components
+- 🧭 Clear content structure for staffing/recruiting workflows
 
-- **Home** (`/`) - Main landing page with hero, services, about, and FAQ sections
-- **About** (`/about`) - Information about Carely's mission and values
-- **Services** (`/services`) - Overview of all care services offered
-- **Contact** (`/contact`) - Contact form and contact information
-- **Book Appointment** (`/book-appointment`) - Appointment booking form
+## Pages (what to expect)
 
-## Getting Started
+- **Home** (`/`) — Landing page with overview, services, and call-to-action for clients and candidates
+- **About** (`/about`) — onCall mission, values, and team
+- **Services** (`/services`) — Staffing solutions (temporary, long-term, credentialed nurses, carers)
+- **Careers** (`/careers`) — Job listings and application flow for candidates
+- **Contact** (`/contact`) — Contact form and agency details
+- **Request Staff** (`/request-staff`) — Form for facilities or families to request staffing support
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+## Getting started
 
-2. **Run the development server:**
-   ```bash
-   npm run dev
-   ```
+1. Install dependencies:
 
-3. **Open your browser:**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+```bash
+npm install
+```
 
-## Project Structure
+2. Run the development server:
+
+```bash
+npm run dev
+```
+
+3. Open your browser at http://localhost:3000
+
+## Project structure (high level)
 
 ```
 src/
-├── app/                    # Next.js App Router pages
-│   ├── about/             # About page
-│   ├── book-appointment/  # Appointment booking page
-│   ├── contact/           # Contact page
-│   ├── services/          # Services page
-│   ├── layout.tsx         # Root layout with fonts and metadata
-│   ├── page.tsx           # Home page
-│   └── globals.css        # Global styles
-├── components/            # React components
-│   ├── home/              # Home page components
-│   │   ├── AboutSection.tsx
-│   │   ├── CTASection.tsx
-│   │   ├── FAQSection.tsx
-│   │   ├── HeroSection.tsx
-│   │   ├── ServicesSection.tsx
-│   │   └── WhyChooseSection.tsx
-│   └── layout/            # Layout components
-│       ├── Footer.tsx
-│       ├── Header.tsx
-│       └── Preloader.tsx
-├── styles/                # Custom CSS files
-│   ├── animate.css        # Animation styles
-│   └── custom.css         # Custom component styles
-└── public/                # Static assets
-    ├── images/            # Images from original template
-    └── webfonts/          # Web fonts
+├── app/                    # Next.js App Router pages and layouts
+│   ├── about/
+│   ├── careers/
+│   ├── contact/
+│   ├── request-staff/      # Request staff / client intake form
+│   ├── layout.tsx
+│   └── page.tsx            # Home page
+├── components/             # Reusable React components (Header, Footer, Forms)
+├── styles/                 # Global and utility CSS
+└── public/                 # Static assets (images, fonts)
 ```
 
 ## Customization
 
-### Styling
-- Custom styles are in `src/styles/custom.css`
-- Tailwind CSS classes can be used throughout components
-- Font Awesome icons are included via CDN in `globals.css`
+- Update agency copy, contact info, and job postings in the components and pages under `src/app`.
+- Tailwind classes are used throughout; customize `tailwind.config.ts` for brand colors.
+- Replace images in `public/images/` to reflect your brand.
 
-### Content
-- Update company information in the components
-- Modify contact details in the Header and Footer components
-- Add or remove services in the Services section
+## Workflows and content tips
 
-### Images
-- All images are stored in `public/images/`
-- Images are optimized using Next.js Image component
-- Replace images with your own while maintaining the same file structure
+- Services should list role types (e.g., Certified Nursing Assistant, Registered Nurse, Caregiver) and highlight certifications and vetting process.
+- Careers page should link to an application form that captures CV, certifications, availability, and references.
 
 ## Dependencies
 
-### Core
+Core dependencies used by this frontend:
+
 - Next.js 15
 - React 18
 - TypeScript
-
-### Styling & UI
 - Tailwind CSS
-- Bootstrap (via CDN)
-- Font Awesome (via CDN)
 
-### Animations & Effects
-- Framer Motion
-- AOS (Animate On Scroll)
-- GSAP
-- Swiper.js
+Other libraries used in the project may include animation, charting, or form helpers depending on pages implemented.
 
-### Fonts
-- Lora (serif) - for headings
-- Plus Jakarta Sans (sans-serif) - for body text
-
-## Build for Production
+## Build for production
 
 ```bash
 npm run build
 npm start
 ```
 
-## Original Template
+## Notes
 
-This Next.js version is based on the Carely HTML template, maintaining the original design while adding modern React functionality and improved performance.
+- This repo was originally adapted from a marketing template; content and assets have been repurposed for onCall. If you are using third-party template assets, please verify licensing before commercial use.
 
-## License
+If you'd like, I can also:
 
-This project is for demonstration purposes. Please ensure you have proper licensing for any commercial use of the original template assets.
+- Rename the repo/package metadata to match `onCall` (package.json) and update site metadata files.
+- Add a short CONTRIBUTING.md or CODE_OF_CONDUCT for hiring/candidate contributors.
+
+---
+Updated README to reflect onCall branding and staffing/recruiting focus.

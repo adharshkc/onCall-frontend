@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <>
-      {showPopup && <ToastWelcomePopup onClose={handleClosePopup} />}
+      {/* {showPopup && <ToastWelcomePopup onClose={handleClosePopup} />} */}
       
       <HeroSection />
       <AboutSection />
