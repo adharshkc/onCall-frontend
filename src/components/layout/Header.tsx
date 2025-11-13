@@ -688,7 +688,7 @@ const Header = () => {
                 </div>
                 <div className="header-btn" style={{marginLeft:"5px"}}>
                   <Link href="/" className="btn-default">
-                    New Button
+                    Hr
                   </Link>
                 </div>
                 {/* Header Btn End */}
