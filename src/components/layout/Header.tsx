@@ -394,9 +394,9 @@ const Header = () => {
 
             {/* Main Menu Start - Desktop Only */}
             <div className="collapse navbar-collapse main-menu d-none d-lg-flex align-items-center justify-content-between">
-              {/* Navigation links in the middle */}
-              <div className="mx-auto" style={{ display: 'flex', justifyContent: 'center' }}>
-                <ul className="navbar-nav d-flex" id="menu" style={{ flexDirection: 'row' }}>
+              {/* Navigation links (left-aligned near the logo on desktop) */}
+              <div style={{ display: 'flex', justifyContent: 'flex-start', marginRight: 'auto', gap: '12px', alignItems: 'center' }}>
+                <ul className="navbar-nav d-flex" id="menu" style={{ flexDirection: 'row', gap: '8px' }}>
                   <li className="nav-item">
                     <Link 
                       className={`nav-link ${isActiveLink('/') ? 'active' : ''}`} 
@@ -404,6 +404,56 @@ const Header = () => {
                     >
                       Home
                     </Link>
+                  </li>
+                   <li className="nav-item">
+                    <Link 
+                      className={`nav-link ${isActiveLink('/about') ? 'active' : ''}`} 
+                      href="/about"
+                    >
+                      About Us
+                    </Link>
+                  </li>
+                   <li
+                    className={`nav-item submenu ${isWhyUsDropdownOpen ? 'show' : ''}`}
+                    onMouseEnter={() => setIsWhyUsDropdownOpen(true)}
+                    onMouseLeave={() => setIsWhyUsDropdownOpen(false)}
+                  >
+                    <Link 
+                      className={`nav-link ${isActiveLink('/why-us') ? 'active' : ''}`} 
+                      href="/why-us"
+                      aria-haspopup="true"
+                      aria-expanded={isWhyUsDropdownOpen}
+                      role="button"
+                    >
+                      Why On Call?
+                      <span className="dropdown-icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <polyline points="6 9 12 15 18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                    </Link>
+                    <ul style={{ display: isWhyUsDropdownOpen ? 'block' : 'none' }}>
+                      <li className="nav-item">
+                        <Link className="nav-link" href="/why-us#our-values">
+                          <i className="fas fa-heart"></i> Our Values
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" href="/why-us#quality-care">
+                          <i className="fas fa-certificate"></i> Quality Care
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" href="/why-us#experienced-team">
+                          <i className="fas fa-users"></i> Experienced Team
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" href="/why-us#testimonials">
+                          <i className="fas fa-comment-dots"></i> Testimonials
+                        </Link>
+                      </li>
+                    </ul>
                   </li>
                   <li
                     className={`nav-item submenu mega-menu ${isMegaMenuOpen ? 'show' : ''}`}
@@ -512,64 +562,16 @@ const Header = () => {
                       </div>
                     </div>
                   </li>
-                  <li
-                    className={`nav-item submenu ${isWhyUsDropdownOpen ? 'show' : ''}`}
-                    onMouseEnter={() => setIsWhyUsDropdownOpen(true)}
-                    onMouseLeave={() => setIsWhyUsDropdownOpen(false)}
-                  >
-                    <Link 
-                      className={`nav-link ${isActiveLink('/why-us') ? 'active' : ''}`} 
-                      href="/why-us"
-                      aria-haspopup="true"
-                      aria-expanded={isWhyUsDropdownOpen}
-                      role="button"
-                    >
-                      Why Us?
-                      <span className="dropdown-icon" aria-hidden="true">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <polyline points="6 9 12 15 18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </span>
-                    </Link>
-                    <ul style={{ display: isWhyUsDropdownOpen ? 'block' : 'none' }}>
-                      <li className="nav-item">
-                        <Link className="nav-link" href="/why-us#our-values">
-                          <i className="fas fa-heart"></i> Our Values
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link className="nav-link" href="/why-us#quality-care">
-                          <i className="fas fa-certificate"></i> Quality Care
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link className="nav-link" href="/why-us#experienced-team">
-                          <i className="fas fa-users"></i> Experienced Team
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link className="nav-link" href="/why-us#testimonials">
-                          <i className="fas fa-comment-dots"></i> Testimonials
-                        </Link>
-                      </li>
-                    </ul>
-                  </li>
+                 
+                 
                   <li className="nav-item">
                     <Link 
-                      className={`nav-link ${isActiveLink('/about') ? 'active' : ''}`} 
-                      href="/about"
+                      className={`nav-link ${isActiveLink('/contact') ? 'active' : ''}`} 
+                      href="/contact"
                     >
-                      About Us
+                      Contact Us
                     </Link>
                   </li>
-                  {/* <li className="nav-item">
-                    <Link 
-                      className={`nav-link ${isActiveLink('/careers') ? 'active' : ''}`} 
-                      href="/careers"
-                    >
-                      Careers
-                    </Link>
-                  </li> */}
                 </ul>
               </div>
 
@@ -681,14 +683,14 @@ const Header = () => {
                 {/* Header Search Box End */}
 
                 {/* Header Btn Start */}
-                <div className="header-btn">
+                {/* <div className="header-btn">
                   <Link href="/contact" className="btn-default">
                     Contact Us 
                   </Link>
-                </div>
+                </div> */}
                 <div className="header-btn" style={{marginLeft:"5px"}}>
                   <Link href="/" className="btn-default">
-                    Hr
+                    HR
                   </Link>
                 </div>
                 {/* Header Btn End */}
@@ -854,6 +856,73 @@ const Header = () => {
                       Home
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link 
+                      className={`nav-link ${isActiveLink('/about') ? 'active' : ''}`} 
+                      href="/about"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      About Us
+                    </Link>
+                  </li>
+                  <li
+                    className={`nav-item submenu ${isWhyUsDropdownOpen ? 'show' : ''}`}
+                  >
+                    <Link 
+                      className={`nav-link ${isActiveLink('/why-us') ? 'active' : ''}`} 
+                      href="/why-us"
+                      onClick={handleWhyUsDropdownClick}
+                      onKeyDown={handleWhyUsDropdownKeyDown}
+                      aria-haspopup="true"
+                      aria-expanded={isWhyUsDropdownOpen}
+                      role="button"
+                    >
+                      Why On Call?
+                      <span className="dropdown-icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <polyline points="6 9 12 15 18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                    </Link>
+                    <ul style={{ display: isWhyUsDropdownOpen ? 'block' : 'none' }}>
+                      <li className="nav-item">
+                        <Link 
+                          className="nav-link" 
+                          href="/why-us#our-values"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <i className="fas fa-heart"></i> Our Values
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link 
+                          className="nav-link" 
+                          href="/why-us#quality-care"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <i className="fas fa-certificate"></i> Quality Care
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link 
+                          className="nav-link" 
+                          href="/why-us#experienced-team"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <i className="fas fa-users"></i> Experienced Team
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link 
+                          className="nav-link" 
+                          href="/why-us#testimonials"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <i className="fas fa-comment-dots"></i> Testimonials
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
                   <li
                     className={`nav-item submenu mega-menu ${isMegaMenuOpen ? 'show' : ''}`}
                     data-mobile-scrollable="true"
@@ -986,83 +1055,18 @@ const Header = () => {
                       </div>
                     </div>
                   </li>
-                  <li
-                    className={`nav-item submenu ${isWhyUsDropdownOpen ? 'show' : ''}`}
-                  >
-                    <Link 
-                      className={`nav-link ${isActiveLink('/why-us') ? 'active' : ''}`} 
-                      href="/why-us"
-                      onClick={handleWhyUsDropdownClick}
-                      onKeyDown={handleWhyUsDropdownKeyDown}
-                      aria-haspopup="true"
-                      aria-expanded={isWhyUsDropdownOpen}
-                      role="button"
-                    >
-                      Why Us?
-                      <span className="dropdown-icon" aria-hidden="true">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <polyline points="6 9 12 15 18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </span>
-                    </Link>
-                    <ul style={{ display: isWhyUsDropdownOpen ? 'block' : 'none' }}>
-                      <li className="nav-item">
-                        <Link 
-                          className="nav-link" 
-                          href="/why-us#our-values"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          <i className="fas fa-heart"></i> Our Values
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link 
-                          className="nav-link" 
-                          href="/why-us#quality-care"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          <i className="fas fa-certificate"></i> Quality Care
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link 
-                          className="nav-link" 
-                          href="/why-us#experienced-team"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          <i className="fas fa-users"></i> Experienced Team
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link 
-                          className="nav-link" 
-                          href="/why-us#testimonials"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          <i className="fas fa-comment-dots"></i> Testimonials
-                        </Link>
-                      </li>
-                    </ul>
-                  </li>
+                  
+                  
                   <li className="nav-item">
                     <Link 
-                      className={`nav-link ${isActiveLink('/about') ? 'active' : ''}`} 
-                      href="/about"
+                      className={`nav-link ${isActiveLink('/contact') ? 'active' : ''}`} 
+                      href="/contact"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      About Us
+                      Contact Us
                     </Link>
                   </li>
-                  {/* <li className="nav-item">
-                    <Link 
-                      className={`nav-link ${isActiveLink('/careers') ? 'active' : ''}`} 
-                      href="/careers"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Careers
-                    </Link>
-                  </li> */}
-                  <li className="nav-item">
+                  {/* <li className="nav-item"> 
                     <Link 
                       className="nav-link" 
                       href="/contact"
@@ -1070,14 +1074,14 @@ const Header = () => {
                     >
                       Contact Us 
                     </Link>
-                  </li>
+                  </li> */}
                   <li className="nav-item">
                     <Link 
                       className="nav-link" 
                       href="/"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      new button
+                      HR
                     </Link>
                   </li>
                 </ul>
