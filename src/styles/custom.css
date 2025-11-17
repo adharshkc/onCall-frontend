@@ -2759,14 +2759,14 @@ header.main-header .header-sticky.active{
 	color: var(--white-color);
 	line-height: normal;
 	margin-bottom: 20px;
-	padding-left: 24px;
+	/* padding-left: 24px; */
 }
 
 .footer-links ul li:last-child{
 	margin-bottom: 0;
 }
 
-.footer-links ul li::before{
+/* .footer-links ul li::before{
 	content: '\2a';
     font-family: 'Font Awesome 6 Free';
     position: absolute;
@@ -2776,7 +2776,7 @@ header.main-header .header-sticky.active{
     font-size: 16px;
     font-weight: 900;
     color: var(--accent-color);
-}
+} */
 
 .footer-links ul li a{
 	color: inherit;

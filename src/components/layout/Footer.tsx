@@ -101,7 +101,7 @@ const Footer = () => {
           <div className="col-lg-12">
             {/* Footer Copyright Start */}
             <div className="footer-copyright">
-              <p style={{ color: "#fff" }}>Developed by <a href="https://www.qubitcodes.com/" target="_blank" style={{color:"white"}} rel="noopener noreferrer">Qubit Codes</a></p>
+              <p style={{ color: "#fff" }}>Developed by <a href="https://www.qubit.codes/" target="_blank" style={{color:"white"}} rel="noopener noreferrer">Qubit Codes</a></p>
               {/* Footer Copyright Text Start */}
               <div className="footer-copyright-text">
                 <p>Copyright © 2025 On Call Services All Rights Reserved.</p>
