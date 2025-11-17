@@ -1076,13 +1076,15 @@ const Header = () => {
                     </Link>
                   </li> */}
                   <li className="nav-item">
-                    <Link 
-                      className="nav-link" 
-                      href="/"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      HR
-                    </Link>
+                    <div className="header-btn" style={{ padding: '12px 0' }}>
+                      <Link
+                        href="/"
+                        className="btn-default"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        HR
+                      </Link>
+                    </div>
                   </li>
                 </ul>
               </div>

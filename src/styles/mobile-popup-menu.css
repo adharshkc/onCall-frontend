@@ -315,3 +315,24 @@ body.mobile-menu-open {
   overflow: hidden;
   touch-action: none;
 }
+
+/* Show header button inside mobile popup — overrides global mobile hide rules */
+.mobile-popup-menu .header-btn{
+  display: block !important;
+  padding: 12px 20px;
+  border-bottom: none;
+}
+
+.mobile-popup-menu .header-btn .btn-default{
+  display: block;
+  width: calc(100% - 40px);
+  margin: 8px 20px;
+  padding: 12px 18px;
+  text-align: center;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.mobile-popup-menu .header-btn .btn-default::before{
+  right: 18px; /* adjust arrow position for smaller button */
+}

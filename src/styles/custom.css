@@ -7128,6 +7128,10 @@ header.main-header .header-sticky.active{
 		width: calc(100% - 65px);
 	}
 
+	header-btn{
+		display: block;
+	}
+
 	.contact-item-content h3{
 		font-size: 18px;
 	}
