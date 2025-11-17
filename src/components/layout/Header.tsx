@@ -1075,7 +1075,7 @@ const Header = () => {
                     </Link>
                   </li> */}
                 <ul className="navbar-nav mr-auto" id="mobile-menu">
-                  ...
+                  
                 </ul>
               </div>
               {/* Mobile footer button — placed outside the scrollable nav so it remains visible */}
