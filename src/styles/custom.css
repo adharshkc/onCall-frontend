@@ -1998,6 +1998,42 @@ header.main-header .header-sticky.active{
 	width: 100%;
 }
 
+/* Mobile-specific HR button adjustments inside the drawer */
+@media only screen and (max-width: 991px){
+	.mobile-popup-menu .header-btn{
+		/* ensure there's comfortable spacing and handle iOS safe area */
+		padding: 8px 0 12px;
+		background: #fff;
+	}
+
+	.mobile-popup-menu .header-btn .btn-default{
+		display: block;
+		width: calc(100% - 32px);
+		margin: 8px 16px;
+		padding: 14px 18px;
+		font-size: 16px;
+		font-weight: 700;
+		border-radius: 12px;
+		text-align: center;
+		box-sizing: border-box;
+		box-shadow: 0 -2px 14px rgba(0,0,0,0.04);
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	/* Keep arrow aligned and smaller on mobile */
+	.mobile-popup-menu .header-btn .btn-default::before{
+		right: 16px;
+		width: 10px;
+		height: 10px;
+		background-size: 10px 10px;
+	}
+
+	/* Provide bottom safe-area padding for devices with insets */
+	.mobile-popup-menu .header-btn{
+		padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+	}
+}
+
 .pricing-box.highlighted-box{
 	background: var(--primary-color);
 }

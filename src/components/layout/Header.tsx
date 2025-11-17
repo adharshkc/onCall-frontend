@@ -846,7 +846,6 @@ const Header = () => {
 
               {/* Mobile Nav Menu */}
               <div className="nav-menu-wrapper">
-                <ul className="navbar-nav mr-auto" id="mobile-menu">
                   <li className="nav-item">
                     <Link 
                       className={`nav-link ${isActiveLink('/') ? 'active' : ''}`} 
@@ -1075,18 +1074,19 @@ const Header = () => {
                       Contact Us 
                     </Link>
                   </li> */}
-                  <li className="nav-item">
-                    <div className="header-btn" style={{ padding: '12px 0' }}>
-                      <Link
-                        href="/"
-                        className="btn-default"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        HR
-                      </Link>
-                    </div>
-                  </li>
+                <ul className="navbar-nav mr-auto" id="mobile-menu">
+                  ...
                 </ul>
+              </div>
+              {/* Mobile footer button — placed outside the scrollable nav so it remains visible */}
+              <div className="header-btn mobile-footer" style={{ padding: '12px 0' }}>
+                <Link
+                  href="/"
+                  className="btn-default"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  HR
+                </Link>
               </div>
             </div>
             {/* Mobile Popup Menu End */}
