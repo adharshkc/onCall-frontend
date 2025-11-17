@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 const animationClasses = new Set([
   'fadeIn',
@@ -57,6 +58,8 @@ function animateCountersOnce(root: Document | HTMLElement) {
 }
 
 export default function ScrollAnimator() {
+  const pathname = usePathname();
+
   useEffect(() => {
     if (typeof document === 'undefined') return;
 
@@ -109,7 +112,7 @@ export default function ScrollAnimator() {
       revealObserver.disconnect();
       teardownCounters();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }

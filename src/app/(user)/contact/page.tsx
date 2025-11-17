@@ -19,7 +19,7 @@ export default function Contact() {
     const formData = new FormData(e.currentTarget);
     const firstName = formData.get('fname') as string;
     const lastName = formData.get('lname') as string;
-    
+
     const contactData = {
       name: `${firstName} ${lastName}`.trim(),
       phone: formData.get('phone') as string,
@@ -30,7 +30,7 @@ export default function Contact() {
 
     try {
       const response = await axios.post(`${API_URL}/contact`, contactData);
-      
+
       if (response.status === 201 || response.status === 200) {
         setSubmitStatus('success');
         setSubmitMessage('Thank you for your message! We will get back to you soon.');
@@ -53,7 +53,7 @@ export default function Contact() {
           <div className="row align-items-center">
             <div className="col-lg-12">
               <div className="page-header-box">
-        <h1 className="text-anime-style-2" data-cursor="-opaque">Contact <span>us</span></h1>
+                <h1 className="text-anime-style-2" data-cursor="-opaque">Contact <span>us</span></h1>
                 <nav className="wow fadeInUp">
                   <ol className="breadcrumb">
                     {/* <li className="breadcrumb-item">
@@ -120,60 +120,60 @@ export default function Contact() {
                 <form id="contactForm" onSubmit={handleSubmit} method="POST">
                   <div className="row">
                     <div className="form-group col-md-6 mb-4">
-                      <input 
-                        type="text" 
-                        name="fname" 
-                        className="form-control" 
-                        id="fname" 
-                        placeholder="First Name" 
-                        required 
+                      <input
+                        type="text"
+                        name="fname"
+                        className="form-control"
+                        id="fname"
+                        placeholder="First Name"
+                        required
                         disabled={isSubmitting}
                       />
                       <div className="help-block with-errors"></div>
                     </div>
                     <div className="form-group col-md-6 mb-4">
-                      <input 
-                        type="text" 
-                        name="lname" 
-                        className="form-control" 
-                        id="lname" 
-                        placeholder="Last Name" 
-                        required 
+                      <input
+                        type="text"
+                        name="lname"
+                        className="form-control"
+                        id="lname"
+                        placeholder="Last Name"
+                        required
                         disabled={isSubmitting}
                       />
                       <div className="help-block with-errors"></div>
                     </div>
                     <div className="form-group col-md-6 mb-4">
-                      <input 
-                        type="text" 
-                        name="phone" 
-                        className="form-control" 
-                        id="phone" 
-                        placeholder="Phone No." 
-                        required 
+                      <input
+                        type="text"
+                        name="phone"
+                        className="form-control"
+                        id="phone"
+                        placeholder="Phone No."
+                        required
                         disabled={isSubmitting}
                       />
                       <div className="help-block with-errors"></div>
                     </div>
                     <div className="form-group col-md-6 mb-4">
-                      <input 
-                        type="email" 
-                        name="email" 
-                        className="form-control" 
-                        id="email" 
-                        placeholder="E-mail" 
-                        required 
+                      <input
+                        type="email"
+                        name="email"
+                        className="form-control"
+                        id="email"
+                        placeholder="E-mail"
+                        required
                         disabled={isSubmitting}
                       />
                       <div className="help-block with-errors"></div>
                     </div>
                     <div className="form-group col-md-12 mb-5">
-                      <textarea 
-                        name="message" 
-                        className="form-control" 
-                        id="message" 
-                        rows={4} 
-                        placeholder="Write Message..." 
+                      <textarea
+                        name="message"
+                        className="form-control"
+                        id="message"
+                        rows={4}
+                        placeholder="Write Message..."
                         disabled={isSubmitting}
                       ></textarea>
                       <div className="help-block with-errors"></div>
@@ -183,8 +183,8 @@ export default function Contact() {
                         <span>{isSubmitting ? 'Sending...' : 'Submit Message'}</span>
                       </button>
                       {submitMessage && (
-                        <div 
-                          id="msgSubmit" 
+                        <div
+                          id="msgSubmit"
                           className={`h5 mt-3 ${submitStatus === 'success' ? 'text-success' : 'text-danger'}`}
                         >
                           {submitMessage}
@@ -209,7 +209,7 @@ export default function Contact() {
               {/* Google Map IFrame Start */}
               <div className="google-map">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96737.10562045308!2d-74.08535042841811!3d40.739265258395164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1703158537552!5m2!1sen!2sin"
+                  src="https://maps.google.com/maps?q=51.5074,-0.1278&z=12&output=embed"
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"

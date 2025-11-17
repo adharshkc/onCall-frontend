@@ -1179,7 +1179,7 @@ header.main-header .header-sticky.active{
 	padding-left: 30px;
 }
 
-.about-us-list ul li::before{
+/* .about-us-list ul li::before{
 	content: '\f058';
 	font-family: 'Font Awesome 6 Free';
 	position: absolute;
@@ -1188,7 +1188,7 @@ header.main-header .header-sticky.active{
 	font-size: 18px;
 	font-weight: 900;
 	color: var(--accent-color);
-}
+} */
 
 /************************************/
 /*** 	 06. Our Services css	  ***/

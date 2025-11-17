@@ -73,22 +73,22 @@ const Footer = () => {
               <div className="footer-social-links">
                 <ul>
                   <li>
-                    <a href="#" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
                       <FaInstagram />
                     </a>
                   </li>
                   <li>
-                    <a href="#" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
                       <FaFacebookF />
                     </a>
                   </li>
                   <li>
-                    <a href="#" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
                       <FaLinkedinIn />
                     </a>
                   </li>
                   <li>
-                    <a href="#" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.dribbble.com" target="_blank" rel="noopener noreferrer">
                       <FaDribbble />
                     </a>
                   </li>
@@ -101,7 +101,7 @@ const Footer = () => {
           <div className="col-lg-12">
             {/* Footer Copyright Start */}
             <div className="footer-copyright">
-              <p style={{ color: "#fff" }}>Developed by Qubyt Codes</p>
+              <p style={{ color: "#fff" }}>Developed by <a href="https://www.qubitcodes.com/" target="_blank" style={{color:"white"}} rel="noopener noreferrer">Qubit Codes</a></p>
               {/* Footer Copyright Text Start */}
               <div className="footer-copyright-text">
                 <p>Copyright © 2025 On Call Services All Rights Reserved.</p>
@@ -109,12 +109,12 @@ const Footer = () => {
               {/* Footer Copyright Text End */}
 
               {/* Footer Privacy Policy Start */}
-              <div className="footer-privacy-policy">
+              {/* <div className="footer-privacy-policy">
                 <ul>
                   <li><Link href="/privacy-policy">privacy policy</Link></li>
                   <li><Link href="/terms-conditions">terms & condition</Link></li>
                 </ul>
-              </div>
+              </div> */}
               {/* Footer Privacy Policy End */}
             </div>
             {/* Footer Copyright End */}

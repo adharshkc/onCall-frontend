@@ -31,7 +31,7 @@ export default function Home() {
       {/* <OurPricingSection /> */}
       {/* <OurFeatureSection /> */}
       {/* <OurTestimonialsSection /> */}
-      <OurBlogSection />
+      {/* <OurBlogSection /> */}
     </>
   );
 }
