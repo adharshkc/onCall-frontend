@@ -8,17 +8,20 @@ import CTASection from '@/components/home/CTASection';
 import FAQSection from '@/components/home/FAQSection';
 import OurBlogSection from '@/components/home/OurBlogSection';
 import ToastWelcomePopup from '@/components/Modal/ToastWelcomePopup';
+import WelcomePopup from '@/components/Modal/WelcomePopup';
 
 export default function Home() {
+  const [isOpen, setIsOpen] = useState(true); 
   const [showPopup, setShowPopup] = useState(true);
 
   const handleClosePopup = () => {
+    isOpen && setIsOpen(false);
     setShowPopup(false);
   };
 
   return (
     <>
-      {/* {showPopup && <ToastWelcomePopup onClose={handleClosePopup} />} */}
+      {/* {showPopup && <WelcomePopup onClose={handleClosePopup} isOpen={true} />} */}
       
       <HeroSection />
       <AboutSection />

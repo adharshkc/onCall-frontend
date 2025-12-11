@@ -689,9 +689,9 @@ const Header = () => {
                   </Link>
                 </div> */}
                 <div className="header-btn" style={{marginLeft:"5px"}}>
-                  <Link href="/" className="btn-default">
-                    HR
-                  </Link>
+                  <a href="https://www.homecare.co.uk/review-submit/65432243659" target="_blank" rel="noopener noreferrer" className="btn-default">
+                    Rate Us
+                  </a>
                 </div>
                 {/* Header Btn End */}
               </div>
@@ -1080,13 +1080,13 @@ const Header = () => {
               </div>
               {/* Mobile footer button — placed outside the scrollable nav so it remains visible */}
               <div className="header-btn mobile-footer" style={{ padding: '12px 0' }}>
-                <Link
-                  href="/"
+                <a
+                  href="https://www.homecare.co.uk/review-submit/65432243659"
                   className="btn-default"
+                  target='_blank'
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  HR
-                </Link>
+Rate Us                </a>
               </div>
             </div>
             {/* Mobile Popup Menu End */}
