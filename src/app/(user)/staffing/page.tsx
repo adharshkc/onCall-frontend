@@ -21,7 +21,7 @@ export default function StaffingPage() {
           <div className="staff-card">
             <div className="staff-card-image-wrapper">
               <Image
-                src="/images/nursing-agency.jpg"
+                src="/images/gallery-1.jpg"
                 alt="Nursing Agency Service - Professional home care"
                 fill
                 className="staff-card-image"
@@ -53,7 +53,7 @@ export default function StaffingPage() {
           <div className="staff-card">
             <div className="staff-card-image-wrapper">
               <Image
-                src="/images/temporary-staff.jpg"
+                src="/images/gallery-2.jpg"
                 alt="Temporary Staff - Healthcare worker assisting elderly patient"
                 fill
                 className="staff-card-image"
@@ -91,7 +91,7 @@ export default function StaffingPage() {
           <div className="staff-card">
             <div className="staff-card-image-wrapper">
               <Image
-                src="/images/fixed-term-staff.jpg"
+                src="/images/gallery-3.jpg"
                 alt="Fixed Term Contract Staff - Healthcare professional in uniform"
                 fill
                 className="staff-card-image"
