@@ -9,6 +9,7 @@ import FAQSection from '@/components/home/FAQSection';
 import OurBlogSection from '@/components/home/OurBlogSection';
 import ToastWelcomePopup from '@/components/Modal/ToastWelcomePopup';
 import WelcomePopup from '@/components/Modal/WelcomePopup';
+import ServiceCopy from '@/components/home/ServiceCopy';
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(true); 
@@ -24,11 +25,12 @@ export default function Home() {
       {/* {showPopup && <WelcomePopup onClose={handleClosePopup} isOpen={true} />} */}
       
       <HeroSection />
-      <AboutSection />
+      {/* <AboutSection /> */}
       <ServicesSection />
+      {/* <ServiceCopy /> */}
       <WhyChooseSection />
-      <CTASection />
-      <FAQSection />
+      {/* <CTASection /> */}
+      {/* <FAQSection /> */}
       {/* <HowItWorkSection /> */}
       {/* <OurFactsSection /> */}
       {/* <OurPricingSection /> */}

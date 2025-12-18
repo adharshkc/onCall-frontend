@@ -1305,7 +1305,7 @@ header.main-header .header-sticky.active{
 
 .service-item.active .service-content,
 .service-item:hover .service-content{
-	border-color: #FFFFFF1A;
+	/* border-color: #FFFFFF1A; */
 }
 
 .service-content h3{

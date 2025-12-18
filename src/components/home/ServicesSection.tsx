@@ -37,12 +37,12 @@ const ServicesSection = () => {
   }, []);
 
   // Fallback services for homepage
-  const getFallbackServices = () => [
+  const getFallbackServices = [
     {
       id: 'h1',
-      name: "Social & Recreational Activities",
-      description: "Daily programs including games, crafts, music, fitness, and outings Daily programs including games, crafts, music.",
-      slug: 'social-recreational',
+      name: "Home care and housing support",
+      description: "We provide comprehensive home care and housing support services to assist with daily living. Our services include personal care (such as washing and dressing), household tasks (like cooking and cleaning), as well as equipment and home adaptations. These services are typically arranged through a local council needs assessment to help individuals remain independent at home. We offer a range of options, including paid carers, meal delivery, safety alarms, and supported living, ensuring flexible, tailored support to meet both temporary and long-term needs.",
+      slug: 'home-care-and-housing-support',
       category: 'home-care' as const,
       active: true,
       createdAt: '',
@@ -50,48 +50,48 @@ const ServicesSection = () => {
     },
     {
       id: 'h2',
-      name: "Memory & Dementia Care",
-      description: "Nutritious, chef-prepared meals tailored to individual dietary needs. Nutritious, chef-prepared meals tailored.",
-      slug: 'dementia-care',
+      name: "Recruitment Agency",
+      description: "Oncall Care Service is one of the leading service providers in the Health Care Sector. We are providing high quality care through ethical, efficient & effective staffing solution. Oncall care service has a well sophisticated and dedicated team who offer professional service throughout. We are registered with Care Inspectorate since August 2015 and operate within the confines of National Care Standards & Care Inspectorate Regulations 2009 Oncall Care Service operate 24 hours a day, 7 days a week. We guarantee to only provide the most qualified, robust nurses and  carers to our clients. Reliable person-centred care is at the heart of what we practice. Our services are tailored to meet your individual needs.",
+      slug: 'https://www.oncallcareservice.co.uk/nursing-agency-services',
       category: 'specialist-care' as const,
       active: true,
       createdAt: '',
       updatedAt: ''
     },
-    {
-      id: 'h3',
-      name: "Healthy Meals & Nutrition Plans",
-      description: "Isolation & loneliness can be as harmful as physical illness. Our companion services & design to provide emotional support.",
-      slug: 'nutrition-plans',
-      category: 'home-care' as const,
-      active: true,
-      createdAt: '',
-      updatedAt: ''
-    },
-    {
-      id: 'h4',
-      name: "24/7 Skilled Nursing Care",
-      description: "Care need don't follow a 9-to-5 schedule, and family caregivers need support too. We offer flexible around-the-clock care",
-      slug: 'nursing-care',
-      category: 'specialist-care' as const,
-      active: true,
-      createdAt: '',
-      updatedAt: ''
-    },
-    {
-      id: 'h5',
-      name: "Assisted Living Support",
-      description: "we believe that quality nursing care goes beyond medical assistance—it's about delivering comfort,",
-      slug: 'assisted-living',
-      category: 'home-care' as const,
-      active: true,
-      createdAt: '',
-      updatedAt: ''
-    }
+    // {
+    //   id: 'h3',
+    //   name: "Healthy Meals & Nutrition Plans",
+    //   description: "Isolation & loneliness can be as harmful as physical illness. Our companion services & design to provide emotional support.",
+    //   slug: 'nutrition-plans',
+    //   category: 'home-care' as const,
+    //   active: true,
+    //   createdAt: '',
+    //   updatedAt: ''
+    // },
+    // {
+    //   id: 'h4',
+    //   name: "24/7 Skilled Nursing Care",
+    //   description: "Care need don't follow a 9-to-5 schedule, and family caregivers need support too. We offer flexible around-the-clock care",
+    //   slug: 'nursing-care',
+    //   category: 'specialist-care' as const,
+    //   active: true,
+    //   createdAt: '',
+    //   updatedAt: ''
+    // },
+    // {
+    //   id: 'h5',
+    //   name: "Assisted Living Support",
+    //   description: "we believe that quality nursing care goes beyond medical assistance—it's about delivering comfort,",
+    //   slug: 'assisted-living',
+    //   category: 'home-care' as const,
+    //   active: true,
+    //   createdAt: '',
+    //   updatedAt: ''
+    // }
   ];
 
   // Transform services for display
-  const displayServices = services.map((service, index) => ({
+  const displayServices = getFallbackServices.map((service, index) => ({
     id: service.id,
     title: service.name,
     description: service.description || 'Professional care service tailored to your needs.',
@@ -146,7 +146,7 @@ const ServicesSection = () => {
           ) : (
             <>
               {displayServices.map((service) => (
-                <div key={service.id} className="col-lg-4 col-md-6">
+                <div key={service.id} className="col-lg-6 col-md-6">
                   {/* Service Item Start */}
                   <div className={`service-item ${service.active ? 'active' : ''} wow fadeInUp`} data-wow-delay={service.delay}>
                     {/* Service Image Start */}
@@ -186,28 +186,22 @@ const ServicesSection = () => {
                 </div>
               ))}
 
-              <div className="col-lg-4 col-md-6">
-                {/* Service CTA Box Start */}
+              {/* <div className="col-lg-4 col-md-6">
                 <div className="service-cta-box wow fadeInUp" data-wow-delay="1s">
-                  {/* Service CTA Image Start */}
+                 
                   <div className="service-cta-image">
                     <figure>
                       <Image src="/images/service-cta-image.jpg" alt="CTA" width={400} height={250} />
                     </figure>
                   </div>
-                  {/* Service CTA Image End */}
-
-                  {/* Service CTA Content Start */}
                   <div className="service-cta-content">
                     <h3>Ready to start your journey to recovery</h3>
                     <Link href="/book-appointment" className="btn-default btn-highlighted">
                       Book appointment
                     </Link>
                   </div>
-                  {/* Service CTA Content End */}
                 </div>
-                {/* Service CTA Box End */}
-              </div>
+              </div> */}
             </>
           )}
 

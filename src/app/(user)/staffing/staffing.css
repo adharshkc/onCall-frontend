@@ -1,0 +1,273 @@
+.staffing-section {
+  padding: 4rem 0 6rem;
+  background: linear-gradient(to bottom, #f9fafb, #ffffff);
+}
+
+.staffing-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 1024px) {
+  .staffing-container {
+    padding: 0 2rem;
+  }
+}
+
+/* Section Header */
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .section-header {
+    margin-bottom: 4rem;
+  }
+  
+  .staffing-section {
+    padding: 6rem 0;
+  }
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .section-title {
+    font-size: 3rem;
+  }
+}
+
+.section-subtitle {
+  font-size: 1.125rem;
+  color: #4b5563;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+/* Grid Layout */
+.staffing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .staffing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .staffing-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .staffing-grid {
+    gap: 4rem;
+  }
+}
+
+/* Staff Card */
+.staff-card {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.staff-card:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform: translateY(-0.5rem);
+}
+
+.staff-card-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .staff-card-image-wrapper {
+    height: 400px;
+  }
+}
+
+.staff-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.staff-card:hover .staff-card-image {
+  transform: scale(1.1);
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2), transparent);
+}
+
+.card-title-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .card-title-wrapper {
+    padding: 2rem;
+  }
+}
+
+.card-title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  .card-title {
+    font-size: 2.25rem;
+  }
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .card-content {
+    padding: 2rem;
+  }
+}
+
+.card-description {
+  color: #4b5563;
+  line-height: 1.625;
+  text-align: justify;
+}
+
+.card-button-wrapper {
+  margin-top: 1.5rem;
+}
+
+.card-button {
+  color: #2563eb;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.card-button:hover {
+  color: #1e40af;
+}
+
+.card-button svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.card-button:hover svg {
+  transform: translateX(0.25rem);
+}
+
+/* Features Grid */
+.features-grid {
+  margin-top: 4rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .features-grid {
+    gap: 2rem;
+  }
+}
+
+.feature-card {
+  text-align: center;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon-wrapper {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.feature-icon-wrapper.blue {
+  background-color: #dbeafe;
+}
+
+.feature-icon-wrapper.green {
+  background-color: #d1fae5;
+}
+
+.feature-icon-wrapper.purple {
+  background-color: #e9d5ff;
+}
+
+.feature-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.feature-icon.blue {
+  color: #2563eb;
+}
+
+.feature-icon.green {
+  color: #059669;
+}
+
+.feature-icon.purple {
+  color: #9333ea;
+}
+
+.feature-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.feature-description {
+  color: #4b5563;
+}

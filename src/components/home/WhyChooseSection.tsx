@@ -33,7 +33,7 @@ const WhyChooseSection = () => {
             <div className="why-choose-content">
               {/* Section Title Start */}
               <div className="section-title">
-                <h3 className="wow fadeInUp">Why choose us</h3>
+                <h3 className="wow fadeInUp">Why On Call</h3>
                 <h2 className="text-anime-style-2" data-cursor="-opaque">
                   A community where seniors thrive, <span>not just survive</span>
                 </h2>
