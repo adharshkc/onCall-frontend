@@ -525,42 +525,107 @@ const HeroSection = () => {
           </div>
 
           <div className="col-lg-12">
-            {/* Hero Benefit List Start */}
-            <div className="hero-benefit-list wow fadeInUp" data-wow-delay="0.6s">
-              {/* Hero Benefit Item Start */}
-              <div className="hero-benefit-item">
-                <div className="icon-box">
-                  <Image src="/images/icon-hero-benefit-1.svg" alt="" width={60} height={60} />
+            {/* Client Logos Slider Start */}
+            <div className="client-logos-container" style={{ overflow: 'hidden', padding: '40px 0' }}>
+              <style jsx>{`
+                @keyframes infiniteSlide {
+                  0% {
+                    transform: translateX(0);
+                  }
+                  100% {
+                    transform: translateX(-50%);
+                  }
+                }
+                
+                .logos-track {
+                  display: flex;
+                  gap: 60px;
+                  animation: infiniteSlide 30s linear infinite;
+                  width: fit-content;
+                }
+                
+                .logos-track:hover {
+                  animation-play-state: paused;
+                }
+                
+                .logo-item {
+                  flex-shrink: 0;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  padding: 20px 30px;
+                  background: rgba(255, 255, 255, 0.1);
+                  border-radius: 12px;
+                  backdrop-filter: blur(10px);
+                  border: 1px solid rgba(255, 255, 255, 0.2);
+                  transition: all 0.3s ease;
+                  min-width: 180px;
+                  height: 100px;
+                }
+                
+                .logo-item:hover {
+                  transform: translateY(-5px);
+                  background: rgba(255, 255, 255, 0.15);
+                  border-color: rgba(70, 189, 236, 0.5);
+                }
+                
+                .logo-item img {
+                  max-width: 150px;
+                  max-height: 60px;
+                  object-fit: contain;
+                  filter: brightness(0) invert(1);
+                  opacity: 0.8;
+                  transition: opacity 0.3s ease;
+                }
+                
+                .logo-item:hover img {
+                  opacity: 1;
+                }
+              `}</style>
+              
+              <div className="logos-track">
+                {/* First set of logos */}
+                <div className="logo-item">
+                  <Image src="/images/client/image.png" alt="Client Logo 1" width={120} height={60} />
                 </div>
-                <div className="hero-benefit-item-content">
-                  <h3>Family-Like Bonds, Not Just Staff and Residents</h3>
+                <div className="logo-item">
+                  <Image src="/images/client/image.png" alt="Client Logo 2" width={120} height={60} />
+                </div>
+                <div className="logo-item">
+                  <Image src="/images/client/image.png" alt="Client Logo 3" width={120} height={60} />
+                </div>
+                <div className="logo-item">
+                  <Image src="/images/client/image.png" alt="Client Logo 4" width={120} height={60} />
+                </div>
+                <div className="logo-item">
+                  <Image src="/images/client/image.png" alt="Client Logo 5" width={120} height={60} />
+                </div>
+                <div className="logo-item">
+                  <Image src="/images/client/image.png" alt="Client Logo 6" width={120} height={60} />
+                </div>
+                
+                {/* Duplicate set for seamless infinite loop */}
+                <div className="logo-item">
+                  <Image src="/images/client/image.png" alt="Client Logo 1" width={120} height={60} />
+                </div>
+                <div className="logo-item">
+                  <Image src="/images/client/image.png" alt="Client Logo 2" width={120} height={60} />
+                </div>
+                <div className="logo-item">
+                  <Image src="/images/client/image.png" alt="Client Logo 3" width={120} height={60} />
+                </div>
+                <div className="logo-item">
+                  <Image src="/images/client/image.png" alt="Client Logo 4" width={120} height={60} />
+                </div>
+                <div className="logo-item">
+                  <Image src="/images/client/image.png" alt="Client Logo 5" width={120} height={60} />
+                </div>
+                <div className="logo-item">
+                  <Image src="/images/client/image.png" alt="Client Logo 6" width={120} height={60} />
                 </div>
               </div>
-              {/* Hero Benefit Item End */}
-
-              {/* Hero Benefit Item Start */}
-              <div className="hero-benefit-item">
-                <div className="icon-box">
-                  <Image src="/images/icon-hero-benefit-2.svg" alt="" width={60} height={60} />
-                </div>
-                <div className="hero-benefit-item-content">
-                  <h3>Comfort That Never Compromises on Dignity</h3>
-                </div>
-              </div>
-              {/* Hero Benefit Item End */}
-
-              {/* Hero Benefit Item Start */}
-              <div className="hero-benefit-item">
-                <div className="icon-box">
-                  <Image src="/images/icon-hero-benefit-3.svg" alt="" width={60} height={60} />
-                </div>
-                <div className="hero-benefit-item-content">
-                  <h3>Every Detail Designed with Seniors in Mind</h3>
-                </div>
-              </div>
-              {/* Hero Benefit Item End */}
             </div>
-            {/* Hero Benefit List End */}
+            {/* Client Logos Slider End */}
           </div>
         </div>
       </div>
