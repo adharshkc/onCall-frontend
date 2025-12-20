@@ -936,7 +936,7 @@ header.main-header .header-sticky.active{
 }
 
 .working-hour-image{
-	width: calc(55% - 15px);
+	width: calc(55% - 60px);
 }
 
 .working-hour-image figure{
@@ -6493,6 +6493,10 @@ header.main-header .header-sticky.active{
 
 	.book-appointment-circle img{
 		max-width: 100px;
+	}
+
+	.working-hour-wrap {
+		width: 100%;
 	}
 
 	.working-hour-image,

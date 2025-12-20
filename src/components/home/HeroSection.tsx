@@ -277,7 +277,7 @@ const HeroSection = () => {
                   {/* Working Hour Image End */}
 
                   {/* Working Hours Item Start */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', minWidth: 'calc(45% - 15px)' }}>
+                  <div className="working-hour-wrap" style={{ display: 'flex', flexDirection: 'column', gap: '20px', minWidth: 'calc(45% - 15px)' }}>
 
                   {/* Rating Section */}
                   <div 
