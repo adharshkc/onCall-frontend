@@ -5385,6 +5385,10 @@ header.main-header .header-sticky.active{
 		width: 100%;
 	}
 
+	.working-hour-wrap {
+		width: calc(50% - 20px);
+	}
+
 	.hero-image img{
 		aspect-ratio: 1 / 0.5;
 	}
