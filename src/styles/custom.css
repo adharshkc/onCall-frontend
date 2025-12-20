@@ -961,9 +961,9 @@ header.main-header .header-sticky.active{
 }
 
 .working-hours-header{
-	border-bottom: 1px solid #FFFFFF1A;
-	margin-bottom: 30px;
-	padding-bottom: 30px;
+	/* border-bottom: 1px solid #FFFFFF1A; */
+	/* margin-bottom: 30px; */
+	/* padding-bottom: 30px; */
 }
 
 .working-hours-header h3{
@@ -1196,6 +1196,17 @@ header.main-header .header-sticky.active{
 
 .our-services{
 	padding: 100px 0;
+}
+
+.service-link {
+	text-decoration: none;
+	color: inherit;
+	display: block;
+}
+
+.service-link:hover {
+	text-decoration: none;
+	color: inherit;
 }
 
 .service-item{

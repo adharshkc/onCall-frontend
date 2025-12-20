@@ -277,17 +277,126 @@ const HeroSection = () => {
                   {/* Working Hour Image End */}
 
                   {/* Working Hours Item Start */}
-                  <div className="working-hours-item wow fadeInUp" data-wow-delay="0.4s">
-                    <div className="working-hours-header">
-                      <h3>Working Hours</h3>
-                      <p>We believe that aging should be embraced with dignity, joy, and the right level.</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', minWidth: 'calc(45% - 15px)' }}>
+
+                  {/* Rating Section */}
+                  <div 
+                    className="wow fadeInUp" 
+                    data-wow-delay="0.4s"
+                    style={{
+                      backgroundColor: 'white',
+                      borderRadius: '15px',
+                      padding: '25px',
+                      color: '#333',
+                      minWidth: '280px',
+                      border: '2px solid #e0e0e0',
+                      textAlign: 'center',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+                    }}
+                  >
+                    {/* homecare.co.uk logo and branding */}
+                    <div style={{ marginBottom: '20px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '8px' }}>
+                        <Image
+                          src="https://www.homecare.co.uk/assets/images/theme/logo.svg"
+                          alt="homecare.co.uk"
+                          width={220}
+                          height={40}
+                          style={{ objectFit: 'contain' }}
+                        />
+                      </div>
+                      <p style={{ 
+                        margin: 0, 
+                        fontSize: '14px', 
+                        color: '#888',
+                        fontWeight: '400'
+                      }}>
+                        the leading home care review website <br />
+                      </p>
                     </div>
-                    <div className="working-hours-body">
-                      <ul>
-                        <li>Monday - Friday <span>9:00 AM - 5:00 PM</span></li>
-                        <li>Saturday - Sunday <span>Closed</span></li>
-                      </ul>
+
+                    {/* <hr style={{ 
+                      border: 'none', 
+                      borderTop: '1px solid #e0e0e0', 
+                      margin: '5px 0' 
+                    }} /> */}
+
+                    {/* Review section */}
+                    <div style={{ marginBottom: '20px' }}>
+                      <h3 style={{ 
+                        fontSize: '20px', 
+                        fontWeight: 'bold', 
+                        marginBottom: '10px',
+                        color: '#333'
+                      }}>
+                        Review Oncall Care Service Ltd
+                      </h3>
                     </div>
+
+                    {/* Write a Review button */}
+                    <a 
+                      href="https://www.homecare.co.uk/review-submit/65432243659"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-block',
+                        backgroundColor: '#46bdec',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '10px',
+                        padding: '12px 24px',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        boxShadow: '0 2px 8px rgba(125, 211, 192, 0.3)',
+                        textDecoration: 'none'
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.backgroundColor = '#46bdec';
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.backgroundColor = '#46bdec';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                      }}
+                    >
+                      Write a Review
+                    </a>
+                  </div>
+
+                  {/* Working Hours Section */}
+                  <div 
+                    className="wow fadeInUp" 
+                    data-wow-delay="0.6s"
+                    style={{
+                      backgroundColor: '#46bdec',
+                      borderRadius: '15px',
+                      padding: '25px',
+                      color: 'white',
+                      minWidth: '280px'
+                    }}
+                  >
+                    <h3 style={{ 
+                      fontSize: '18px', 
+                      fontWeight: 'bold', 
+                      marginBottom: '15px',
+                      color: 'white'
+                    }}>
+                      Working Hours
+                    </h3>
+                    <div style={{ fontSize: '14px', lineHeight: '1.6' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                        <span>Monday - Friday</span>
+                        <span>9:00 AM - 5:00 PM</span>
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <span>Saturday - Sunday</span>
+                        <span>Closed</span>
+                      </div>
+                    </div>
+                  </div>
+                  
                   </div>
                   {/* Working Hours Item End */}
                 </div>
