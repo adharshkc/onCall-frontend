@@ -695,42 +695,36 @@ const HeroSection = () => {
               <div className="logos-track">
                 {/* First set of logos */}
                 <div className="logo-item">
-                  <Image src="/images/client/advina.png" alt="Advina" width={120} height={60} />
+                  <Image src="/images/client/care-inspectorate.jpg" alt="Care Inspectorate Logo" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/hc.png" alt="HC" width={120} height={60} />
+                  <Image src="/images/client/disclosure-white-background.png" alt="Disclosure Logo" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/hudson.png" alt="Hudson" width={120} height={60} />
+                  <Image src="/images/client/nursing-and-midwifery-council.jpg" alt="Nursing And Midwifery Council Logo" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/oak.png" alt="Oak" width={120} height={60} />
+                  <Image src="/images/client/renfrewshire-council.png" alt="Renfrewshire Council Logo" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/advina.png" alt="Advina" width={120} height={60} />
-                </div>
-                <div className="logo-item">
-                  <Image src="/images/client/hc.png" alt="HC" width={120} height={60} />
+                  <Image src="/images/client/slc.png" alt="SLC Logo" width={120} height={60} />
                 </div>
                 
                 {/* Duplicate set for seamless infinite loop */}
                 <div className="logo-item">
-                  <Image src="/images/client/advina.png" alt="Advina" width={120} height={60} />
+                  <Image src="/images/client/care-inspectorate.jpg" alt="Care Inspectorate Logo" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/hc.png" alt="HC" width={120} height={60} />
+                  <Image src="/images/client/disclosure-white-background.png" alt="Disclosure Logo" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/hudson.png" alt="Hudson" width={120} height={60} />
+                  <Image src="/images/client/nursing-and-midwifery-council.jpg" alt="Nursing And Midwifery Council Logo" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/oak.png" alt="Oak" width={120} height={60} />
+                  <Image src="/images/client/renfrewshire-council.png" alt="Renfrewshire Council Logo" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/advina.png" alt="Advina" width={120} height={60} />
-                </div>
-                <div className="logo-item">
-                  <Image src="/images/client/hc.png" alt="HC" width={120} height={60} />
+                  <Image src="/images/client/slc.png" alt="SLC Logo" width={120} height={60} />
                 </div>
               </div>
             </div>
