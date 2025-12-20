@@ -72,7 +72,6 @@ const ServicesSection = () => {
               </div>
             </div>
           </div>
-
           <div className="col-lg-6 col-md-6">
             <div className="service-item wow fadeInUp" data-wow-delay="0.2s">
               <div className="service-image">

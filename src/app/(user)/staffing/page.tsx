@@ -62,7 +62,7 @@ export default function StaffingPage() {
               <div className="image-overlay"></div>
               <div className="card-title-wrapper">
                 <h2 className="card-title">
-                  Temporary Staff
+                  Temporary Staffing Solutions
                 </h2>
               </div>
             </div>
