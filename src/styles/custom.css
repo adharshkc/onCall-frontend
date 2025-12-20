@@ -935,6 +935,10 @@ header.main-header .header-sticky.active{
 	gap: 30px;
 }
 
+.working-hour-wrap {
+    width: calc(50% - 6px);
+}
+
 .working-hour-image{
 	width: calc(55% - 60px);
 }
