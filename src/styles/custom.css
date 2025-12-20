@@ -936,7 +936,8 @@ header.main-header .header-sticky.active{
 }
 
 .working-hour-wrap {
-    width: calc(50% - 6px);
+    width: calc(50% - 13px);
+    /* width: calc(50% - 6px); */
 }
 
 .working-hour-image{
