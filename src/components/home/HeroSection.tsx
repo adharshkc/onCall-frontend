@@ -695,42 +695,42 @@ const HeroSection = () => {
               <div className="logos-track">
                 {/* First set of logos */}
                 <div className="logo-item">
-                  <Image src="/images/client/image.pn" alt="Client Logo 1" width={120} height={60} />
+                  <Image src="/images/client/advina.png" alt="Advina" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/image.pn" alt="Client Logo 2" width={120} height={60} />
+                  <Image src="/images/client/hc.png" alt="HC" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/image.pn" alt="Client Logo 3" width={120} height={60} />
+                  <Image src="/images/client/hudson.png" alt="Hudson" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/image.pn" alt="Client Logo 4" width={120} height={60} />
+                  <Image src="/images/client/oak.png" alt="Oak" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/image.pn" alt="Client Logo 5" width={120} height={60} />
+                  <Image src="/images/client/advina.png" alt="Advina" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/image.pn" alt="Client Logo 6" width={120} height={60} />
+                  <Image src="/images/client/hc.png" alt="HC" width={120} height={60} />
                 </div>
                 
                 {/* Duplicate set for seamless infinite loop */}
                 <div className="logo-item">
-                  <Image src="/images/client/image.pn" alt="Client Logo 1" width={120} height={60} />
+                  <Image src="/images/client/advina.png" alt="Advina" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/image.pn" alt="Client Logo 2" width={120} height={60} />
+                  <Image src="/images/client/hc.png" alt="HC" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/image.pn" alt="Client Logo 3" width={120} height={60} />
+                  <Image src="/images/client/hudson.png" alt="Hudson" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/image.pn" alt="Client Logo 4" width={120} height={60} />
+                  <Image src="/images/client/oak.png" alt="Oak" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/image.pn" alt="Client Logo 5" width={120} height={60} />
+                  <Image src="/images/client/advina.png" alt="Advina" width={120} height={60} />
                 </div>
                 <div className="logo-item">
-                  <Image src="/images/client/image.pn" alt="Client Logo 6" width={120} height={60} />
+                  <Image src="/images/client/hc.png" alt="HC" width={120} height={60} />
                 </div>
               </div>
             </div>
