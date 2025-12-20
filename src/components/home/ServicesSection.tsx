@@ -53,7 +53,7 @@ const ServicesSection = () => {
                 </div>
                 <div className="service-content">
                   <h3>
-                    <Link href="/services/home-care-and-housing-support">
+                    <Link href="/services/">
                       Home care and housing support
                     </Link>
                   </h3>
@@ -63,7 +63,7 @@ const ServicesSection = () => {
                 </div>
                 <div className="service-readmore-btn">
                   <Link
-                    href="/services/home-care-and-housing-support"
+                    href="/services/"
                     className="readmore-btn"
                   >
                     Learn more

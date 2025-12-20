@@ -103,8 +103,7 @@ export default function BookAppointment() {
                     <div className="contact-item-content">
                       <h3>location</h3>
                       <p>
-                        123 Maplewood Drive, Pinehill Residential Area, Near Greenview Senior Park, Pinehill,
-                        California - 90210, United States.
+                        121 Moffat Street Glasgow G5 0ND
                       </p>
                     </div>
                     {/* Contact Item Content End */}

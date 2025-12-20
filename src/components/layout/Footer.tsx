@@ -36,7 +36,7 @@ const Footer = () => {
               {/* Footer Contact Item Start */}
               <div className="footer-contact-item">
                 <h3>Contact Information</h3>
-                <p>123 Maplewood Drive, Pinehill, CA 90210</p>
+                <p>121 Moffat Street Glasgow G5 0ND</p>
               </div>
               {/* Footer Contact Item End */}
 
