@@ -956,6 +956,7 @@ header.main-header .header-sticky.active{
 	aspect-ratio: 1 / 0.48;
 	object-fit: cover;
 	border-radius: 20px;
+	object-position: right;
 }
 
 .working-hours-item{
@@ -1017,6 +1018,7 @@ header.main-header .header-sticky.active{
 	aspect-ratio: 1 / 1.065;
 	object-fit: cover;
 	border-radius: 20px;
+	object-position: 70%;
 }
 
 .hero-benefit-list{
