@@ -95,7 +95,7 @@ const ServicesSection = () => {
                 <div className="service-content">
                   <h3>
                     <a
-                      href="https://www.oncallcareservice.co.uk/nursing-agency-services"
+                      href="/staffing"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -108,7 +108,7 @@ const ServicesSection = () => {
                 </div>
                 <div className="service-readmore-btn">
                   <a
-                    href="https://www.oncallcareservice.co.uk/nursing-agency-services"
+                    href="/staffing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="readmore-btn"
