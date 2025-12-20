@@ -101,7 +101,7 @@ export default function Contact() {
                   <div className="opening-hours-body">
                     <ul>
                       <li>
-                        Monday - Friday <span>8:00 AM - 8:00 PM</span>
+                        Monday - Friday <span>9:00 AM - 5:00 PM</span>
                       </li>
                       <li>
                         Saturday - Sunday <span>Closed</span>

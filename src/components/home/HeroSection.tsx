@@ -271,7 +271,7 @@ const HeroSection = () => {
                   {/* Working Hour Image Start */}
                   <div className="working-hour-image">
                     <figure className="image-anime">
-                      <Image src="/images/hero-content-image.jpg" alt="Hero Content" width={400} height={300} />
+                      <Image src="/images/hero2.png" alt="Hero Content" width={400} height={300} />
                     </figure>
                   </div>
                   {/* Working Hour Image End */}
@@ -284,7 +284,7 @@ const HeroSection = () => {
                     </div>
                     <div className="working-hours-body">
                       <ul>
-                        <li>Monday - Friday <span>8:00 AM - 8:00 PM</span></li>
+                        <li>Monday - Friday <span>9:00 AM - 5:00 PM</span></li>
                         <li>Saturday - Sunday <span>Closed</span></li>
                       </ul>
                     </div>
@@ -297,7 +297,7 @@ const HeroSection = () => {
               {/* Hero Image Start */}
               <div className="hero-image">
                 <figure className="image-anime">
-                  <Image src="/images/hero-image.jpg" alt="Hero" width={600} height={700} priority />
+                  <Image src="/images/hero1.png" alt="Hero" width={600} height={700} priority />
                 </figure>
               </div>
               {/* Hero Image End */}
