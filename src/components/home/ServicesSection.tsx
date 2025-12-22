@@ -38,7 +38,7 @@ const ServicesSection = () => {
                 <div className="service-image">
                   <Image
                     src="/images/service-1.jpg"
-                    alt="Home care and housing support"
+                    alt="Home Care And Housing Support"
                     width={400}
                     height={300}
                   />
@@ -54,7 +54,7 @@ const ServicesSection = () => {
                   </div>
                   <div className="service-content">
                     <h3>
-                      Home care and housing support
+                      Home Care And Housing Support
                     </h3>
                   <p>
                     We provide comprehensive home care and housing support services to assist with daily living. Our services include personal care (such as washing and dressing), household tasks (like cooking and cleaning), as well as equipment and home adaptations. These services are typically arranged through a local council needs assessment to help individuals remain independent at home. We offer a range of options, including paid carers, meal delivery, safety alarms, and supported living, ensuring flexible, tailored support to meet both temporary and long-term needs.
