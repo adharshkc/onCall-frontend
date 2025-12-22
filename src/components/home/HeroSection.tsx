@@ -214,7 +214,7 @@ const HeroSection = () => {
                       Oncall
                       <br />
                       <h2 style={{color:"white", fontSize:'28px', fontWeight: "500", marginTop:"6px"}}>We care for you</h2>
-                        <h5 style={{ color: "white", fontSize: "22px", fontWeight: "400" , marginTop:"10px"}}>Home care and housing support service</h5>
+                        <h5 style={{ color: "white", fontSize: "22px", fontWeight: "400" , marginTop:"10px"}}>Home Care And Housing Support Service</h5>
                     </h1>
                     <h5 className="text-anime-style-2"></h5>
                   </div>

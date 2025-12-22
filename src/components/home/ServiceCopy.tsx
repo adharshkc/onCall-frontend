@@ -31,7 +31,7 @@ const ServiceCopy = () => {
           <div className="col-lg-6 col-md-6">
             <div className="service-item active wow fadeInUp d-flex flex-column align-items-center justify-content-center" data-wow-delay="0s">
               <div className="service-image">
-                <Image src="/images/service-1.jpg" alt="Home care and housing support" width={400} height={300} />
+                <Image src="/images/service-1.jpg" alt="Home Care And Housing Support" width={400} height={300} />
               </div>
 
               <div className="service-body">
@@ -39,7 +39,7 @@ const ServiceCopy = () => {
                 <div className="service-content text-center">
                   <h4 style={{color:"white"}}>
                     <Link href="/services/home-care-and-housing-support" className="readmore-btn" style={{color:"white"}}>
-                      Home care and housing support
+                      Home Care And Housing Support
                     </Link>
                   </h4>
                 </div>
