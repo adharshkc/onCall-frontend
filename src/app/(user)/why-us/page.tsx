@@ -42,7 +42,7 @@ export default function WhyUsPage() {
       <OurFeatureSection />
 
       {/* Impact / Facts Section */}
-      <OurFactsSection />
+      {/* <OurFactsSection /> */}
 
       {/* Testimonials Section */}
       {/* <OurTestimonialsSection /> */}
