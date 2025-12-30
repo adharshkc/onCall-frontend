@@ -321,7 +321,7 @@
 //             <Image
 //               width={176}
 //               height={32}
-//               src={"/assets/images/resources/logo.png"}
+//               src={"/images/logo.png"}
 //               alt="Logo"
 //               priority
 //             />

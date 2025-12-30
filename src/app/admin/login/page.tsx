@@ -67,13 +67,13 @@ const SignIn: React.FC = () => {
             <Link className="admin-login-logo" href="/admin/login">
               <Image
                 className="hidden dark:block"
-                src={"/assets/images/resources/logo.png"}
+                src={"/images/logo.png"}
                 alt="Logo"
                 width={176}
                 height={32} />
               <Image
                 className="dark:hidden"
-                src={"/assets/images/resources/logo.png"}
+                src={"/images/logo.png"}
                 alt="Logo"
                 width={176}
                 height={32} />
