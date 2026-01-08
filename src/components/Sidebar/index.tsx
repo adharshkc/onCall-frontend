@@ -759,7 +759,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         {/* <!-- SIDEBAR FOOTER WITH CREDITS --> */}
         <div className="sidebar-footer">
   <div className="sidebar-footer-content">
-    <p>Designed and developed by</p>
+    <p>Designed & Developed by</p>
     <a 
       href="https://qubit.codes/" 
       target="_blank" 
