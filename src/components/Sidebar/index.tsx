@@ -761,12 +761,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   <div className="sidebar-footer-content">
     <p>Designed and developed by</p>
     <a 
-      href="https://cyberforttech.com/" 
+      href="https://qubit.codes/" 
       target="_blank" 
       rel="noopener noreferrer"
       className="sidebar-footer-link"
     >
-      Cyber fort Technologies
+      Qubit Codes
     </a>
   </div>
 </div>

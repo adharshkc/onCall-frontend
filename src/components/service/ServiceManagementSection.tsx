@@ -154,30 +154,27 @@ const serviceColumns: Column[] = [
       </span>
     ),
   },
-  {
-    header: "Location",
-    accessorKey: "locationData",
-    cell: ({ row }) => (
-      <div className="text-xs">
-        {row.zipcodes ? (
-          <div>
-            {/* <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded">
-              📍 {row.locationData.name}
-            </span> */}
-            {row.zipcodes && (
-              <div className="mt-1 text-gray-600">
-                {Array.isArray(row.zipcodes) ? row.zipcodes.join(', ') : (row.zipcodes ?? '')}
-              </div>
-            )}
-          </div>
-        ) : (
-          <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded">
-            No location
-          </span>
-        )}
-      </div>
-    ),
-  },
+  // {
+  //   header: "Location",
+  //   accessorKey: "locationData",
+  //   cell: ({ row }) => (
+  //     <div className="text-xs">
+  //       {row.zipcodes ? (
+  //         <div>
+  //           {row.zipcodes && (
+  //             <div className="mt-1 text-gray-600">
+  //               {Array.isArray(row.zipcodes) ? row.zipcodes.join(', ') : (row.zipcodes ?? '')}
+  //             </div>
+  //           )}
+  //         </div>
+  //       ) : (
+  //         <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded">
+  //           No location
+  //         </span>
+  //       )}
+  //     </div>
+  //   ),
+  // },
   // {
   //   header: "Active",
   //   accessorKey: "active",
@@ -798,7 +795,7 @@ const ServiceManagementSection: React.FC<ServiceManagementSectionProps> = () => 
             onPageChange={handlePageChange}
             onAddClick={() => setIsAddModalOpen(true)}
             onViewClick={handleViewService}
-            onEditClick={handleEditService}
+            // onEditClick={handleEditService}
             onDeleteClick={handleDeleteService}
             
           />
